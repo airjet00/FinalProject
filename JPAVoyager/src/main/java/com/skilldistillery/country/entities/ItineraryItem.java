@@ -22,9 +22,9 @@ public class ItineraryItem {
 	
 	private String notes;
 
-//	@ManyToOne
-//	@JoinColumn(name="trip_id")
-//	private Trip trip;
+	@ManyToOne
+	@JoinColumn(name="trip_id")
+	private Trip trip;
 	
 	@ManyToOne
 	@JoinColumn(name="country_id")
@@ -59,13 +59,13 @@ public class ItineraryItem {
 		this.notes = notes;
 	}
 
-//	public Trip getTrip() {
-//		return trip;
-//	}
-//
-//	public void setTrip(Trip trip) {
-//		this.trip = trip;
-//	}
+	public Trip getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Trip trip) {
+		this.trip = trip;
+	}
 
 	public Country getCountry() {
 		return country;

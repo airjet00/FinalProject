@@ -1,6 +1,7 @@
 package com.skilldistillery.country.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -39,21 +41,22 @@ public class Trip {
 	@Column(name="create_date")
 	private LocalDateTime createDate;
 	
-//	//has manytoone mapping with user add field/get/set
-//	@ManyToOne
-//	@JoinColumn(name="user_id")
-//	private User user;
-//	
-	//has onetomany mapping with itinerary_item	add field/get/set
-//	@OneToMany(mappedBy="")
-//	private List<ItineraryItem> itineraryItem;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
+	
+	@OneToMany(mappedBy="trip")
+	private List<ItineraryItem> itineraryItem;
+
+
+//// CTOR
 	
 	public Trip() {
 		super();
 	}
 
 	public Trip(int id, String name, String description, LocalDateTime startDate, LocalDateTime endDate,
-			Boolean completed, Boolean enabled, LocalDateTime createDate, User user) {
+			Boolean completed, Boolean enabled, LocalDateTime createDate, User user, List<ItineraryItem> itineraryItem) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -63,11 +66,13 @@ public class Trip {
 		this.completed = completed;
 		this.enabled = enabled;
 		this.createDate = createDate;
-//		this.user = user;
+		this.user = user;
+		this.itineraryItem = itineraryItem;
 	}
 
 
-
+//// METHODS
+	
 	public int getId() {
 		return id;
 	}
@@ -132,13 +137,21 @@ public class Trip {
 		this.createDate = createDate;
 	}
 
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<ItineraryItem> getItineraryItem() {
+		return itineraryItem;
+	}
+
+	public void setItineraryItem(List<ItineraryItem> itineraryItem) {
+		this.itineraryItem = itineraryItem;
+	}
 
 	@Override
 	public int hashCode() {

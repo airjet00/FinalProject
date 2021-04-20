@@ -48,16 +48,16 @@ class TripTest {
 	}
 
 
-//	@Test
-//	@DisplayName("Trip has ManyToOne mapping with User")
-//	void test2() {
-//		assertNotNull(trip);
-////		assertEquals(trip.getUser().getId(), 1);
-//	}
-//	@Test
-//	@DisplayName("Trip has OneToMany mapping with Itinerary item")
-//	void test3() {
-//		assertNotNull(trip);
-//		//TODO: add mapping test
-//	}
+	@Test
+	@DisplayName("Trip has ManyToOne mapping with User")
+	void test2() {
+		assertNotNull(trip);
+		assertEquals(trip.getUser().getId(), 1);
+	}
+	@Test
+	@DisplayName("Trip has OneToMany mapping with Itinerary item")
+	void test3() {
+		assertNotNull(trip);
+		assertEquals(trip.getItineraryItem().get(0).getId(), 1);
+	}
 }
