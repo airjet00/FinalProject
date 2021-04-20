@@ -1,6 +1,7 @@
 package com.skilldistillery.country.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Comment {
@@ -32,19 +36,25 @@ public class Comment {
 
 	private Boolean enabled;
 
-	// TODO map
-//	private Country country;
-
-	// TODO map
-//	private User user;
+	@ManyToOne
+	@JoinColumn(name="country_id")
+	private Country country;
 
 	@ManyToOne
-	@JoinColumn(name="in_reply_to_id")
+	@JoinColumn(name="user_id")
+	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "in_reply_to_id")
 	private Comment originalComment;
 
+	@OneToMany(mappedBy = "originalComment")
+	private List<Comment> responses;
+
 //////// methods:
-	
-	public Comment() {}
+
+	public Comment() {
+	}
 
 	public int getId() {
 		return id;
@@ -86,6 +96,14 @@ public class Comment {
 		this.enabled = enabled;
 	}
 
+	public List<Comment> getResponses() {
+		return responses;
+	}
+
+	public void setResponses(List<Comment> responses) {
+		this.responses = responses;
+	}
+
 	public Comment getOriginalComment() {
 		return originalComment;
 	}
@@ -120,6 +138,5 @@ public class Comment {
 	public String toString() {
 		return "Comment [id=" + id + ", content=" + content + "]";
 	}
-	
-	
+
 }
