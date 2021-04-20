@@ -50,5 +50,12 @@ class AdviceTypeTest {
 		assertEquals("Precautions for Covid-19 pandemic", adviceType.getDescription());
 		assertEquals("www.cdc.gov", adviceType.getAdviceUrl());
 	}
+	@Test
+	@DisplayName("Test AdviceType Relationship Mappings")
+	void test1() {
+		assertNotNull(adviceType);
+		assertEquals("Singapore", adviceType.getCountries().get(0).getName());
+		assertEquals("A place of wonders where one cannot chew gum.", adviceType.getCountries().get(0).getDescription());
+	}
 
 }
