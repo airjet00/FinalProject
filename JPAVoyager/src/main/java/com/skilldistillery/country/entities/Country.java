@@ -39,7 +39,7 @@ public class Country {
 	
 //	@JsonIgnore
 //	@OneToMany(mappedBy = "country")
-//	private List<CountryAdviceType> countryAdviceTypes;
+//	private List<AdviceType> adviceTypes;
 	
 //////// methods
 	public Country() {
@@ -102,12 +102,12 @@ public class Country {
 		this.pictures = pictures;
 	}
 
-//	public List<CountryAdviceType> getCountryAdviceTypes() {
-//		return countryAdviceTypes;
+//	public List<AdviceType> getAdviceTypes() {
+//		return adviceTypes;
 //	}
 //
-//	public void setCountryAdviceTypes(List<CountryAdviceType> countryAdviceTypes) {
-//		this.countryAdviceTypes = countryAdviceTypes;
+//	public void setAdviceTypes(List<AdviceType> adviceTypes) {
+//		this.adviceTypes = adviceTypes;
 //	}
 
 	@Override
