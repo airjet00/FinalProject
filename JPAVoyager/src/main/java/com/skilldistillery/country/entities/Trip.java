@@ -39,11 +39,11 @@ public class Trip {
 	@Column(name="create_date")
 	private LocalDateTime createDate;
 	
-	//has manytoone mapping with user add field/get/set
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user;
-	
+//	//has manytoone mapping with user add field/get/set
+//	@ManyToOne
+//	@JoinColumn(name="user_id")
+//	private User user;
+//	
 	//has onetomany mapping with itinerary_item	add field/get/set
 //	@OneToMany(mappedBy="")
 //	private List<ItineraryItem> itineraryItem;
@@ -63,7 +63,7 @@ public class Trip {
 		this.completed = completed;
 		this.enabled = enabled;
 		this.createDate = createDate;
-		this.user = user;
+//		this.user = user;
 	}
 
 
@@ -132,13 +132,13 @@ public class Trip {
 		this.createDate = createDate;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 	@Override
 	public int hashCode() {
