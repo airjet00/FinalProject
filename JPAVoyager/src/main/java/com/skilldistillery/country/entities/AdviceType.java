@@ -78,6 +78,14 @@ public class AdviceType {
 		this.adviceUrl = adviceUrl;
 	}
 
+	public List<Country> getCountries() {
+		return countries;
+	}
+
+	public void setCountries(List<Country> countries) {
+		this.countries = countries;
+	}
+
 	// Hash / Equals
 	@Override
 	public int hashCode() {
