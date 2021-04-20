@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Country {
@@ -26,19 +26,19 @@ public class Country {
 	@Column(name="default_image")
 	private String defaultImage;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties(value="country")
 	@OneToMany(mappedBy = "country")
 	private List<ItineraryItem> itineraryItems;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties(value="country")
 	@OneToMany(mappedBy = "country")
 	private List<Comment> comments;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties(value="country")
 	@OneToMany(mappedBy = "country")
 	private List<Picture> pictures;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties(value="countries")
 	@ManyToMany(mappedBy = "countries")
 	private List<AdviceType> adviceTypes;
 	

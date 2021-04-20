@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Picture {
 
@@ -19,6 +21,7 @@ public class Picture {
 	private String imageUrl;
 	
 	@ManyToOne
+	@JsonIgnoreProperties(value="pictures")
 	@JoinColumn(name="country_id")
 	private Country country;
 
