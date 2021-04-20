@@ -42,7 +42,7 @@ public class User {
 	
 	private LocalDate dob;
 	
-	private Boolean enable;
+	private Boolean enabled;
 
 	@CreationTimestamp
 	@Column(name="create_date")
@@ -142,12 +142,12 @@ public class User {
 		this.dob = dob;
 	}
 
-	public Boolean getEnable() {
-		return enable;
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setEnable(Boolean enable) {
-		this.enable = enable;
+	public void setEnabled(Boolean enable) {
+		this.enabled = enable;
 	}
 
 	public LocalDateTime getCreateDate() {
@@ -195,7 +195,7 @@ public class User {
 		builder.append("User [id=").append(id).append(", username=").append(username).append(", email=").append(email)
 				.append(", password=").append(password).append(", firstName=").append(firstName).append(", middleName=")
 				.append(middleName).append(", lastName=").append(lastName).append(", suffix=").append(suffix)
-				.append(", dob=").append(dob).append(", enable=").append(enable).append(", createDate=")
+				.append(", dob=").append(dob).append(", enable=").append(enabled).append(", createDate=")
 				.append(createDate).append(", updateDate=").append(updateDate).append("]");
 		return builder.toString();
 	}
