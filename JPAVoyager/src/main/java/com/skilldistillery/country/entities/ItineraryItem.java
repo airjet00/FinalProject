@@ -1,7 +1,5 @@
 package com.skilldistillery.country.entities;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,19 +7,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "itinerary_item")
 public class ItineraryItem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="sequence_number")
-	private Integer sequenceNumber;
+	@Column(name="sequence_num")
+	private Integer sequenceNum;
 	
 	private String notes;
 
@@ -47,11 +44,11 @@ public class ItineraryItem {
 	}
 
 	public Integer getSequenceNumber() {
-		return sequenceNumber;
+		return sequenceNum;
 	}
 
-	public void setSequenceNumber(Integer sequenceNumber) {
-		this.sequenceNumber = sequenceNumber;
+	public void setSequenceNumber(Integer sequenceNum) {
+		this.sequenceNum = sequenceNum;
 	}
 
 	public String getNotes() {
@@ -102,7 +99,7 @@ public class ItineraryItem {
 
 	@Override
 	public String toString() {
-		return "ItineraryItem [id=" + id + ", sequenceNumber=" + sequenceNumber + ", notes=" + notes + "]";
+		return "ItineraryItem [id=" + id + ", sequenceNum=" + sequenceNum + ", notes=" + notes + "]";
 	}
 
 
