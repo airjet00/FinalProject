@@ -55,4 +55,20 @@ class UserTest {
 		assertEquals("Singapore. Not for the fainthearted. The customs agent chewed all my gum.", user.getComments().get(0).getContent());
 	}
 
+	@Test
+	@DisplayName("Test user mapping with trips")
+	void test2() {
+		assertNotNull(user);
+		// TODO test rel mapping
+		assertEquals(user.getTrips().get(0).getName(), "Southeast Asia Fall 2021");
+	}
+	
+	@Test
+	@DisplayName("Test user mapping with trips")
+	void test3() {
+		assertNotNull(user);
+		// TODO test rel mapping
+		assertEquals(user.getComments().get(0).getContent(), "Singapore. Not for the fainthearted. The customs agent chewed all my gum.");
+	}
+	
 }
