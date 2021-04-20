@@ -42,16 +42,22 @@ class ItineraryItemTest {
 	}
 
 	@Test
-	void test_User_entity_mapping() {
+	void test_ItineraryItem_entity_mapping() {
 		assertNotNull(itineraryItem);
-		assertEquals(itineraryItem.getNotes(), "user");
+		assertEquals(itineraryItem.getNotes(), "I am so excited!!!");
 	}
 	
-	@Test
-	void test_User_Country_relational_mapping() {
-		assertNotNull(itineraryItem.getCountry());
-		assertEquals(itineraryItem.getCountry().getId(), 1);
-	}
+//	@Test
+//	void test_ItineraryItem_Trip_relational_mapping() {
+//		assertNotNull(itineraryItem.getTrip());
+//		assertEquals(itineraryItem.getTrip().getId(), 1);
+//	}
+	
+//	@Test
+//	void test_ItineraryItem_Country_relational_mapping() {
+//		assertNotNull(itineraryItem.getCountry());
+//		assertEquals(itineraryItem.getCountry().getId(), 1);
+//	}
 
 
 }

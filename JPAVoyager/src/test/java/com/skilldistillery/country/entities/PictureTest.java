@@ -42,13 +42,13 @@ class PictureTest {
 	}
 
 	@Test
-	void test_User_entity_mapping() {
+	void test_Picture_entity_mapping() {
 		assertNotNull(picture);
-		assertEquals(picture.getImageUrl(), "user");
+		assertEquals(picture.getImageUrl(), "singapore-sightseeing-1.jpg");
 	}
 	
 	@Test
-	void test_User_Country_relational_mapping() {
+	void test_Picture_Country_relational_mapping() {
 		assertNotNull(picture.getCountry());
 		assertEquals(picture.getCountry().getId(), 1);
 	}
