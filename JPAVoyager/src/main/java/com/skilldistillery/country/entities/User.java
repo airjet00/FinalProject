@@ -165,12 +165,22 @@ public class User {
 	public void setUpdateDate(LocalDateTime updateDate) {
 		this.updateDate = updateDate;
 	}
+
 	public List<Trip> getTrips() {
 		return trips;
 	}
 
 	public void setTrips(List<Trip> trips) {
 		this.trips = trips;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+
 	}
 
 	// Hash / Equals

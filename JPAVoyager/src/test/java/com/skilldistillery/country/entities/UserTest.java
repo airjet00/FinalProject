@@ -52,7 +52,7 @@ class UserTest {
 	void test1() {
 		assertNotNull(user);
 		// TODO test rel mapping
-		assertEquals(user.getUsername(), "user");
+		assertEquals("Singapore. Not for the fainthearted. The customs agent chewed all my gum.", user.getComments().get(0).getContent());
 	}
 
 }
