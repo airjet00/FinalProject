@@ -1,11 +1,16 @@
 package com.skilldistillery.country.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class Trip {
@@ -18,26 +23,37 @@ public class Trip {
 	
 	private String description;
 
-	private Date startDate;
+	@CreationTimestamp
+	@Column(name="start_date")
+	private LocalDateTime startDate;
 	
-	private Date endDate;
+	@CreationTimestamp
+	@Column(name="end_date")
+	private LocalDateTime endDate;
 	
 	private Boolean completed;
 	
 	private Boolean enabled;
 	
-	private Date createDate;
+	@CreationTimestamp
+	@Column(name="create_date")
+	private LocalDateTime createDate;
 	
 	//has manytoone mapping with user add field/get/set
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	//has onetomany mapping with itinerary_item	add field/get/set
+//	@OneToMany(mappedBy="")
+//	private List<ItineraryItem> itineraryItem;
 	
 	public Trip() {
 		super();
 	}
 
-	public Trip(int id, String name, String description, Date startDate, Date endDate, Boolean completed,
-			Boolean enabled, Date createDate) {
+	public Trip(int id, String name, String description, LocalDateTime startDate, LocalDateTime endDate,
+			Boolean completed, Boolean enabled, LocalDateTime createDate, User user) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -47,7 +63,10 @@ public class Trip {
 		this.completed = completed;
 		this.enabled = enabled;
 		this.createDate = createDate;
+		this.user = user;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -73,19 +92,19 @@ public class Trip {
 		this.description = description;
 	}
 
-	public Date getStartDate() {
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
 
@@ -105,12 +124,20 @@ public class Trip {
 		this.enabled = enabled;
 	}
 
-	public Date getCreateDate() {
+	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

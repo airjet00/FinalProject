@@ -44,20 +44,20 @@ class TripTest {
 	@Test
 	void test_User_entity_mapping() {
 		assertNotNull(trip);
-		assertEquals(trip.getName(), "");
+		assertEquals(trip.getName(), "Southeast Asia Fall 2021");
 	}
 
 
-	@Test
-	@DisplayName("Trip has ManyToOne mapping with User")
-	void test2() {
-		assertNotNull(trip);
-		//TODO: add mapping test
-	}
-	@Test
-	@DisplayName("Trip has OneToMany mapping with Itinerary item")
-	void test3() {
-		assertNotNull(trip);
-		//TODO: add mapping test
-	}
+//	@Test
+//	@DisplayName("Trip has ManyToOne mapping with User")
+//	void test2() {
+//		assertNotNull(trip);
+////		assertEquals(trip.getUser().getId(), 1);
+//	}
+//	@Test
+//	@DisplayName("Trip has OneToMany mapping with Itinerary item")
+//	void test3() {
+//		assertNotNull(trip);
+//		//TODO: add mapping test
+//	}
 }

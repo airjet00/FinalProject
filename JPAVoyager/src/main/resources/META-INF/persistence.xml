@@ -12,6 +12,8 @@
 
 	<class>com.skilldistillery.country.entities.Trip</class>
 	<class>com.skilldistillery.country.entities.User</class>
+	<class>com.skilldistillery.country.entities.Country</class>
+	<class>com.skilldistillery.country.entities.Picture</class>
 
 
 

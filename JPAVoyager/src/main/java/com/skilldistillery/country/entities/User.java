@@ -52,9 +52,9 @@ public class User {
 	@Column(name="update_date")
 	private LocalDateTime updateDate;
 	
-//	@OneToMany(mappedBy = "user")
 //	@JsonIgnoreProperties(value="user")
-//	private List<Trip> trips;
+	@OneToMany(mappedBy = "user")
+	private List<Trip> trips;
 //	
 //	@OneToMany(mappedBy = "user")
 //	@JsonIgnoreProperties(value="user")
@@ -165,6 +165,14 @@ public class User {
 	public void setUpdateDate(LocalDateTime updateDate) {
 		this.updateDate = updateDate;
 	}
+	public List<Trip> getTrips() {
+		return trips;
+	}
+
+	public void setTrips(List<Trip> trips) {
+		this.trips = trips;
+	}
+
 	// Hash / Equals
 	@Override
 	public int hashCode() {
