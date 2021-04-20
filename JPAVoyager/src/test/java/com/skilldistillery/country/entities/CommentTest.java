@@ -2,7 +2,8 @@ package com.skilldistillery.country.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -55,6 +56,12 @@ class CommentTest {
 		|  1 | Singapore. Not for the fainthearted. The customs agent chewed all my gum. | NULL        | NULL        |       1 |          1 |       1 |           NULL |
 		+----+---------------------------------------------------------------------------+-------------+-------------+---------+------------+---------+----------------+
 */
+	}
+	
+	@Test
+	void test_Comment_self_join_to_responses_mapping() {
+		assertNull(comment.getOriginalComment());
+		assertTrue(comment.getResponses().size() == 0);
 	}
 
 	
