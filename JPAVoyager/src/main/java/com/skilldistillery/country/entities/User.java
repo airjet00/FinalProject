@@ -56,9 +56,9 @@ public class User {
 //	@JsonIgnoreProperties(value="user")
 //	private List<Trip> trips;
 //	
-//	@OneToMany(mappedBy = "user")
-//	@JsonIgnoreProperties(value="user")
-//	private List<Comment> comments;
+	@OneToMany(mappedBy = "user")
+	@JsonIgnoreProperties(value="user")
+	private List<Comment> comments;
 	
 	
 // Methods

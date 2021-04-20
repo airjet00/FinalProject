@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="advice_type")
@@ -25,8 +29,12 @@ public class AdviceType {
 	@Column(name = "advice_url")
 	private String adviceUrl;
 
-//	@ManyToMany(mappedBy = "adviceTypes")
-//	private List<Country> countries;
+	@ManyToMany
+	@JoinTable(name="country_advice_type",
+			joinColumns = @JoinColumn(name="advice_type_id"),
+			inverseJoinColumns = @JoinColumn(name="country_id"))
+	@JsonIgnoreProperties(value="adviceTypes")
+	private List<Country> countries;
 	
 // Methods
 	
