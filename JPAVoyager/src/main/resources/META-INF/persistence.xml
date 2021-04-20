@@ -10,12 +10,13 @@
     
     <!-- entities -->
 
+	<class>com.skilldistillery.country.entities.AdviceType</class>
+	<class>com.skilldistillery.country.entities.Comment</class>
+	<class>com.skilldistillery.country.entities.Country</class>
+	<class>com.skilldistillery.country.entities.ItineraryItem</class>
+	<class>com.skilldistillery.country.entities.Picture</class>
 	<class>com.skilldistillery.country.entities.Trip</class>
 	<class>com.skilldistillery.country.entities.User</class>
-	<class>com.skilldistillery.country.entities.Country</class>
-	<class>com.skilldistillery.country.entities.Picture</class>
-
-
 
     <!-- entities -->
 

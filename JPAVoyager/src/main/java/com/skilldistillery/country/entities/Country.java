@@ -25,21 +25,21 @@ public class Country {
 	@Column(name="default_image")
 	private String defaultImage;
 	
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "country")
-//	private List<ItineraryItem> itineraryItems;
-//	
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "country")
-//	private List<Comment> comments;
+	@JsonIgnore
+	@OneToMany(mappedBy = "country")
+	private List<ItineraryItem> itineraryItems;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "country")
+	private List<Comment> comments;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "country")
 	private List<Picture> pictures;
 	
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "country")
-//	private List<AdviceType> adviceTypes;
+	@JsonIgnore
+	@OneToMany(mappedBy = "country")
+	private List<AdviceType> adviceTypes;
 	
 //////// methods
 	public Country() {
@@ -78,21 +78,21 @@ public class Country {
 		this.defaultImage = defaultImage;
 	}
 
-//	public List<ItineraryItem> getItineraryItems() {
-//		return itineraryItems;
-//	}
-//
-//	public void setItineraryItems(List<ItineraryItem> itineraryItems) {
-//		this.itineraryItems = itineraryItems;
-//	}
-//
-//	public List<Comment> getComments() {
-//		return comments;
-//	}
-//
-//	public void setComments(List<Comment> comments) {
-//		this.comments = comments;
-//	}
+	public List<ItineraryItem> getItineraryItems() {
+		return itineraryItems;
+	}
+
+	public void setItineraryItems(List<ItineraryItem> itineraryItems) {
+		this.itineraryItems = itineraryItems;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public List<Picture> getPictures() {
 		return pictures;
@@ -102,13 +102,13 @@ public class Country {
 		this.pictures = pictures;
 	}
 
-//	public List<AdviceType> getAdviceTypes() {
-//		return adviceTypes;
-//	}
-//
-//	public void setAdviceTypes(List<AdviceType> adviceTypes) {
-//		this.adviceTypes = adviceTypes;
-//	}
+	public List<AdviceType> getAdviceTypes() {
+		return adviceTypes;
+	}
+
+	public void setAdviceTypes(List<AdviceType> adviceTypes) {
+		this.adviceTypes = adviceTypes;
+	}
 
 	@Override
 	public int hashCode() {
