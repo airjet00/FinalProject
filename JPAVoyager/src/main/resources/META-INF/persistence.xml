@@ -10,8 +10,8 @@
     
     <!-- entities -->
 
+	<class>com.skilldistillery.country.entities.Trip</class>
 	<class>com.skilldistillery.country.entities.User</class>
-
 
 
 
