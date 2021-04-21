@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,5 +43,16 @@ public class TripController {
 		
 		return trip;
 	}
-	
+	@PostMapping("trips")
+	public Trip create(HttpServletRequest req, HttpServletResponse res,
+			@RequestBody Trip trip, Principal principal) {
+		
+		trip = tripServ.create(principal.getName(), trip);
+		if(trip != null) {
+			res.setStatus(201);
+			res.setHeader("Location", req.getRequestURL().append("/").append(trip.getId()).toString());
+		}
+		
+		return trip;
+	}
 }
