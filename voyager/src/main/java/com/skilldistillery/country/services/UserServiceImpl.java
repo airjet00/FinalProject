@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 		List<User> users = null;
 		User user = userRepo.findByUsername(username);
 		// TODO Change "user" to "admin"
-		if (user != null && user.getRole().equalsIgnoreCase("user")) {
+		if (user != null && user.getRole().equalsIgnoreCase("admin")) {
 			 users = userRepo.findAll();
 		}
 		return users;
