@@ -54,10 +54,10 @@ public class User {
 	@Column(name="update_date")
 	private LocalDateTime updateDate;
 	
-//	@JsonIgnoreProperties(value="user")
+	@JsonIgnoreProperties(value="user")
 	@OneToMany(mappedBy = "user")
 	private List<Trip> trips;
-//	
+	
 	@OneToMany(mappedBy = "user")
 	@JsonIgnoreProperties(value="user")
 	private List<Comment> comments;

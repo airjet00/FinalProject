@@ -29,7 +29,7 @@ public class ItineraryItem {
 	private Trip trip;
 	
 	@ManyToOne
-	@JsonIgnoreProperties(value="itineraryItems")
+	@JsonIgnoreProperties(value={"itineraryItems","comments"})
 	@JoinColumn(name="country_id")
 	private Country country;
 
