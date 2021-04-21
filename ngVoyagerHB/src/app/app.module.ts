@@ -17,6 +17,9 @@ import { PictureListComponent } from './components/picture-list/picture-list.com
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
+import { CountryService } from './services/country.service';
+import { HomeComponent } from './components/home/home.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { AuthService } from './services/auth.service';
     TripListComponent,
     UserListComponent,
     CommentListComponent,
-    PictureListComponent
+    PictureListComponent,
+    HomeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,8 @@ import { AuthService } from './services/auth.service';
     HttpClientModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    CountryService
   ],
   bootstrap: [AppComponent]
 })
