@@ -7,7 +7,7 @@ import com.skilldistillery.country.entities.Trip;
 public interface TripService {
     public List<Trip> index(String username);
 
-    public Trip show(String username, int tid);
+    public Trip show(int tid);
 
     public Trip create(String username, Trip trip);
 

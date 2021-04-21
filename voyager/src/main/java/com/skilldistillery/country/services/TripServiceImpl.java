@@ -1,6 +1,7 @@
 package com.skilldistillery.country.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -28,8 +29,15 @@ public class TripServiceImpl implements TripService {
 	}
 
 	@Override
-	public Trip show(String username, int tid) {
-		return tripRepo.findByUser_usernameAndUser_id(username, tid);
+	public Trip show(int tid) {
+		Trip trip = null;
+		Optional<Trip> opt = tripRepo.findById(tid);
+		if(opt.isPresent()) {
+			trip = opt.get();
+			return trip;
+		}
+		
+		return trip;
 	}
 
 	@Override
@@ -67,7 +75,7 @@ public class TripServiceImpl implements TripService {
 
 	@Override
 	public boolean destroy(String username, int tid) {
-		Trip managed = show(username, tid);
+		Trip managed = show(tid);
 		boolean deleted = false;
 		
 		if(managed != null) {
