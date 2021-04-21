@@ -25,6 +25,14 @@ export class CountryService {
     );
   };
 
+  search(keyword: String): Observable<Country[]> {
+    return this.http.get<Country[]>(this.url + '/search/' + keyword).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('CountryService.search(): error retrieving countries: ' + err);
+      })
+    );
+  };
 
   show(countryId): Observable<Country> {
     return this.http.get<Country>(this.url + '/' + countryId).pipe(

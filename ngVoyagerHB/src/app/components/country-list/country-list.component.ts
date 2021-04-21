@@ -15,6 +15,7 @@ export class CountryListComponent implements OnInit {
   selected: Country = null;
   newCountry: Country = new Country();
   editCountry: Country = null;
+  keyword: String = null;
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService) { }
 
@@ -33,8 +34,6 @@ export class CountryListComponent implements OnInit {
 
   showCountry(country: Country) {
     this.selected = country;
-    console.log(this.selected);
-
     this.router.navigateByUrl('countries/' + country.id)
   }
 
@@ -43,7 +42,12 @@ export class CountryListComponent implements OnInit {
   }
 
   searchCountry(){
-
+    this.countryServ.search(this.keyword).subscribe(
+      data => {
+        this.countries = data;
+      },
+      err => console.error('loadCountries got an error: ' + err)
+    )
   }
 
   addNewCountry() {
