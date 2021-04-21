@@ -38,45 +38,62 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
-	public Country create(Country country) {
-		return countryRepo.saveAndFlush(country);
+	public Country create(String username, Country country) {
+		User user = userRepo.findByUsername(username);
+		
+		if (user.getRole().equals("admin")) {
+			country = countryRepo.saveAndFlush(country);
+		}
+		else {
+			country = null;
+		}
+		return country;
 	}
 
 	@Override
-	public Country update(int cid, Country country) {
+	public Country update(String username, int cid, Country country) {
 		Country managed = null;
 		Optional<Country> opt = countryRepo.findById(cid);
-		if (opt.isPresent())
-			managed = opt.get();
-
-		if (managed != null) {
-
-			managed.setAdviceTypes(country.getAdviceTypes());
-			managed.setComments(country.getComments());
-			managed.setDefaultImage(country.getDefaultImage());
-			managed.setDescription(country.getDescription());
-			managed.setItineraryItems(country.getItineraryItems());
-			managed.setName(country.getName());
-			managed.setPictures(country.getPictures());
-
-			managed = countryRepo.saveAndFlush(managed);
-			return managed;
-
+		User user = userRepo.findByUsername(username);
+		
+		if(user.getRole().equals("admin")) {
+			if (opt.isPresent())
+				managed = opt.get();
+	
+			if (managed != null) {
+	
+				managed.setAdviceTypes(country.getAdviceTypes());
+				managed.setComments(country.getComments());
+				managed.setDefaultImage(country.getDefaultImage());
+				managed.setDescription(country.getDescription());
+				managed.setItineraryItems(country.getItineraryItems());
+				managed.setName(country.getName());
+				managed.setPictures(country.getPictures());
+	
+				managed = countryRepo.saveAndFlush(managed);
+				return managed;
+	
+			}
 		}
+		
 		return null;
 	}
 
 	@Override
-	public boolean destroy(int cid) {
+	public boolean destroy(String username, int cid) {
 		boolean deleted = false;
 
-		Country managed = show(cid);
-
-		if (managed != null) {
-			countryRepo.delete(managed);
-			deleted = true;
+		User user = userRepo.findByUsername(username);
+		
+		if(user.getRole().equals("admin")) {
+			Country managed = show(cid);
+			
+			if (managed != null) {
+				countryRepo.delete(managed);
+				deleted = true;
+			}
+		
 		}
-
 		return deleted;
 	}
 }
