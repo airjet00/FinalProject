@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.authSvc.login(user.username, user.password).subscribe(
       data => {
         // TODO add location after login
-        this.router.navigateByUrl("**")
+        this.router.navigateByUrl("countries")
       },
       err => {
         console.error("Encountered Error logging in: " + err);

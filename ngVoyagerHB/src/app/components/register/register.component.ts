@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
       returnedUser => {
         this.authSvc.login(this.user.username, this.user.password).subscribe(
           data => {
-            this.router.navigateByUrl("todo")
+            this.router.navigateByUrl("countries")
           },
           err => {
             console.error("Encountered Error logging in: " + err);
