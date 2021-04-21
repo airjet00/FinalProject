@@ -31,6 +31,11 @@ import com.skilldistillery.country.services.CountryService;
 			return countryServ.index();
 		}
 		
+		@GetMapping("countries/search/{keyword}")
+		public List<Country> searchByKeyword(@PathVariable String keyword) {
+			return countryServ.searchByKeyword(keyword);
+		}
+		
 		@GetMapping("countries/{cid}")
 		public Country show(HttpServletResponse res, @PathVariable int cid) { 
 			Country country = countryServ.show(cid);
