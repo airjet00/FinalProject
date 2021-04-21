@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Country } from '../models/country';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class CountryService {
 
   private url = environment.baseUrl + 'countries';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private authService: AuthService,) { }
 
   index(): Observable<Country[]> {
     return this.http.get<Country[]>(this.url).pipe(
