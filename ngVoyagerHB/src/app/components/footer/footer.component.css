@@ -1,0 +1,22 @@
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  background-image: linear-gradient(to bottom right, rgb(14, 1, 1, 66), rgb(35, 190, 195, 33));
+}
+.afterNames {
+  color: black;
+}
+a {
+  color: rgb(60, 255, 35);
+}
+a:hover {
+  color: rgb(46, 255, 175);
+}
+a:active {
+  color: rgb(14, 0, 211);
+}
