@@ -11,7 +11,8 @@ import { Comment } from '../models/comment';
 })
 export class CommentService {
 
-  private baseUrl: string = "http://localhost:8090/";
+  // private url: string = "http://localhost:8090/api/comments";
+
   private url = environment.baseUrl + "api/comments/";
 
   constructor(private http: HttpClient) { }
@@ -37,7 +38,7 @@ export class CommentService {
   }
 
   create(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(this.baseUrl + "api/comments", comment)
+    return this.http.post<Comment>(this.url, comment)
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -47,7 +48,7 @@ export class CommentService {
   }
 
   update(comment: Comment): Observable<Comment> {
-    return this.http.put<Comment>(this.baseUrl + "api/comments/" + comment.id, comment)
+    return this.http.put<Comment>(this.url + comment.id, comment)
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -57,7 +58,7 @@ export class CommentService {
   }
 
   delete(cid: number): Observable<Object> {
-    return this.http.delete(this.baseUrl + "api/comments/" + cid)
+    return this.http.delete(this.url + cid)
       .pipe(
         catchError((err: any) => {
           return throwError(err);
