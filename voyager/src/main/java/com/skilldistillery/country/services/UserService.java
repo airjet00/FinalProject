@@ -14,6 +14,6 @@ public interface UserService {
 
 	public User update(String username, int uid, User user);
 
-	public boolean destroy(String username, int uid);
+	public int deactivate(String username, int uid);
 
 }
