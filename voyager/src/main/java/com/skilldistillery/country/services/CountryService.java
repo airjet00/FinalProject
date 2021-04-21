@@ -15,4 +15,6 @@ public interface CountryService {
 	public Country update(String username, int cid, Country country);
 
 	public boolean destroy(String username, int cid);
+
+	public List<Country> searchByKeyword(String keyword);
 }

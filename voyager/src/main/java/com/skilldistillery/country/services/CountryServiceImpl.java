@@ -96,4 +96,11 @@ public class CountryServiceImpl implements CountryService {
 		}
 		return deleted;
 	}
+
+	@Override
+	public List<Country> searchByKeyword(String keyword) {
+		keyword = "%" + keyword + "%";
+
+		return countryRepo.findByNameLikeOrDescriptionLike(keyword, keyword);
+	}
 }
