@@ -68,16 +68,17 @@ public class CommentServiceImpl implements CommentService {
 			if (user != null) {
 
 				Optional<Comment> opt = commentRepo.findById(cid);
-				if (opt.isPresent())
+				if (opt.isPresent()) {
 					oldComment = opt.get();
-
+				
 				oldComment.setContent(newComment.getContent());
 				oldComment.setEnabled(newComment.getEnabled());
 				oldComment.setUpdateDate(newComment.getUpdateDate());
 
-				newComment = commentRepo.saveAndFlush(oldComment);
-				return newComment;
-
+				commentRepo.saveAndFlush(oldComment);
+				
+				return oldComment;
+				}
 			}
 		}
 		return null;
@@ -103,5 +104,5 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return destroyed;
 	}
-	
+
 }
