@@ -16,6 +16,4 @@ public interface PictureService {
 	
 	boolean destroy(String username, int pid);
 	
-	
-	
 }
