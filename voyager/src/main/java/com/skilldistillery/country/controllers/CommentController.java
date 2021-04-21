@@ -37,10 +37,15 @@ public class CommentController {
 	@GetMapping("comments/{cid}")
 	public Comment show(Principal principal, @PathVariable Integer cid, HttpServletResponse resp) {
 		Comment comment = null;
-		if (cid != null)
+		if (cid != null) {
 			comment = commentServ.show(principal.getName(), cid);
-		else
-			resp.setStatus(404);
+			if (comment != null) {
+				resp.setStatus(200);
+			}
+			else {
+				resp.setStatus(404);
+			}
+		}
 		return comment;
 	}
 
