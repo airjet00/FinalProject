@@ -64,6 +64,7 @@ public class TripServiceImpl implements TripService {
 			managed.setCompleted(trip.getCompleted());
 			managed.setStartDate(trip.getStartDate());
 			managed.setEndDate(trip.getEndDate());
+			managed.setEnabled(trip.getEnabled());
 			managed = tripRepo.save(managed);
 		}
 		else {
