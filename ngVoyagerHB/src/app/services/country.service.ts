@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -23,6 +22,66 @@ export class CountryService {
         return throwError('CountryService.index(): error retrieving countries: ' + err);
       })
     );
+  };
+
+
+  show(countryId): Observable<Country> {
+    return this.http.get<Country>(this.url + '/' + countryId).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('CountryService.show(): error retrieving country: ' + err);
+      })
+    );
 
   };
+
+  create(country: Country) {
+    let httpOptions = this.credentials();
+
+    return this.http.post<Country>(this.url, country, httpOptions)
+    .pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('CountryService.create(): error creating country: ' + err);
+      })
+    );
+
+  };
+
+  update(country: Country) {
+    let httpOptions = this.credentials();
+
+    return this.http.put<Country>(this.url +'/'+ country.id, country, httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('CountryService.update(): error updating country: ' + err);
+      })
+    );
+  }
+
+  destroy(id)  {
+    let httpOptions = this.credentials();
+    return this.http.delete<void>(this.url +'/'+ id, httpOptions).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('CountryService.destroy(): error deleting country: ' + err);
+      })
+    );
+
+
+  }
+
+  private credentials() {
+    // Make credentials
+    const credentials = this.authService.getCredentials();
+    // Send credentials as Authorization header (this is spring security convention for basic auth)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    }
+    return httpOptions;
+  }
+
 }
