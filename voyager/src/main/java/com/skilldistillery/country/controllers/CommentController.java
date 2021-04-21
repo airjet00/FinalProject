@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,19 +66,19 @@ public class CommentController {
 		}
 		return comment;
 	}
-	 
+
 	@PutMapping("comments/{cid}")
-	public Comment update(Principal principal, @PathVariable Integer cid, @RequestBody Comment comment, HttpServletResponse resp, HttpServletRequest req) {
+	public Comment update(Principal principal, @PathVariable Integer cid, @RequestBody Comment comment,
+			HttpServletResponse resp, HttpServletRequest req) {
 		try {
 			comment = commentServ.update(principal.getName(), cid, comment);
 
 			StringBuffer url = req.getRequestURL();
 			url.append("/").append(comment.getId());
 			resp.setHeader("Location", url.toString());
-			
-			return comment;			
-		}
-		catch(Exception e) {
+
+			return comment;
+		} catch (Exception e) {
 			System.err.println(e);
 			e.printStackTrace();
 			resp.setStatus(400);
@@ -85,6 +86,21 @@ public class CommentController {
 			return null;
 		}
 	}
-	
-		
+
+	@DeleteMapping("comments/{cid}")
+	public boolean delete(Principal principal, @PathVariable Integer cid, HttpServletResponse resp) {
+		try {
+			if (commentServ.destroy(principal.getName(), cid)) {
+				resp.setStatus(204);
+				return true;
+			} else {
+				resp.setStatus(404);
+				return false;
+			}
+		} catch (Exception e) {
+			System.err.println(e);
+			resp.setStatus(400);
+			return false;
+		}
+	}
 }
