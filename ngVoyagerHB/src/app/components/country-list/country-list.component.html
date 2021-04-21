@@ -1,8 +1,17 @@
+<div *ngIf='!selected'>
 <h1>Featured Countries</h1>
-
-<ul>
-  <li *ngFor='let country of countries'>
+<label for="keyword"></label>
+<input type="text" name="keyword" [(ngModel)]="keyword">
+<button (click)="searchCountry(keyword)">Search</button>
+<ul *ngIf='!selected'>
+  <li *ngFor='let country of countries' (click)="showCountry(country)">
     {{country.name}}
   </li>
 </ul>
+
+</div>
+<div *ngIf='selected'>
+  <h3>{{selected.name}} - {{selected.description}}</h3>
+  <button (click)='back()'>Back</button>
+</div>
 

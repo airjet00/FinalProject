@@ -11,6 +11,7 @@ const routes: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'home' },
 { path: 'register', component: RegisterComponent },
 { path: 'login', component: LoginComponent },
 { path: 'countries', component: CountryListComponent },
+{ path: 'countries/:cid', component: CountryListComponent },
 { path: '**', component: NotFoundComponent }
 ];
 

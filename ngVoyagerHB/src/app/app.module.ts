@@ -16,6 +16,7 @@ import { CommentListComponent } from './components/comment-list/comment-list.com
 import { PictureListComponent } from './components/picture-list/picture-list.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
 import { CountryService } from './services/country.service';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -45,9 +46,9 @@ import { UserService } from './services/user.service';
     HttpClientModule
   ],
   providers: [
+    AuthService,
     CountryService,
     UserService
-
   ],
   bootstrap: [AppComponent]
 })
