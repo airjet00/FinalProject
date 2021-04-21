@@ -1,13 +1,13 @@
 package com.skilldistillery.country.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.country.entities.Country;
 import com.skilldistillery.country.entities.Picture;
 import com.skilldistillery.country.entities.User;
 import com.skilldistillery.country.repositories.PictureRepository;
@@ -24,43 +24,39 @@ public class PictureServiceImpl implements PictureService {
 	UserRepository userRepo;
 
 	@Override
-	public List<Picture> index() {
-		return picRepo.findAll();
+	public List<Picture> index(int cid) {
+		return picRepo.findByCountry_id(cid);
 	}
 
 	@Override
-	public Picture show(int pid) {
-		Picture picture = null;
-		Optional<Picture> opt = picRepo.findById(pid);
-		if (opt.isPresent())
-			picture = opt.get();
-		return picture;
+	public Picture show(int cid, int pid) {
+		return picRepo.findByCountry_idAndId(cid, pid);
 	}
 
 	@Override
-	public Picture create(String username, Picture picture) {
+	public Picture create(String username, int cid, Picture picture) {
 		User user = userRepo.findByUsername(username);
 
 		if (user.getRole().equals("admin")) {
+			Country country = new Country();
+			country.setId(cid);
+			picture.setCountry(country);
 			return picRepo.saveAndFlush(picture);
 		}
 		return null;
 	}
 
 	@Override
-	public Picture update(String username, Picture picture, int pid) {
+	public Picture update(String username, int cid, Picture picture, int pid) {
 		User user = userRepo.findByUsername(username);
 
 		if (user.getRole().equals("admin")) {
 
-			Picture managed = null;
-			Optional<Picture> opt = picRepo.findById(pid);
-			if (opt.isPresent())
-				managed = opt.get();
+			Picture managed = show(cid, pid);
 
 			if (managed != null) {
 
-				managed.setCountry(picture.getCountry());
+//				managed.setCountry(picture.getCountry());
 				managed.setImageUrl(picture.getImageUrl());
 				managed = picRepo.saveAndFlush(managed);
 				return managed;
@@ -71,12 +67,12 @@ public class PictureServiceImpl implements PictureService {
 	}
 
 	@Override
-	public boolean destroy(String username, int pid) {
+	public boolean destroy(String username, int cid, int pid) {
 		User user = userRepo.findByUsername(username);
 		boolean deleted = false;
 
-		if (user.getRole() == "admin") {
-			Picture managed = show(pid);
+		if (user.getRole().equals("admin")) {
+			Picture managed = show(cid, pid);
 
 			if (managed != null) {
 				picRepo.delete(managed);
