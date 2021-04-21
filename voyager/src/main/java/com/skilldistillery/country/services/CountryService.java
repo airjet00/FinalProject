@@ -10,9 +10,9 @@ public interface CountryService {
 
 	public Country show(int cid);
 
-	public Country create(Country country);
+	public Country create(String username, Country country);
 
-	public Country update(int cid, Country country);
+	public Country update(String username, int cid, Country country);
 
-	public boolean destroy(int cid);
+	public boolean destroy(String username, int cid);
 }

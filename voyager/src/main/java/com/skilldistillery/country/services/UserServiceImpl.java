@@ -16,8 +16,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> index(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		List<User> users = null;
+		User user = userRepo.findByUsername(username);
+		// TODO Change "user" to "admin"
+		if (user != null && user.getRole().equalsIgnoreCase("admin")) {
+			 users = userRepo.findAll();
+		}
+		return users;
 	}
 
 	@Override

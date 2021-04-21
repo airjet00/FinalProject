@@ -37,7 +37,7 @@ public class Comment {
 
 	private Boolean enabled;
 
-	@JsonIgnoreProperties(value="comments")
+	@JsonIgnoreProperties(value={"comments", "itineraryItems"})
 	@ManyToOne
 	@JoinColumn(name="country_id")
 	private Country country;

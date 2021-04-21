@@ -6,14 +6,14 @@ import com.skilldistillery.country.entities.Picture;
 
 public interface PictureService {
 
-	List<Picture> index();
+	List<Picture> index(int cid);
 	
-	Picture show(int pid);
+	Picture show(int cid, int pid);
 	
-	Picture create(String username, Picture picture);
+	Picture create(String username, int cid, Picture picture);
 	
-	Picture update(String username, Picture newPicture, int pid);
+	Picture update(String username, int cid, Picture newPicture, int pid);
 	
-	boolean destroy(String username, int pid);
+	boolean destroy(String username, int cid, int pid);
 	
 }

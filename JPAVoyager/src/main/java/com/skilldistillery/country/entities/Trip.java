@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Trip {
 
@@ -46,6 +48,7 @@ public class Trip {
 	private User user;
 	
 	@OneToMany(mappedBy="trip")
+	@JsonIgnoreProperties(value="trip")
 	private List<ItineraryItem> itineraryItem;
 
 
