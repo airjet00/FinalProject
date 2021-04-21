@@ -29,7 +29,7 @@ public class TripServiceImpl implements TripService {
 
 	@Override
 	public Trip show(String username, int tid) {
-		return tripRepo.findByUser_usernameAndId(username, tid);
+		return tripRepo.findByUser_usernameAndUser_id(username, tid);
 	}
 
 	@Override
