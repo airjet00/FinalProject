@@ -47,17 +47,17 @@ class ItineraryItemTest {
 		assertEquals(itineraryItem.getNotes(), "I am so excited!!!");
 	}
 	
-//	@Test
-//	void test_ItineraryItem_Trip_relational_mapping() {
-//		assertNotNull(itineraryItem.getTrip());
-//		assertEquals(itineraryItem.getTrip().getId(), 1);
-//	}
+	@Test
+	void test_ItineraryItem_Trip_relational_mapping() {
+		assertNotNull(itineraryItem.getTrip());
+		assertEquals(itineraryItem.getTrip().getId(), 1);
+	}
 	
-//	@Test
-//	void test_ItineraryItem_Country_relational_mapping() {
-//		assertNotNull(itineraryItem.getCountry());
-//		assertEquals(itineraryItem.getCountry().getId(), 1);
-//	}
+	@Test
+	void test_ItineraryItem_Country_relational_mapping() {
+		assertNotNull(itineraryItem.getCountry());
+		assertEquals(itineraryItem.getCountry().getId(), 1);
+	}
 
 
 }
