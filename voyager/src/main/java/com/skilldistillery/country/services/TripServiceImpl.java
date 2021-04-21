@@ -48,14 +48,36 @@ public class TripServiceImpl implements TripService {
 
 	@Override
 	public Trip update(String username, int tid, Trip trip) {
-		// TODO Auto-generated method stub
-		return null;
+		Trip managed = tripRepo.findByUser_usernameAndId(username, tid);
+		
+		if(managed != null) {
+			managed.setName(trip.getName());
+			managed.setDescription(trip.getDescription());
+			managed.setCompleted(trip.getCompleted());
+			managed.setStartDate(trip.getStartDate());
+			managed.setEndDate(trip.getEndDate());
+			managed = tripRepo.save(managed);
+		}
+		else {
+			managed = null;
+		}
+		
+		return managed;
 	}
 
 	@Override
 	public boolean destroy(String username, int tid) {
-		// TODO Auto-generated method stub
-		return false;
+		Trip managed = show(username, tid);
+		boolean deleted = false;
+		
+		if(managed != null) {
+			managed.setEnabled(false);
+			tripRepo.save(managed);
+			deleted = true;
+		}
+		
+		
+		return deleted;
 	}
 
 }
