@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { Comment } from '../models/comment';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -14,12 +15,15 @@ export class CommentService {
   // private url: string = "http://localhost:8090/api/comments";
 
   private url = environment.baseUrl + "api/comments/";
+  comment : Comment;
+  showComment : Comment = new Comment();
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private authServ : AuthService) { }
 
 
   index(): Observable<Comment[]> {
-    return this.http.get<Comment[]>(this.url)
+    return this.http.get<Comment[]>(this.url, this.credentials())
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -28,8 +32,8 @@ export class CommentService {
       );
   }
 
-  show(cid: string): Observable<Comment> {
-    return this.http.get<Comment>(this.url + cid)
+  show(cid : number) {
+    return this.http.get<Comment>(this.url + cid, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -38,7 +42,7 @@ export class CommentService {
   }
 
   create(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(this.url, comment)
+    return this.http.post<Comment>(this.url, comment, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -48,7 +52,7 @@ export class CommentService {
   }
 
   update(comment: Comment): Observable<Comment> {
-    return this.http.put<Comment>(this.url + comment.id, comment)
+    return this.http.put<Comment>(this.url + comment.id, comment, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -58,7 +62,7 @@ export class CommentService {
   }
 
   delete(cid: number): Observable<Object> {
-    return this.http.delete(this.url + cid)
+    return this.http.delete(this.url + cid, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -68,4 +72,16 @@ export class CommentService {
   }
 
 
+  private credentials() {
+    // Make credentials
+    const credentials = this.authServ.getCredentials();
+    // Send credentials as Authorization header (this is spring security convention for basic auth)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    }
+    return httpOptions;
+  }
 }
