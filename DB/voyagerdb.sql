@@ -174,6 +174,7 @@ START TRANSACTION;
 USE `voyagerdb`;
 INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (1, 'Singapore', 'A place of wonders where one cannot chew gum.', 'singapore.jpg');
 INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (2, 'United Arab Emirates', 'A sandy place, I have heard.', 'uae.jpg');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (3, 'Sweden', 'Cold', 'sweden.jpg');
 
 COMMIT;
 
@@ -184,8 +185,8 @@ COMMIT;
 START TRANSACTION;
 USE `voyagerdb`;
 INSERT INTO `voyagerdb`.`user` (`id`, `role`, `username`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `suffix`, `dob`, `enabled`, `create_date`, `update_date`) VALUES (1, 'user', 'user', 'user@user.com', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL);
-INSERT INTO `voyagerdb`.`user` (`id`, `role`, `username`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `suffix`, `dob`, `enabled`, `create_date`, `update_date`) VALUES (2, 'test', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL);
-INSERT INTO `voyagerdb`.`user` (`id`, `role`, `username`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `suffix`, `dob`, `enabled`, `create_date`, `update_date`) VALUES (3, 'user', 'shaun', 'hi@w.com', '$2a$10$4SMKDcs9jT18dbFxqtIqDeLEynC7MUrCEUbv1a/bhO.x9an9WGPvm', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL);
+INSERT INTO `voyagerdb`.`user` (`id`, `role`, `username`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `suffix`, `dob`, `enabled`, `create_date`, `update_date`) VALUES (2, 'test', 'test', 'test@test.com', NULL, 'Jane', NULL, 'Doe', 'IV', NULL, 1, NULL, NULL);
+INSERT INTO `voyagerdb`.`user` (`id`, `role`, `username`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `suffix`, `dob`, `enabled`, `create_date`, `update_date`) VALUES (3, 'user', 'shaun', 'hi@w.com', '$2a$10$4SMKDcs9jT18dbFxqtIqDeLEynC7MUrCEUbv1a/bhO.x9an9WGPvm', 'Shaun', 'of the', 'Dead', 'Jr.', NULL, 1, NULL, NULL);
 INSERT INTO `voyagerdb`.`user` (`id`, `role`, `username`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `suffix`, `dob`, `enabled`, `create_date`, `update_date`) VALUES (4, 'admin', 'admin', 'admin@admin.io', '$2a$10$lpwg8s8sPB9FhF34Ly49/uWWp7TJ6AliIxPvWwJC7yOrC.hsPMYxa', 'Admin', 'Adamson', NULL, NULL, NULL, 1, NULL, NULL);
 INSERT INTO `voyagerdb`.`user` (`id`, `role`, `username`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `suffix`, `dob`, `enabled`, `create_date`, `update_date`) VALUES (5, 'hi', 'hi', 'hi@hi.com', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL);
 
@@ -208,6 +209,8 @@ COMMIT;
 START TRANSACTION;
 USE `voyagerdb`;
 INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (1, 'Southeast Asia Fall 2021', NULL, NULL, 0, 1, 1, NULL, 'A whirlwind tour of the opposite side of the globe.');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (2, 'Journalistic Jaunt to North Korea', NULL, NULL, 0, 1, 3, NULL, 'A terrible idea');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (3, 'Trip to the Moon', NULL, NULL, 1, 1, 3, NULL, 'Really expensive');
 
 COMMIT;
 
@@ -230,6 +233,10 @@ USE `voyagerdb`;
 INSERT INTO `voyagerdb`.`comment` (`id`, `content`, `create_date`, `update_date`, `enabled`, `country_id`, `user_id`, `in_reply_to_id`) VALUES (1, 'Singapore. Not for the fainthearted. The customs agent chewed all my gum.', NULL, NULL, 1, 1, 1, 2);
 INSERT INTO `voyagerdb`.`comment` (`id`, `content`, `create_date`, `update_date`, `enabled`, `country_id`, `user_id`, `in_reply_to_id`) VALUES (2, 'Singapore is great!!!!!!!!!!!! <3', NULL, NULL, 1, 1, 1, NULL);
 INSERT INTO `voyagerdb`.`comment` (`id`, `content`, `create_date`, `update_date`, `enabled`, `country_id`, `user_id`, `in_reply_to_id`) VALUES (3, 'Singapore is ok', NULL, NULL, 1, 1, 2, 2);
+INSERT INTO `voyagerdb`.`comment` (`id`, `content`, `create_date`, `update_date`, `enabled`, `country_id`, `user_id`, `in_reply_to_id`) VALUES (4, 'Singapore has been taken over by a zombie horde', NULL, NULL, 1, 1, 3, 2);
+INSERT INTO `voyagerdb`.`comment` (`id`, `content`, `create_date`, `update_date`, `enabled`, `country_id`, `user_id`, `in_reply_to_id`) VALUES (5, 'I give UAE an 8 out of 10', NULL, NULL, 1, 2, 3, NULL);
+INSERT INTO `voyagerdb`.`comment` (`id`, `content`, `create_date`, `update_date`, `enabled`, `country_id`, `user_id`, `in_reply_to_id`) VALUES (6, 'There was sand in my shoes', NULL, NULL, 1, 2, 2, 5);
+INSERT INTO `voyagerdb`.`comment` (`id`, `content`, `create_date`, `update_date`, `enabled`, `country_id`, `user_id`, `in_reply_to_id`) VALUES (7, 'Remember to bring a water bottle', NULL, NULL, 1, 2, 1, 5);
 
 COMMIT;
 
@@ -240,6 +247,9 @@ COMMIT;
 START TRANSACTION;
 USE `voyagerdb`;
 INSERT INTO `voyagerdb`.`advice_type` (`id`, `name`, `description`, `advice_url`) VALUES (1, 'Covid-Related', 'Precautions for Covid-19 pandemic', 'www.cdc.gov');
+INSERT INTO `voyagerdb`.`advice_type` (`id`, `name`, `description`, `advice_url`) VALUES (2, 'Visa Requirements', NULL, NULL);
+INSERT INTO `voyagerdb`.`advice_type` (`id`, `name`, `description`, `advice_url`) VALUES (3, 'Medical Needs', NULL, NULL);
+INSERT INTO `voyagerdb`.`advice_type` (`id`, `name`, `description`, `advice_url`) VALUES (4, 'Tips', NULL, NULL);
 
 COMMIT;
 
@@ -250,6 +260,9 @@ COMMIT;
 START TRANSACTION;
 USE `voyagerdb`;
 INSERT INTO `voyagerdb`.`country_advice_type` (`advice_type_id`, `country_id`) VALUES (1, 1);
+INSERT INTO `voyagerdb`.`country_advice_type` (`advice_type_id`, `country_id`) VALUES (2, 1);
+INSERT INTO `voyagerdb`.`country_advice_type` (`advice_type_id`, `country_id`) VALUES (3, 1);
+INSERT INTO `voyagerdb`.`country_advice_type` (`advice_type_id`, `country_id`) VALUES (4, 1);
 
 COMMIT;
 

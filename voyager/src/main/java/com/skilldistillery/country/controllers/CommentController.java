@@ -25,4 +25,9 @@ public class CommentController {
 		return commentServ.index(principal.getName());
 	}
 
+	@GetMapping("comment/{cid}")
+	public Comment show(Principal principal, int cid) {
+		return commentServ.show(principal.getName(), cid);
+	}
+	
 }
