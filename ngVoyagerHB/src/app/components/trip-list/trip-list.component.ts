@@ -30,8 +30,8 @@ export class TripListComponent implements OnInit {
     let tripId = this.route.snapshot.paramMap.get('tid')
     if(tripId){
       this.tripSvc.show(tripId).subscribe(
-        todo => {
-          this.selected = todo;
+        data => {
+          this.selected = data;
         },
         fail => {
           console.error('TodoListComp.ngOnInit failed to load todo');
