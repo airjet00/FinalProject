@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CountryService } from './services/country.service';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     HttpClientModule
   ],
   providers: [
-    CountryService
+    CountryService,
+    UserService
+
   ],
   bootstrap: [AppComponent]
 })
