@@ -14,6 +14,8 @@ import { TripListComponent } from './components/trip-list/trip-list.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { PictureListComponent } from './components/picture-list/picture-list.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { PictureListComponent } from './components/picture-list/picture-list.com
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
