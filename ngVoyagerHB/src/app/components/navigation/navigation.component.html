@@ -1,1 +1,36 @@
-<p>navigation works!</p>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <a class="navbar-brand" [routerLink]="['/home']">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <!-- Left alligned Items (Super confused why mr-auto seems reversed -- answer: it's adding margin to the right, which moves the element left) -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/about']">About<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/countries']">Countries</a>
+      </li>
+      <li class="nav-item" *ngIf="checkLoggedIn()">
+        <a class="nav-link" [routerLink]="['/trips']">Trips</a>
+      </li>
+      <!-- Example how to disable nav-link -->
+      <!-- <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li> -->
+    </ul>
+    <!-- Right aligned items -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item" *ngIf="!checkLoggedIn()">
+        <a class="nav-link" [routerLink]="['/login']">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="!checkLoggedIn()">
+        <a class="nav-link" [routerLink]="['/register']">Register</a>
+      </li>
+      <li class="nav-item" *ngIf="checkLoggedIn()">
+        <app-logout></app-logout>
+      </li>
+    </ul>
+  </div>
+</nav>
