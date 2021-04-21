@@ -20,6 +20,7 @@ import { AuthService } from './services/auth.service';
 import { CountryService } from './services/country.service';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
   ],
   providers: [
     AuthService,
-    CountryService
+    CountryService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
