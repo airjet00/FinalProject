@@ -21,7 +21,7 @@ export class CommentService {
 
   constructor(private http: HttpClient, private authServ: AuthService) { }
 
-// loads only comments with enabled = true:
+  // loads only comments with enabled = true:
   index(countryId: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(this.urlWithoutAPI + countryId + "/comments")
       .pipe(
@@ -53,12 +53,12 @@ export class CommentService {
       );
   }
 
-  update(comment: Comment): Observable<Comment> {
-    console.warn("** in service update(comment)\n comment.id = " + comment.id + "\ncomment.content = " + comment.content);
-    console.warn("comment.country.id = " + comment.country.id);
+  update(comment: Comment, countryId: number): Observable<Comment> {
+    let requestUrl: string = this.urlWithAPI + countryId + "/comments/" + comment.id;
+    let commentToPass: Comment = new Comment();
+    commentToPass.content = comment.content;
 
-    let requestUrl: string = this.urlWithAPI + comment.country.id + "/comments/" + comment.id;
-    return this.http.put<Comment>(requestUrl, comment, this.credentials())
+    return this.http.put<Comment>(requestUrl, commentToPass, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -67,7 +67,7 @@ export class CommentService {
       );
   }
 
-  delete(countryId : number, commentId: number): Observable<Object> {
+  delete(countryId: number, commentId: number): Observable<Object> {
     let requestUrl = this.urlWithAPI + countryId + "/comments/" + commentId;
     return this.http.delete(requestUrl, this.credentials())
       .pipe(

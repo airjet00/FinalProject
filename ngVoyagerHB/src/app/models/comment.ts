@@ -7,9 +7,6 @@ export class Comment {
   createDate: string;
   updateDate: string;
   enabled: boolean;
-  country: Country;
-  user: User;
-  originalCommenter: User;
 
   constructor(id?: number, content?: string, createDate?: string, updateDate?: string, enabled?: boolean) {
     this.id = id;
