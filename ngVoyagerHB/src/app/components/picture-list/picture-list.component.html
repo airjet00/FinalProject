@@ -1,1 +1,8 @@
-<p>picture-list works!</p>
+<app-country-list></app-country-list>
+
+<h3>PICTURES</h3>
+<ul>
+  <li *ngFor='let picture of pictures'>
+    {{picture.imageUrl}}
+  </li>
+</ul>
