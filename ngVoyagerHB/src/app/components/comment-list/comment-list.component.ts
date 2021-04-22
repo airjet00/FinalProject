@@ -22,23 +22,19 @@ export class CommentListComponent implements OnInit {
   createComment: Comment = new Comment();
   createCommentResult: Comment;
 
+  updateComment: Comment = new Comment();
+
   //////// init:
   constructor(private router: Router, private authService: AuthService, private commentServ: CommentService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.warn("MADE IT INTO THE COMMENT-LIST COMPONENT");
-
-
     this.countryId = +this.route.snapshot.paramMap.get('countryId');
-    console.warn(
-      "In comment-list.component, ngOnInit, route variable countryId = " +
-      +this.route.snapshot.paramMap.get('countryId')
-      );
+    this.loadComments();
 
-      this.createComment = new Comment();
-      this.country = new Country();
-      this.country.id = this.countryId
-      this.createComment.country = this.country;
+    this.createComment = new Comment();
+    this.country = new Country();
+    this.country.id = this.countryId
+    this.createComment.country = this.country;
 
   }
 
@@ -55,18 +51,27 @@ export class CommentListComponent implements OnInit {
     return null;
   }
 
-  // show(form): void {
-  //   let cid: number = form.cid.value;
-  //   console.warn(cid);
+  prepareUpdate(comment): void {
+    console.warn("** in component, prepareUpdate()");
+    console.warn("** comment.id = "+ comment.id);
 
-  //   this.commentServ.show(cid).subscribe(
-  //     dataReceived => {
-  //       this.showComment = dataReceived;
-  //     },
-  //     failure => {
-  //       console.error(failure);
-  //     });
-  // }
+
+    this.updateComment = comment;
+  }
+
+  confirmUpdate() {
+    console.warn("** in component, confirmUpdate()");
+    console.warn("** this.updateComment.id = "+ this.updateComment.id);
+    this.commentServ.update(this.updateComment).subscribe(
+      dataReceived => {
+        this.updateComment = dataReceived;
+        this.updateComment = new Comment();
+      },
+      failure => {
+        console.error(failure);
+      });;
+  }
+
 
   create(): void {
 
@@ -81,3 +86,16 @@ export class CommentListComponent implements OnInit {
   }
 
 }
+
+  // show(form): void {
+  //   let cid: number = form.cid.value;
+  //   console.warn(cid);
+
+  //   this.commentServ.show(cid).subscribe(
+  //     dataReceived => {
+  //       this.showComment = dataReceived;
+  //     },
+  //     failure => {
+  //       console.error(failure);
+  //     });
+  // }

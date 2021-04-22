@@ -71,11 +71,11 @@ public class CommentController {
 		return comment;
 	}
 
-	@PutMapping("api/countries/{countryId}/comments")
-	public Comment update(Principal principal, @PathVariable Integer cid, @RequestBody Comment comment,
+	@PutMapping("api/countries/{countryId}/comments/{commentId}")
+	public Comment update(Principal principal, @PathVariable Integer countryId, @PathVariable Integer commentId, @RequestBody Comment comment,
 			HttpServletResponse resp, HttpServletRequest req) {
 		try {
-			comment = commentServ.update(principal.getName(), cid, comment);
+			comment = commentServ.update(principal.getName(), commentId, comment);
 
 			StringBuffer url = req.getRequestURL();
 			url.append("/").append(comment.getId());
