@@ -1,4 +1,5 @@
 import { Country } from "./country";
+import { User } from "./user";
 
 export class Comment {
   id: number;
@@ -6,7 +7,6 @@ export class Comment {
   createDate: string;
   updateDate: string;
   enabled: boolean;
-  country: Country;
 
   constructor(id?: number, content?: string, createDate?: string, updateDate?: string, enabled?: boolean) {
     this.id = id;

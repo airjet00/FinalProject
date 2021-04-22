@@ -198,7 +198,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `voyagerdb`;
-INSERT INTO `voyagerdb`.`picture` (`id`, `country_id`, `image_url`) VALUES (1, 1, 'singapore-sightseeing-1.jpg');
+INSERT INTO `voyagerdb`.`picture` (`id`, `country_id`, `image_url`) VALUES (1, 1, 'http://cdn.cnn.com/cnnnext/dam/assets/191212182124-04-singapore-buildings.jpg');
+INSERT INTO `voyagerdb`.`picture` (`id`, `country_id`, `image_url`) VALUES (5, 1, 'https://bsmedia.business-standard.com/_media/bs/img/article/2020-12/15/full/1608011089-8994.jpg');
+INSERT INTO `voyagerdb`.`picture` (`id`, `country_id`, `image_url`) VALUES (6, 1, 'https://www.bolopakistan.pk/wp-content/uploads/2020/07/visit-singapore-with-saudi-arabian-airlines-flights.jpg');
 
 COMMIT;
 

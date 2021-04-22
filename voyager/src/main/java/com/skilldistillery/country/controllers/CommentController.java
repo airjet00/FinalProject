@@ -29,11 +29,33 @@ public class CommentController {
 	
 	@Autowired
 	private CountryService countryServ;
-
+	
 	@GetMapping("countries/{countryId}/comments")
+	public List<Comment> indexEnabled(HttpServletResponse resp, @PathVariable Integer countryId) {
+		List<Comment> comments = null;
+		comments = commentServ.indexEnabledCommentsForCountry(countryId);
+		if (comments != null)
+			resp.setStatus(200);
+		else
+			resp.setStatus(404);
+		return comments;
+	}
+
+	@GetMapping("countries/{countryId}/comments/all")
 	public List<Comment> index(HttpServletResponse resp, @PathVariable Integer countryId) {
 		List<Comment> comments = null;
 		comments = commentServ.indexCommentsForCountry(countryId);
+		if (comments != null)
+			resp.setStatus(200);
+		else
+			resp.setStatus(404);
+		return comments;
+	}
+	
+	@GetMapping("countries/{countryId}/comments/disabled")
+	public List<Comment> indexDisabled(HttpServletResponse resp, @PathVariable Integer countryId) {
+		List<Comment> comments = null;
+		comments = commentServ.indexAllDisabledComments();
 		if (comments != null)
 			resp.setStatus(200);
 		else
@@ -71,11 +93,14 @@ public class CommentController {
 		return comment;
 	}
 
-	@PutMapping("api/countries/{countryId}/comments")
-	public Comment update(Principal principal, @PathVariable Integer cid, @RequestBody Comment comment,
+	@PutMapping("api/countries/{countryId}/comments/{commentId}")
+	public Comment update(Principal principal, @PathVariable Integer countryId, @PathVariable Integer commentId, @RequestBody Comment comment,
 			HttpServletResponse resp, HttpServletRequest req) {
+		System.err.println("********************************* in comment controller update");
+		System.err.println(comment.getId() + " comment id");
+
 		try {
-			comment = commentServ.update(principal.getName(), cid, comment);
+			comment = commentServ.update(principal.getName(), commentId, comment);
 
 			StringBuffer url = req.getRequestURL();
 			url.append("/").append(comment.getId());
@@ -91,14 +116,15 @@ public class CommentController {
 		}
 	}
 
-	@DeleteMapping("api/countries/{countryId}/comments")
-	public boolean delete(Principal principal, @PathVariable Integer cid, HttpServletResponse resp) {
+	@DeleteMapping("api/countries/{countryId}/comments/{commentId}")
+	public boolean delete(Principal principal, @PathVariable Integer countryId, @PathVariable Integer commentId, HttpServletResponse resp) {
 		try {
-			if (commentServ.destroy(principal.getName(), cid)) {
+			if (commentServ.destroy(principal.getName(), commentId)) {
 				resp.setStatus(204);
 				return true;
 			} else {
 				resp.setStatus(404);
+				if (principal.getName()!=null) System.err.println("********************** " + principal.getName());
 				return false;
 			}
 		} catch (Exception e) {

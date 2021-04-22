@@ -10,6 +10,10 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
 	List<Comment> findByUser_Username(String username);
 	
-	List<Comment> findByCountry_Id(int countryId);
+	List<Comment> findByCountry_Id(Integer countryId);
+	
+	List<Comment> findByEnabledAndCountryId(boolean enabled, Integer countryId);
+	
+	List<Comment> findByEnabled(boolean enabled);
 	
 }
