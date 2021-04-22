@@ -29,11 +29,33 @@ public class CommentController {
 	
 	@Autowired
 	private CountryService countryServ;
-
+	
 	@GetMapping("countries/{countryId}/comments")
+	public List<Comment> indexEnabled(HttpServletResponse resp, @PathVariable Integer countryId) {
+		List<Comment> comments = null;
+		comments = commentServ.indexEnabledCommentsForCountry(countryId);
+		if (comments != null)
+			resp.setStatus(200);
+		else
+			resp.setStatus(404);
+		return comments;
+	}
+
+	@GetMapping("countries/{countryId}/comments/all")
 	public List<Comment> index(HttpServletResponse resp, @PathVariable Integer countryId) {
 		List<Comment> comments = null;
 		comments = commentServ.indexCommentsForCountry(countryId);
+		if (comments != null)
+			resp.setStatus(200);
+		else
+			resp.setStatus(404);
+		return comments;
+	}
+	
+	@GetMapping("countries/{countryId}/comments/disabled")
+	public List<Comment> indexDisabled(HttpServletResponse resp, @PathVariable Integer countryId) {
+		List<Comment> comments = null;
+		comments = commentServ.indexAllDisabledComments();
 		if (comments != null)
 			resp.setStatus(200);
 		else

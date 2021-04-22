@@ -23,16 +23,34 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	UserRepository userRepo;
 
-	// This will be hit from a path with a country Id
+	/*
+	List<Comment> findByUser_Username(String username);
+	
+	List<Comment> findByCountry_Id(int countryId);
+	
+	List<Comment> findByCountry_Id_And_Comment_Enabled(int countryId, boolean enabled);
+	
+	List<Comment> findByEnabled(boolean enabled);*/
+	
 	@Override
 	public List<Comment> indexCommentsForCountry(int countryId) {
 		return commentRepo.findByCountry_Id(countryId);
 	}
 	
-	// This will load ALL comments regardless of country:
 	@Override
 	public List<Comment> indexAll() {
 		return commentRepo.findAll();
+	}
+
+	
+	@Override
+	public List<Comment> indexEnabledCommentsForCountry(int countryId) {
+		return commentRepo.findByEnabledAndCountryId(true, countryId);
+	}
+
+	@Override
+	public List<Comment> indexAllDisabledComments() {
+		return commentRepo.findByEnabled(false);
 	}
 	
 
@@ -112,5 +130,7 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return destroyed;
 	}
+
+
 
 }
