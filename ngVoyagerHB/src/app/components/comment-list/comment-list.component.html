@@ -6,7 +6,7 @@
 <div *ngFor="let comment of this.comments">
   <div *ngIf="this.comment !== updateComment">
     ID: {{ comment.id }} / {{ comment.content }}<br />
-    Written by: {{ comment.user.firstName }} {{ comment.user.lastName }}
+    <!-- Written by: {{ comment.user.firstName }} {{ comment.user.lastName }} -->
      <!-- TODO logic to only show these buttons to this user, or delete button to admin  -->
     <button
         class="btn btn-success btn-sm mr-3"
@@ -34,24 +34,21 @@
       </button>
     </form>
     <br />
-    Written by: {{ comment.user.firstName }} {{ comment.user.lastName }}
+    <!-- Written by: {{ comment.user.firstName }} {{ comment.user.lastName }} -->
   </div>
 </div>
 <br />
 <h2>Write a Comment</h2>
 <form>
-  Comment:
-  <textarea type="text" name="createContent" [(ngModel)]="createComment.content"></textarea>
-  <br />
-  <button class="btn btn-primary" (click)="create()">Create</button>
+  Comment:<br />
+  <textarea class="form-control" type="text" name="createContent" [(ngModel)]="createComment.content"></textarea>
+  <button class="btn btn-success" (click)="create()">Create</button>
 </form>
 <div *ngIf="createCommentResult">
   It worked. <br />
   The content is --
   {{ createCommentResult.content }}
   <br />
-  The country is --
-  {{ createCommentResult.country.name }}
 </div>
 <br /><br />
 

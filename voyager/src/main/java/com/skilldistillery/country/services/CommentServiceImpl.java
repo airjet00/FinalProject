@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.country.entities.Comment;
+import com.skilldistillery.country.entities.Country;
 import com.skilldistillery.country.entities.User;
 import com.skilldistillery.country.repositories.CommentRepository;
 import com.skilldistillery.country.repositories.UserRepository;
@@ -24,25 +25,26 @@ public class CommentServiceImpl implements CommentService {
 	UserRepository userRepo;
 
 	/*
-	List<Comment> findByUser_Username(String username);
-	
-	List<Comment> findByCountry_Id(int countryId);
-	
-	List<Comment> findByCountry_Id_And_Comment_Enabled(int countryId, boolean enabled);
-	
-	List<Comment> findByEnabled(boolean enabled);*/
-	
+	 * List<Comment> findByUser_Username(String username);
+	 * 
+	 * List<Comment> findByCountry_Id(int countryId);
+	 * 
+	 * List<Comment> findByCountry_Id_And_Comment_Enabled(int countryId, boolean
+	 * enabled);
+	 * 
+	 * List<Comment> findByEnabled(boolean enabled);
+	 */
+
 	@Override
 	public List<Comment> indexCommentsForCountry(int countryId) {
 		return commentRepo.findByCountry_Id(countryId);
 	}
-	
+
 	@Override
 	public List<Comment> indexAll() {
 		return commentRepo.findAll();
 	}
 
-	
 	@Override
 	public List<Comment> indexEnabledCommentsForCountry(int countryId) {
 		return commentRepo.findByEnabledAndCountryId(true, countryId);
@@ -52,7 +54,6 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> indexAllDisabledComments() {
 		return commentRepo.findByEnabled(false);
 	}
-	
 
 	@Override
 	public Comment show(String username, int cid) {
@@ -84,7 +85,6 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public Comment update(String username, int cid, Comment newComment) {
-
 		Comment oldComment = null;
 
 		if (username != null && newComment != null) {
@@ -98,8 +98,6 @@ public class CommentServiceImpl implements CommentService {
 					oldComment = opt.get();
 				
 				oldComment.setContent(newComment.getContent());
-				oldComment.setEnabled(newComment.getEnabled());
-				oldComment.setUpdateDate(newComment.getUpdateDate());
 
 				commentRepo.saveAndFlush(oldComment);
 				
@@ -109,6 +107,34 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return null;
 	}
+	
+//	@Override
+//	public Comment update(String username, int cid, Comment newComment) {
+//
+//		Comment oldComment = null;
+//
+//		if (username != null && newComment != null) {
+//
+//			User user = userRepo.findByUsername(username);
+//
+//			if (user != null) {
+//
+//				Optional<Comment> opt = commentRepo.findById(cid);
+//				if (opt.isPresent()) {
+//					oldComment = opt.get();
+//				
+//				oldComment.setContent(newComment.getContent());
+//				oldComment.setEnabled(newComment.getEnabled());
+//				oldComment.setUpdateDate(newComment.getUpdateDate());
+//
+//				commentRepo.saveAndFlush(oldComment);
+//				
+//				return oldComment;
+//				}
+//			}
+//		}
+//		return null;
+//	}
 
 	@Override
 	public boolean destroy(String username, int cid) {
@@ -130,7 +156,5 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return destroyed;
 	}
-
-
 
 }

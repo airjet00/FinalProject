@@ -96,6 +96,9 @@ public class CommentController {
 	@PutMapping("api/countries/{countryId}/comments/{commentId}")
 	public Comment update(Principal principal, @PathVariable Integer countryId, @PathVariable Integer commentId, @RequestBody Comment comment,
 			HttpServletResponse resp, HttpServletRequest req) {
+		System.err.println("********************************* in comment controller update");
+		System.err.println(comment.getId() + " comment id");
+
 		try {
 			comment = commentServ.update(principal.getName(), commentId, comment);
 

@@ -33,9 +33,9 @@ export class CommentListComponent implements OnInit {
     this.loadComments();
 
     this.createComment = new Comment();
-    this.country = new Country();
-    this.country.id = this.countryId
-    this.createComment.country = this.country;
+    // this.country = new Country();
+    // this.country.id = this.countryId
+    // this.createComment.country = this.country;
 
   }
 
@@ -63,9 +63,9 @@ export class CommentListComponent implements OnInit {
   confirmUpdate() {
     console.warn("** in component, confirmUpdate()");
     console.warn("** this.updateComment.id = "+ this.updateComment.id);
-    console.warn("***************************\nthis.updateComment.user is" + this.updateComment.user.id + " " + this.updateComment.user.firstName);
+    // console.warn("***************************\nthis.updateComment.user is" + this.updateComment.user.id + " " + this.updateComment.user.firstName);
 
-    this.commentServ.update(this.updateComment).subscribe(
+    this.commentServ.update(this.updateComment, this.countryId).subscribe(
       dataReceived => {
         this.updateComment = dataReceived;
         this.updateComment = new Comment();
@@ -82,6 +82,7 @@ export class CommentListComponent implements OnInit {
       dataReceived => {
         this.createCommentResult = dataReceived;
         this.createComment = new Comment();
+        this.loadComments();
       },
       failure => {
         console.error(failure);
