@@ -1,6 +1,38 @@
 
-hello
-<p>{{user.firstName}}</p>
-<p *ngFor="let user of users">{{user.firstName}}</p>
+
+
+<div *ngIf="selected">
+  <p>{{selected.email}}</p>
+
+
+</div>
+<!-- <p *ngFor="let user of users" (click)="loadUser(user.id)">{{user.username}}</p> -->
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>User Information</th>
+
+    </tr>
+    <th scope="col">User ID</th>
+    <th scope="col">Username</th>
+    <th scope="col">First Name</th>
+    <th scope="col">Last Name</th>
+    <th></th>
+
+  </thead>
+
+  <tbody *ngFor="let user of users" (click)="loadUser(user.id)">
+    <tr>
+      <td scope="row">{{user.id}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+
+    </tr>
+  </tbody>
+
+</table>
+
 
 

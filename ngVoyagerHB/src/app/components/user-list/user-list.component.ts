@@ -12,7 +12,10 @@ import { UserService } from 'src/app/services/user.service';
 export class UserListComponent implements OnInit {
 
   users: User[] = [];
-  user: User = new User();
+  newUser: User = new User();
+  usersname: string = null;
+  selected: User = null;
+
   constructor(
     private userServ: UserService,
     private router: Router,
@@ -21,11 +24,16 @@ export class UserListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadUsers();
+
+      this.loadUsers();
+
+
+
+
   }
 
 
-
+// Load all users for Admin only
   loadUsers(){
     this.userServ.index().subscribe(
       data => {
@@ -34,9 +42,42 @@ export class UserListComponent implements OnInit {
       fail => {
         console.error("Error loading users " + fail);
         console.error(fail);
-
       });
+  }
 
+  loadUser(id){
+    this.userServ.show(id).subscribe(
+      data => {
+        this.selected = data;
+      },
+      fail => {
+        console.error("Error loading user " + fail);
+        console.error(fail);
+      });
+  }
+
+  updateUser(editUser: User): void {
+    this.userServ.update(editUser).subscribe(
+      data => {
+        this.loadUser(data.id);
+      },
+      fail => {
+        console.error("Error updating user " + fail);
+        console.error(fail);
+      });
+  }
+
+  // Flip user enable to false to disable account
+  deleteUser(id){
+    this.userServ.delete(id).subscribe(
+      data => {
+        this.newUser.enabled = false;
+        this.loadUser(data.id);
+      },
+      fail => {
+        console.error("Error deleting user " + fail);
+        console.error(fail);
+      });
   }
 
 }
