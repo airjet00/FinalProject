@@ -1,48 +1,66 @@
 <hr />
 <h1>Comment-List Component</h1>
-<h2>Welcome to country #{{this.countryId}}!</h2>
+<h2>Welcome to country #{{ this.countryId }}!</h2>
 <h2>Index</h2>
-<form><button (click)="loadComments()">Load Comments</button></form>
+
+<!-- ON LOAD/WHEN UPDATE BUTTON NOT YET PUSHED -->
 <div *ngFor="let comment of this.comments">
-  {{ comment.id }} / {{ comment.content }} <br />
+  <div *ngIf="this.comment !== updateComment">
+    ID: {{ comment.id }} / {{ comment.content }}<br />
+    Written by: {{ comment.user.firstName }} {{ comment.user.lastName }}
+     <!-- TODO logic to only show these buttons to this user, or delete button to admin  -->
+    <button
+        class="btn btn-secondary btn-sm mr-3"
+        (click)="prepareUpdate(comment)"
+      >
+        Update
+      </button>
+      <button class="btn btn-secondary btn-sm" (click)="delete(comment)">Delete</button>
+    <br /><br />
+  </div>
+
+  <!-- WHEN UPDATE BUTTON IS PUSHED -->
+  <div *ngIf="this.comment === updateComment">
+    <h1>In update comment area</h1>
+    ID: {{ updateComment.id }}
+    <form>
+      <textarea
+        class="form-control"
+        name="updateCommentContent"
+        type="text"
+        [(ngModel)]="updateComment.content"
+      ></textarea>
+      <button class="btn btn-success btn-sm" (click)="confirmUpdate()">
+        Submit
+      </button>
+    </form>
+    <br />
+    Written by: {{ comment.user.firstName }} {{ comment.user.lastName }}
+  </div>
 </div>
 <br />
 <br />
 <h2>Create</h2>
 <form>
-  Content: <input type="text" name="createContent" [(ngModel)]="createComment.content" />
+  Content:
+  <input type="text" name="createContent" [(ngModel)]="createComment.content" />
   <br />
   <button (click)="create()">Create</button>
 </form>
 <div *ngIf="createCommentResult">
   It worked. <br />
   The content is --
-  {{createCommentResult.content}}
+  {{ createCommentResult.content }}
   <br />
   The country is --
-  {{createCommentResult.country.name}}
+  {{ createCommentResult.country.name }}
 </div>
+<br /><br />
 
-
-<!--<h2>Update</h2>
-
-<h2>Delete</h2> -->
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<h3>Here ends CommentListComponent</h3>
-<hr />
-
-<!--
-<h2>Show</h2>
-<form #showForm>
+<!-- <form #showForm>
   <input type="text" id="cid" />
   <button (click)="show(showForm)">Submit</button>
 </form>
 <div *ngIf="showComment">
   {{showComment.id}} {{showComment.content}}
 </div-->
-
