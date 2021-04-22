@@ -12,7 +12,9 @@ import { AuthService } from './auth.service';
 })
 export class CommentService {
 
-  private url = environment.baseUrl + "comments/";
+  private urlWithoutAPI = environment.baseUrl + "countries/";
+  private urlWithAPI = environment.baseUrl + "api/countries/";
+
   comment : Comment;
   showComment : Comment = new Comment();
 
@@ -20,7 +22,7 @@ export class CommentService {
 
 
   index(countryId : number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(this.url, this.credentials())
+    return this.http.get<Comment[]>(this.urlWithoutAPI + countryId + "/comments")
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -30,16 +32,16 @@ export class CommentService {
   }
 
   show(cid : number) {
-    return this.http.get<Comment>(this.url + cid, this.credentials())
+    return this.http.get<Comment>(this.urlWithAPI + cid, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
         })
       );
   }
-
-  create(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(this.url, comment, this.credentials())
+  create(countryId : number, comment: Comment): Observable<Comment> {
+    //endpoint:  api/countries/3/comments/
+    return this.http.post<Comment>(this.urlWithAPI + countryId + "/comments", comment, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -49,7 +51,7 @@ export class CommentService {
   }
 
   update(comment: Comment): Observable<Comment> {
-    return this.http.put<Comment>(this.url + comment.id, comment, this.credentials())
+    return this.http.put<Comment>(this.urlWithAPI + comment.id, comment, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -59,7 +61,7 @@ export class CommentService {
   }
 
   delete(cid: number): Observable<Object> {
-    return this.http.delete(this.url + cid, this.credentials())
+    return this.http.delete(this.urlWithAPI + cid, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
