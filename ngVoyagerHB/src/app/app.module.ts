@@ -21,6 +21,7 @@ import { CountryService } from './services/country.service';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UserService } from './services/user.service';
+import { TripsSidebarComponent } from './components/trips-sidebar/trips-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { UserService } from './services/user.service';
     CommentListComponent,
     PictureListComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TripsSidebarComponent
   ],
   imports: [
     BrowserModule,

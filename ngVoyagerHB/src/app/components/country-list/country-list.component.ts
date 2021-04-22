@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Country } from 'src/app/models/country';
+import { Picture } from 'src/app/models/picture';
 import { AuthService } from 'src/app/services/auth.service';
 import { CountryService } from 'src/app/services/country.service';
+import { PictureService } from 'src/app/services/picture.service';
 
 @Component({
   selector: 'app-country-list',
@@ -16,11 +18,17 @@ export class CountryListComponent implements OnInit {
   newCountry: Country = new Country();
   editCountry: Country = null;
   keyword: String = null;
+  pictures: Picture[] = null;
 
-  constructor(private countryServ: CountryService, private router: Router, private authService: AuthService) { }
+  constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
+    private route: ActivatedRoute, private pictureServ: PictureService) { }
 
   ngOnInit(): void {
     this.loadCountries();
+    let cid = +this.route.snapshot.paramMap.get('cid');
+    if( cid > 0) {
+    this.showCountry(cid);
+    }
   }
 
   loadCountries(){
@@ -32,13 +40,40 @@ export class CountryListComponent implements OnInit {
     )
   }
 
-  showCountry(country: Country) {
+  selectCountry(country: Country) {
     this.selected = country;
     this.router.navigateByUrl('countries/' + country.id)
   }
 
+  showCountry(cid) {
+    this.countryServ.show(cid).subscribe(
+      data => {
+        this.selected = data;
+        this.loadPictures();
+      },
+      err => console.error('showCountries got an error: ' + err)
+    )
+  }
+
+  loadPictures(): void {
+    let cid= +this.route.snapshot.paramMap.get('cid');
+
+    this.pictureServ.index(cid).subscribe(
+      pictures => {
+        this.pictures = pictures;
+      },
+      fail => {
+        console.error('PictureListComponent.loadPictures() failed:');
+        console.error(fail);
+      }
+    );
+  }
+
+
+
   back() {
     this.selected = null;
+    this.router.navigateByUrl('countries')
   }
 
   searchCountry(){

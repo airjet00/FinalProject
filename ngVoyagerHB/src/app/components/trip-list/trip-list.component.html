@@ -1,1 +1,3 @@
-<p>trip-list works!</p>
+<p *ngFor="let trip of trips">{{trip.name}}</p>
+<button (click)="getUserRole()">Get Role</button>
+<h1>{{userRole}}</h1>
