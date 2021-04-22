@@ -121,6 +121,7 @@ public class CommentController {
 				return true;
 			} else {
 				resp.setStatus(404);
+				if (principal.getName()!=null) System.err.println("********************** " + principal.getName());
 				return false;
 			}
 		} catch (Exception e) {
