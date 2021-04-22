@@ -10,4 +10,6 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
 	List<Comment> findByUser_Username(String username);
 	
+	List<Comment> findByCountry_Id(int countryId);
+	
 }

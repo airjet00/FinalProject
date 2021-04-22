@@ -6,8 +6,10 @@ import com.skilldistillery.country.entities.Comment;
 
 public interface CommentService {
 
-    public List<Comment> index(String username);
-
+    public List<Comment> indexAll();
+    	
+    public List<Comment> indexCommentsForCountry(int countryId);
+    
     public Comment show(String username, int cid);
 
     public Comment create(String username, Comment comment);

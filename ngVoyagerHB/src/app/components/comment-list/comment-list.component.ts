@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from 'src/app/models/comment';
 import { Country } from 'src/app/models/country';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-comment-list',
@@ -11,67 +13,71 @@ import { Country } from 'src/app/models/country';
 export class CommentListComponent implements OnInit {
 
   //////// fields:
-  comments : Comment[] = null;
-  showComment : Comment;
+  countryId: number;
 
-  createComment : Comment = new Comment();
+  comments: Comment[] = null;
+  showComment: Comment;
+
+  createComment: Comment = new Comment();
   createCommentResult: Comment;
 
-//////// init:
-  constructor(private commentServ : CommentService) { }
+  //////// init:
+  constructor(private router: Router, private authService: AuthService, private commentServ: CommentService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.warn("MADE IT INTO THE COMMENT-LIST COMPONENT");
+
     this.createComment = new Comment();
     this.createComment.country = new Country();
+
+    this.countryId = +this.route.snapshot.paramMap.get('countryId');
+    console.warn(
+      "In comment-list.component, ngOnInit, route variable countryId = " +
+      +this.route.snapshot.paramMap.get('countryId')
+    );
   }
 
-//////// CRUD:
+  //////// CRUD:
+  loadComments() {
+    this.commentServ.index(this.countryId).subscribe(
+      data => {
+        this.comments = data;
+        return data;
+      },
+      failure => {
+        console.error(failure);
+      });
+    return null;
+  }
 
-loadComments() {
-  this.commentServ.index().subscribe(
-    data => {
-      this.comments = data;
-      return data;
-    },
-    failure => {
-      console.error(failure);
-    });
-  return null;
-}
+  // show(form): void {
+  //   let cid: number = form.cid.value;
+  //   console.warn(cid);
 
-show(form) : void {
-  let cid : number = form.cid.value;
-  console.warn(cid);
+  //   this.commentServ.show(cid).subscribe(
+  //     dataReceived => {
+  //       this.showComment = dataReceived;
+  //     },
+  //     failure => {
+  //       console.error(failure);
+  //     });
+  // }
 
-  this.commentServ.show(cid).subscribe(
-    dataReceived => {
-      this.showComment = dataReceived;
-    },
-    failure => {
-      console.error(failure);
-    });
-}
+  // create(): void {
+  //   let c: Country = new Country();
 
-create() : void {
-  // Presumably "create comment" can only be accessed
-  // through a country's page, so will have to think
-  // about how to actually pass the country value.
-  // Currently HARDCODED for testing:
-  // FIXME /////////////////////////
-  let c : Country = new Country();
-  c.id = 1;
-  this.createComment.country = c;
-  // FIXME /////////////////////////
+  //   // Take country ID from route parameter
+  //   c.id = this.routeVar;
+  //   this.createComment.country = c;
 
-
-  this.commentServ.create(this.createComment).subscribe(
-    dataReceived => {
-      this.createCommentResult = dataReceived;
-      this.createComment = new Comment();
-    },
-    failure => {
-      console.error(failure);
-    });
-}
+  //   this.commentServ.create(this.createComment).subscribe(
+  //     dataReceived => {
+  //       this.createCommentResult = dataReceived;
+  //       this.createComment = new Comment();
+  //     },
+  //     failure => {
+  //       console.error(failure);
+  //     });
+  // }
 
 }

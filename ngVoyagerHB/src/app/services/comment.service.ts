@@ -12,17 +12,14 @@ import { AuthService } from './auth.service';
 })
 export class CommentService {
 
-  // private url: string = "http://localhost:8090/api/comments";
-
-  private url = environment.baseUrl + "api/comments/";
+  private url = environment.baseUrl + "comments/";
   comment : Comment;
   showComment : Comment = new Comment();
-
 
   constructor(private http: HttpClient, private authServ : AuthService) { }
 
 
-  index(): Observable<Comment[]> {
+  index(countryId : number): Observable<Comment[]> {
     return this.http.get<Comment[]>(this.url, this.credentials())
       .pipe(
         catchError((err: any) => {
