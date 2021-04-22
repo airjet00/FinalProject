@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AdviceType } from 'src/app/models/advice-type';
 import { Country } from 'src/app/models/country';
 import { Picture } from 'src/app/models/picture';
+import { AdviceTypesService } from 'src/app/services/advice-types.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CountryService } from 'src/app/services/country.service';
 import { PictureService } from 'src/app/services/picture.service';
@@ -19,9 +21,10 @@ export class CountryListComponent implements OnInit {
   editCountry: Country = null;
   keyword: String = null;
   pictures: Picture[] = null;
+  advice: AdviceType[] = null;
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
-    private route: ActivatedRoute, private pictureServ: PictureService) { }
+    private route: ActivatedRoute, private pictureServ: PictureService, private adviceServ: AdviceTypesService) { }
 
   ngOnInit(): void {
     this.loadCountries();
@@ -50,6 +53,7 @@ export class CountryListComponent implements OnInit {
       data => {
         this.selected = data;
         this.loadPictures();
+        this.loadAdvice();
       },
       err => console.error('showCountries got an error: ' + err)
     )
@@ -70,6 +74,19 @@ export class CountryListComponent implements OnInit {
   }
 
 
+  loadAdvice(): void {
+    let cid= +this.route.snapshot.paramMap.get('cid');
+
+    this.adviceServ.index(cid).subscribe(
+      advice => {
+        this.advice = advice;
+      },
+      fail => {
+        console.error('AdviceListComponent.loadAdvice() failed:');
+        console.error(fail);
+      }
+    );
+  }
 
   back() {
     this.selected = null;

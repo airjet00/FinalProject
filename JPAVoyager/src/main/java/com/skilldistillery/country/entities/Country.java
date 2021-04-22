@@ -2,6 +2,7 @@ package com.skilldistillery.country.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,19 +28,19 @@ public class Country {
 	private String defaultImage;
 	
 	@JsonIgnoreProperties(value="country")
-	@OneToMany(mappedBy = "country")
+	@OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<ItineraryItem> itineraryItems;
 	
 	@JsonIgnoreProperties(value="country")
-	@OneToMany(mappedBy = "country")
+	@OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<Comment> comments;
 	
 	@JsonIgnoreProperties(value="country")
-	@OneToMany(mappedBy = "country")
+	@OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<Picture> pictures;
 	
 	@JsonIgnoreProperties(value="countries")
-	@ManyToMany(mappedBy = "countries")
+	@ManyToMany(mappedBy = "countries", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<AdviceType> adviceTypes;
 	
 //////// methods
