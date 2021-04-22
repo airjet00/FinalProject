@@ -14,24 +14,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.country.entities.Comment;
 import com.skilldistillery.country.services.CommentService;
+import com.skilldistillery.country.services.CountryService;
 
 @CrossOrigin({ "*", "http://localhost:4290" })
-@RequestMapping("api")
 @RestController
 public class CommentController {
 
 	@Autowired
 	private CommentService commentServ;
+	
+	@Autowired
+	private CountryService countryServ;
 
-	@GetMapping("comments")
-	public List<Comment> index(Principal principal, HttpServletResponse resp) {
+	@GetMapping("countries/{countryId}/comments")
+	public List<Comment> index(HttpServletResponse resp, @PathVariable Integer countryId) {
 		List<Comment> comments = null;
-		comments = commentServ.index(principal.getName());
+		comments = commentServ.indexCommentsForCountry(countryId);
 		if (comments != null)
 			resp.setStatus(200);
 		else
@@ -39,7 +41,7 @@ public class CommentController {
 		return comments;
 	}
 
-	@GetMapping("comments/{cid}")
+	@GetMapping("countries/{countryId}/comments/{cid}")
 	public Comment show(Principal principal, @PathVariable Integer cid, HttpServletResponse resp) {
 		Comment comment = null;
 		if (cid != null) {
@@ -53,9 +55,11 @@ public class CommentController {
 		return comment;
 	}
 
-	@PostMapping("comments")
-	public Comment create(Principal principal, @RequestBody Comment comment, HttpServletResponse resp) {
+	@PostMapping("api/countries/{countryId}/comments")
+	public Comment create(Principal principal, @PathVariable Integer countryId, @RequestBody Comment comment,
+			HttpServletResponse resp) {
 		try {
+			comment.setCountry(countryServ.show(countryId));
 			comment = commentServ.create(principal.getName(), comment);
 			resp.setStatus(201);
 		} catch (Exception e) {
@@ -67,7 +71,7 @@ public class CommentController {
 		return comment;
 	}
 
-	@PutMapping("comments/{cid}")
+	@PutMapping("api/countries/{countryId}/comments")
 	public Comment update(Principal principal, @PathVariable Integer cid, @RequestBody Comment comment,
 			HttpServletResponse resp, HttpServletRequest req) {
 		try {
@@ -87,7 +91,7 @@ public class CommentController {
 		}
 	}
 
-	@DeleteMapping("comments/{cid}")
+	@DeleteMapping("api/countries/{countryId}/comments")
 	public boolean delete(Principal principal, @PathVariable Integer cid, HttpServletResponse resp) {
 		try {
 			if (commentServ.destroy(principal.getName(), cid)) {

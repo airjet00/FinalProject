@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -11,13 +12,16 @@ import { AuthService } from './auth.service';
 })
 export class UserService {
 
-  private baseUrl: string = "http://localhost:8090/";
-  private url = environment.baseUrl + "api/users/";
+  // private baseUrl: string = "http://localhost:8090/";
+  private baseUrl = environment.baseUrl;
+  private url = this.baseUrl + "api/users/";
 
-  constructor( private http: HttpClient,
-    private authService: AuthService
+  constructor(
+    private http: HttpClient,
+    private authSvc: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
     ) { }
-
 
   index(): Observable<User[]> {
     return this.http.get<User[]>(this.url, this.credentials()).pipe(
@@ -28,7 +32,29 @@ export class UserService {
     );
   }
 
-  show(id): Observable<User>{
+  showByUsername(username: string): Observable<User>{
+
+    if(!this.authSvc.checkLogin()){
+      this.router.navigateByUrl("login");
+    }
+
+    let credentials = this.authSvc.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.get<User>((this.url + "search/" + username), httpOptions).pipe(
+      catchError((err: any) =>{
+        console.log();
+        return throwError("Error getting user" + err);
+      })
+    );
+  }
+
+  show(id: String): Observable<User>{
     return this.http.get<User>(this.url + id).pipe(
       catchError((err: any) =>{
         console.log();
@@ -66,7 +92,7 @@ export class UserService {
 
   private credentials() {
     // Make credentials
-    const credentials = this.authService.getCredentials();
+    const credentials = this.authSvc.getCredentials();
     // Send credentials as Authorization header (this is spring security convention for basic auth)
     let httpOptions = {
       headers: new HttpHeaders({

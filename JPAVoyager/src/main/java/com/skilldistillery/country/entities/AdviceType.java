@@ -29,7 +29,7 @@ public class AdviceType {
 	@Column(name = "advice_url")
 	private String adviceUrl;
 
-	@ManyToMany
+	@ManyToMany()
 	@JoinTable(name="country_advice_type",
 			joinColumns = @JoinColumn(name="advice_type_id"),
 			inverseJoinColumns = @JoinColumn(name="country_id"))

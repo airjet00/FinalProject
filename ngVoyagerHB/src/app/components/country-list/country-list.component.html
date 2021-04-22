@@ -13,6 +13,15 @@
 <div *ngIf = 'selected'>
   <h1>{{selected.name}}</h1>
   <h3>{{selected.description}}</h3>
+  <table>
+    <tbody>
+      <tr *ngFor= 'let ad of advice'>
+        <td >{{ad.name}}</td>
+        <td >{{ad.description}}</td>
+        <td >{{ad.adviceUrl}}</td>
+      </tr>
+    </tbody>
+  </table>
   <button (click) = 'back()'>Back</button>
 
  <h3>PICTURES</h3>

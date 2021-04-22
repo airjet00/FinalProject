@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { UserService } from './user.service';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,9 @@ export class AuthService {
 
   private baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    ) { }
 
   login(username:string, password:string) {
     // Make credentials
@@ -52,6 +56,9 @@ export class AuthService {
 
   logout():void {
     localStorage.removeItem('credentials');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userFirstName');
+    localStorage.removeItem('userLastName');
   }
 
   checkLogin():boolean {
@@ -68,4 +75,5 @@ export class AuthService {
   getCredentials():string {
     return localStorage.getItem('credentials');
   }
+
 }
