@@ -8,6 +8,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PictureListComponent } from './components/picture-list/picture-list.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TripListComponent } from './components/trip-list/trip-list.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 const routes: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'home' },
 { path: 'home', component: HomeComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'home' },
 { path: 'trips', component: TripListComponent },
 { path: 'trips/:tid', component: TripListComponent },
 { path: 'comment-list', component: CommentListComponent },
+{ path: 'user-list/', component: UserListComponent},
 { path: '**', component: NotFoundComponent }
 ];
 
