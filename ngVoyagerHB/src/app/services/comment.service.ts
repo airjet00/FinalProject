@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Comment } from '../models/comment';
 import { AuthService } from './auth.service';
+import { Country } from '../models/country';
 
 
 @Injectable({
@@ -15,13 +16,13 @@ export class CommentService {
   private urlWithoutAPI = environment.baseUrl + "countries/";
   private urlWithAPI = environment.baseUrl + "api/countries/";
 
-  comment : Comment;
-  showComment : Comment = new Comment();
+  comment: Comment;
+  showComment: Comment = new Comment();
 
-  constructor(private http: HttpClient, private authServ : AuthService) { }
+  constructor(private http: HttpClient, private authServ: AuthService) { }
 
-
-  index(countryId : number): Observable<Comment[]> {
+  // loads only comments with enabled = true:
+  index(countryId: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(this.urlWithoutAPI + countryId + "/comments")
       .pipe(
         catchError((err: any) => {
@@ -31,7 +32,7 @@ export class CommentService {
       );
   }
 
-  show(cid : number) {
+  show(cid: number) {
     return this.http.get<Comment>(this.urlWithAPI + cid, this.credentials())
       .pipe(
         catchError((err: any) => {
@@ -39,9 +40,11 @@ export class CommentService {
         })
       );
   }
-  create(countryId : number, comment: Comment): Observable<Comment> {
+
+  create(countryId: number, comment: Comment): Observable<Comment> {
     //endpoint:  api/countries/3/comments/
-    return this.http.post<Comment>(this.urlWithAPI + countryId + "/comments", comment, this.credentials())
+    comment.enabled = true;
+    return this.http.post<Comment>(this.urlWithAPI + countryId + "/comments/", comment, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -50,8 +53,12 @@ export class CommentService {
       );
   }
 
-  update(comment: Comment): Observable<Comment> {
-    return this.http.put<Comment>(this.urlWithAPI + comment.id, comment, this.credentials())
+  update(comment: Comment, countryId: number): Observable<Comment> {
+    let requestUrl: string = this.urlWithAPI + countryId + "/comments/" + comment.id;
+    let commentToPass: Comment = new Comment();
+    commentToPass.content = comment.content;
+
+    return this.http.put<Comment>(requestUrl, commentToPass, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -60,8 +67,9 @@ export class CommentService {
       );
   }
 
-  delete(cid: number): Observable<Object> {
-    return this.http.delete(this.urlWithAPI + cid, this.credentials())
+  delete(countryId: number, commentId: number): Observable<Object> {
+    let requestUrl = this.urlWithAPI + countryId + "/comments/" + commentId;
+    return this.http.delete(requestUrl, this.credentials())
       .pipe(
         catchError((err: any) => {
           return throwError(err);
