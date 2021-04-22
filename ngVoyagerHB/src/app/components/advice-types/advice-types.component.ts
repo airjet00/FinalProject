@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Picture } from 'src/app/models/picture';
+import { AdviceType } from 'src/app/models/advice-type';
+import { AdviceTypesService } from 'src/app/services/advice-types.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { PictureService } from 'src/app/services/picture.service';
 
 @Component({
-  selector: 'app-picture-list',
-  templateUrl: './picture-list.component.html',
-  styleUrls: ['./picture-list.component.css']
+  selector: 'app-advice-types',
+  templateUrl: './advice-types.component.html',
+  styleUrls: ['./advice-types.component.css']
 })
-export class PictureListComponent implements OnInit {
-  pictures: Picture[] = [];
-  selected: Picture = null;
-  addPicture: boolean = false;
+export class AdviceTypesComponent implements OnInit {
+  pictures: AdviceType[] = [];
+  selected: AdviceType = null;
+  addAdvice: boolean = false;
   update: boolean = false;
   cid: number = null;
 
-  constructor(private pictureService: PictureService, private router: Router,
+  constructor(private pictureService: AdviceTypesService, private router: Router,
     private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class PictureListComponent implements OnInit {
         this.pictures = pictures;
       },
       fail => {
-        console.error('PictureListComponent.loadPictures() failed:');
+        console.error('AdviceListComponent.loadAdvice() failed:');
         console.error(fail);
       }
     );
@@ -40,25 +40,25 @@ export class PictureListComponent implements OnInit {
 
   addNew() {
     this.update = false;
-    this.addPicture = true;
-    this.selected = new Picture();
+    this.addAdvice = true;
+    this.selected = new AdviceType();
   }
 
-  createPicture(picture: Picture) {
+  createPicture(picture: AdviceType) {
     this.pictureService.create(this.cid, picture).subscribe(
       data => {
-        this.addPicture = false;
+        this.addAdvice = false;
         this.loadPictures();
       },
       fail => {
-        console.error('PictureListComponent.createPicture() failed:');
+        console.error('AdviceListComponent.createAdvice() failed:');
         console.error(fail);
       }
     )
   }
 
-  updatePicture(picture: Picture) {
-    this.addPicture = true;
+  updatePicture(picture: AdviceType) {
+    this.addAdvice = true;
     this.update = true;
     this.selected = picture;
   }
@@ -66,13 +66,13 @@ export class PictureListComponent implements OnInit {
   deleteBox(id: number) {
     this.pictureService.destroy(this.cid, id).subscribe(
       data => {
-        this.addPicture = false;
+        this.addAdvice = false;
         this.update = false;
         this.selected = null;
         this.loadPictures();
       },
       fail => {
-        console.error('PictureListComponent.destroyPicture() failed:');
+        console.error('AdviceListComponent.destroyAdvice() failed:');
         console.error(fail);
       }
     )

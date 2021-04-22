@@ -32,9 +32,10 @@ public class CountryServiceImpl implements CountryService {
 	public Country show(int cid) {
 		Country country = null;
 		Optional<Country> opt = countryRepo.findById(cid);
-		if (opt.isPresent())
+		if (opt.isPresent()) {
 			country = opt.get();
-		return country;
+		}
+	return country;
 	}
 
 	@Override
