@@ -24,7 +24,7 @@ export class UserService {
     ) { }
 
   index(): Observable<User[]> {
-    return this.http.get<User[]>(this.url).pipe(
+    return this.http.get<User[]>(this.url, this.credentials()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError("Error getting user list" + err);
@@ -88,5 +88,18 @@ export class UserService {
         return throwError("Error deleting user " + err);
       })
     );
+  }
+
+  private credentials() {
+    // Make credentials
+    const credentials = this.authSvc.getCredentials();
+    // Send credentials as Authorization header (this is spring security convention for basic auth)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    }
+    return httpOptions;
   }
 }
