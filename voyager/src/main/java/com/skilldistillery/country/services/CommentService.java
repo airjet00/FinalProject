@@ -10,6 +10,10 @@ public interface CommentService {
     	
     public List<Comment> indexCommentsForCountry(int countryId);
     
+    public List<Comment> indexEnabledCommentsForCountry(int countryId);
+    
+    public List<Comment> indexAllDisabledComments();
+    
     public Comment show(String username, int cid);
 
     public Comment create(String username, Comment comment);

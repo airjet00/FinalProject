@@ -21,7 +21,7 @@ export class CommentService {
 
   constructor(private http: HttpClient, private authServ: AuthService) { }
 
-// TODO: load only comments with enabled=true
+// loads only comments with enabled = true:
   index(countryId: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(this.urlWithoutAPI + countryId + "/comments")
       .pipe(
