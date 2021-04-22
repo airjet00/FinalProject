@@ -1,11 +1,42 @@
+<hr />
 <h1>Comment-List Component</h1>
-
+<h2>Welcome to country #{{this.countryId}}!</h2>
 <h2>Index</h2>
 <form><button (click)="loadComments()">Load Comments</button></form>
 <div *ngFor="let comment of this.comments">
   {{ comment.id }} / {{ comment.content }} <br />
 </div>
+<br />
+<br />
+<h2>Create</h2>
+<form>
+  Content: <input type="text" name="createContent" [(ngModel)]="createComment.content" />
+  <br />
+  <button (click)="create()">Create</button>
+</form>
+<div *ngIf="createCommentResult">
+  It worked. <br />
+  The content is --
+  {{createCommentResult.content}}
+  <br />
+  The country is --
+  {{createCommentResult.country.name}}
+</div>
 
+
+<!--<h2>Update</h2>
+
+<h2>Delete</h2> -->
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h3>Here ends CommentListComponent</h3>
+<hr />
+
+<!--
 <h2>Show</h2>
 <form #showForm>
   <input type="text" id="cid" />
@@ -13,25 +44,5 @@
 </form>
 <div *ngIf="showComment">
   {{showComment.id}} {{showComment.content}}
-</div>
+</div-->
 
-<h2>Create</h2>
-<form>
-  Content: <input type="text" name="createContent" [(ngModel)]="createComment.content" />
-  <br />
-  Country ID REQUIRED:
-  Presumably "create comment" can only be accessed
-  through a country's page, so will have to think
-  about how to actually pass this country value.
-  For now it is hard-coded as 1.
-  <button (click)="create()">Create</button>
-</form>
-<div *ngIf="createCommentResult">
-  It worked. <br />
-  {{createCommentResult.content}}
-</div>
-
-
-<h2>Update</h2>
-
-<h2>Delete</h2>

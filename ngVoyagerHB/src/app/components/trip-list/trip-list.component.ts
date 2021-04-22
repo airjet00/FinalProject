@@ -18,6 +18,8 @@ export class TripListComponent implements OnInit {
 
   updatedTrip: Trip = null;
 
+  userRole: string = "Hello";
+
 // Methods
 
   constructor(
@@ -97,6 +99,12 @@ export class TripListComponent implements OnInit {
 
 // Display Methods
 
+
+// Local Storage method
+
+  getUserRole(): void {
+      this.userRole = localStorage.getItem("userRole");
+  }
 
 
 }

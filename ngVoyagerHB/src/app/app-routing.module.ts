@@ -15,6 +15,7 @@ const routes: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'home' },
 { path: 'login', component: LoginComponent },
 { path: 'countries', component: CountryListComponent },
 { path: 'countries/:cid', component: CountryListComponent },
+{ path: 'countries/:countryId/comments', component: CommentListComponent },
 { path: 'countries/:cid/pictures', component: PictureListComponent },
 { path: 'trips', component: TripListComponent },
 { path: 'trips/:tid', component: TripListComponent },
@@ -23,7 +24,7 @@ const routes: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'home' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
