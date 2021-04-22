@@ -8,10 +8,14 @@
   <div *ngIf="this.comment !== updateComment">
     ID: {{ comment.id }} / {{ comment.content }}<br />
     Written by: {{ comment.user.firstName }} {{ comment.user.lastName }}
-    <button class="btn btn-secondary btn-sm mr-3" (click)="prepareUpdate(comment)">
-      Update
-    </button>
-    <button class="btn btn-secondary btn-sm">Delete</button>
+     <!-- TODO logic to only show these buttons to this user, or delete button to admin  -->
+    <button
+        class="btn btn-secondary btn-sm mr-3"
+        (click)="prepareUpdate(comment)"
+      >
+        Update
+      </button>
+      <button class="btn btn-secondary btn-sm" (click)="delete(comment)">Delete</button>
     <br /><br />
   </div>
 
@@ -20,15 +24,19 @@
     <h1>In update comment area</h1>
     ID: {{ updateComment.id }}
     <form>
-      <textarea class="form-control" name="updateCommentContent" type="text" [(ngModel)]="updateComment.content"></textarea>
-      <button class="btn btn-success btn-sm" (click)="confirmUpdate()">Submit</button>
+      <textarea
+        class="form-control"
+        name="updateCommentContent"
+        type="text"
+        [(ngModel)]="updateComment.content"
+      ></textarea>
+      <button class="btn btn-success btn-sm" (click)="confirmUpdate()">
+        Submit
+      </button>
     </form>
-<br />
+    <br />
     Written by: {{ comment.user.firstName }} {{ comment.user.lastName }}
   </div>
-
-
-
 </div>
 <br />
 <br />

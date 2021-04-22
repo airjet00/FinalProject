@@ -24,6 +24,7 @@ export class CommentListComponent implements OnInit {
 
   updateComment: Comment = new Comment();
 
+  commentForDeletion: Comment = null;
   //////// init:
   constructor(private router: Router, private authService: AuthService, private commentServ: CommentService, private route: ActivatedRoute) { }
 
@@ -62,6 +63,8 @@ export class CommentListComponent implements OnInit {
   confirmUpdate() {
     console.warn("** in component, confirmUpdate()");
     console.warn("** this.updateComment.id = "+ this.updateComment.id);
+    console.warn("***************************\nthis.updateComment.user is" + this.updateComment.user.id + " " + this.updateComment.user.firstName);
+
     this.commentServ.update(this.updateComment).subscribe(
       dataReceived => {
         this.updateComment = dataReceived;
@@ -85,6 +88,18 @@ export class CommentListComponent implements OnInit {
       });
   }
 
+
+  delete(comment : Comment) : void {
+    this.commentForDeletion = comment;
+    this.commentServ.delete(this.countryId, this.commentForDeletion.id).subscribe(
+      dataReceived => {
+        this.commentForDeletion = null;
+      },
+      failure => {
+        console.error(failure);
+      });
+
+  }
 }
 
   // show(form): void {
