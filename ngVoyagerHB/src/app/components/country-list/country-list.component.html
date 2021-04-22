@@ -1,3 +1,5 @@
+
+<!-- HTML SECTION FOR FEATURED COUNTRIES PAGE -->
 <div *ngIf='!selected'>
 <h1>Featured Countries</h1>
 <label for="keyword"></label>
@@ -10,25 +12,43 @@
 </ul>
 </div>
 
+<!-- HTML SECTION FOR SINGLE COUNTRY SELECTION -->
 <div *ngIf = 'selected'>
-  <h1>{{selected.name}}</h1>
-  <h3>{{selected.description}}</h3>
-  <table>
-    <tbody>
-      <tr *ngFor= 'let ad of advice'>
-        <td >{{ad.name}}</td>
-        <td >{{ad.description}}</td>
-        <td >{{ad.adviceUrl}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <button (click) = 'back()'>Back</button>
+  <div class="countryheader">
+    <h1>{{selected.name}}</h1>
+    <h3>{{selected.description}}</h3>
+  </div>
 
- <h3>PICTURES</h3>
-<ul>
-  <li *ngFor='let picture of pictures'>
-    {{picture.imageUrl}}
-  </li>
-</ul>
+  <!-- Advice Div -->
+  <div class="countryDiv container" >
+    <h4 class="divTitle">Travel Requirements</h4>
+    <table class="table table-striped adviceTable">
+      <tbody class="tbody">
+        <tr *ngFor= 'let ad of advice'>
+          <td >{{ad.name}}:</td>
+          <td >{{ad.description}} <span><a href="{{ad.adviceUrl}}">(More Info)</a></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Picture div -->
+  <div class="container pictureDiv">
+
+    <ngb-carousel class="carouselDiv">
+      <ng-template ngbSlide *ngFor="let picture of pictures">
+        <div class="picsum-img-wrapper carouselImageDiv">
+          <img class="countryImage" [src]="picture.imageUrl" alt="...">
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+
+  <!-- Comments div -->
+  <div class="containter countryDiv">
+    <h4>Comments</h4>
+  </div>
+
+
 </div>
 
