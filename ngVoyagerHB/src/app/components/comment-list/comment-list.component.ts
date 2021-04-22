@@ -14,6 +14,7 @@ export class CommentListComponent implements OnInit {
 
   //////// fields:
   countryId: number;
+  country: Country;
 
   comments: Comment[] = null;
   showComment: Comment;
@@ -27,14 +28,18 @@ export class CommentListComponent implements OnInit {
   ngOnInit(): void {
     console.warn("MADE IT INTO THE COMMENT-LIST COMPONENT");
 
-    this.createComment = new Comment();
-    this.createComment.country = new Country();
 
     this.countryId = +this.route.snapshot.paramMap.get('countryId');
     console.warn(
       "In comment-list.component, ngOnInit, route variable countryId = " +
       +this.route.snapshot.paramMap.get('countryId')
-    );
+      );
+
+      this.createComment = new Comment();
+      this.country = new Country();
+      this.country.id = this.countryId
+      this.createComment.country = this.country;
+
   }
 
   //////// CRUD:
@@ -63,21 +68,16 @@ export class CommentListComponent implements OnInit {
   //     });
   // }
 
-  // create(): void {
-  //   let c: Country = new Country();
+  create(): void {
 
-  //   // Take country ID from route parameter
-  //   c.id = this.routeVar;
-  //   this.createComment.country = c;
-
-  //   this.commentServ.create(this.createComment).subscribe(
-  //     dataReceived => {
-  //       this.createCommentResult = dataReceived;
-  //       this.createComment = new Comment();
-  //     },
-  //     failure => {
-  //       console.error(failure);
-  //     });
-  // }
+    this.commentServ.create(this.countryId, this.createComment).subscribe(
+      dataReceived => {
+        this.createCommentResult = dataReceived;
+        this.createComment = new Comment();
+      },
+      failure => {
+        console.error(failure);
+      });
+  }
 
 }
