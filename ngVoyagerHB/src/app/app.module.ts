@@ -23,6 +23,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UserService } from './services/user.service';
 import { TripsSidebarComponent } from './components/trips-sidebar/trips-sidebar.component';
 import { AdviceTypesComponent } from './components/advice-types/advice-types.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { AdviceTypesComponent } from './components/advice-types/advice-types.com
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [
     AuthService,
