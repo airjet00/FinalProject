@@ -1,8 +1,7 @@
 <hr />
 <h1>Comment-List Component</h1>
 <h2>Welcome to country #{{ this.countryId }}!</h2>
-<h2>Index</h2>
-
+<h2>Comments</h2>
 <!-- ON LOAD/WHEN UPDATE BUTTON NOT YET PUSHED -->
 <div *ngFor="let comment of this.comments">
   <div *ngIf="this.comment !== updateComment">
@@ -10,12 +9,12 @@
     Written by: {{ comment.user.firstName }} {{ comment.user.lastName }}
      <!-- TODO logic to only show these buttons to this user, or delete button to admin  -->
     <button
-        class="btn btn-secondary btn-sm mr-3"
+        class="btn btn-success btn-sm mr-3"
         (click)="prepareUpdate(comment)"
       >
         Update
       </button>
-      <button class="btn btn-secondary btn-sm" (click)="delete(comment)">Delete</button>
+      <button class="btn btn-danger btn-sm" (click)="delete(comment)">Delete</button>
     <br /><br />
   </div>
 
@@ -39,13 +38,12 @@
   </div>
 </div>
 <br />
-<br />
-<h2>Create</h2>
+<h2>Write a Comment</h2>
 <form>
-  Content:
-  <input type="text" name="createContent" [(ngModel)]="createComment.content" />
+  Comment:
+  <textarea type="text" name="createContent" [(ngModel)]="createComment.content"></textarea>
   <br />
-  <button (click)="create()">Create</button>
+  <button class="btn btn-primary" (click)="create()">Create</button>
 </form>
 <div *ngIf="createCommentResult">
   It worked. <br />
