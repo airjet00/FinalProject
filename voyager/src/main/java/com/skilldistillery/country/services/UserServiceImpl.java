@@ -121,4 +121,11 @@ public class UserServiceImpl implements UserService {
 			return 401;
 		}
 	}
+
+	@Override
+	public User showByUserName(String username) {
+		User user = userRepo.findByUsername(username);
+		
+		return user;
+	}
 }

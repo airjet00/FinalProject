@@ -40,7 +40,9 @@ public class UserController {
 	public String ping() {
 		return "pong";
 	}
-
+	
+	
+	
 	@GetMapping("users")
 	public List<User> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
 
@@ -52,6 +54,22 @@ public class UserController {
 		}
 
 		return users;
+	}
+	
+	@GetMapping("users/search/{username}")
+	public User showByUsername(HttpServletRequest req, HttpServletResponse res, @PathVariable String username, Principal principal) {
+		if(principal.getName().equals(username)) {
+			User user = userSvc.showByUserName(username);
+			if(user != null) {
+				res.setStatus(200);
+				return user;
+			} else {
+				res.setStatus(404);
+			}
+		} else {
+			res.setStatus(401);
+		}
+		return null;
 	}
 
 	@GetMapping("users/{uid}")

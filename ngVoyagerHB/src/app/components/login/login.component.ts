@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authSvc:AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private userSvc: UserService
   ) { }
 
   ngOnInit(): void {
@@ -25,14 +27,31 @@ export class LoginComponent implements OnInit {
 
     this.authSvc.login(user.username, user.password).subscribe(
       data => {
-        // TODO add location after login
-        this.router.navigateByUrl("countries")
+        // Log for testing
+        // console.log(this.authSvc.getCredentials());
+        this.getUserInfo(user.username);
+        this.router.navigateByUrl("countries");
       },
       err => {
         console.error("Encountered Error logging in: " + err);
 
       }
     );
-  }
 
+
+  }
+  getUserInfo(username: string): void {
+    let user: User = null;
+    this.userSvc.showByUsername(username).subscribe(
+      data => {
+        user = data;
+        localStorage.setItem('userRole', user.role);
+        localStorage.setItem('userFirstName', user.firstName);
+        localStorage.setItem('userLastName', user.lastName);
+      },
+      err => {
+        console.error("Observer encountered error: " + err);
+      }
+    );
+  }
 }
