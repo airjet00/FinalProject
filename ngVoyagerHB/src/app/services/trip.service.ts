@@ -1,23 +1,44 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Trip } from '../models/trip';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TripService {
 
-  private baseUrl: string = "http://localhost:8090/";
-  private url = environment.baseUrl + "api/trips/";
+  // private baseUrl: string = "http://localhost:8090/";
+  private baseUrl = environment.baseUrl;
+  private url = this.baseUrl + "api/trips/";
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private authSvc: AuthService,
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router
+    ) { }
 
 
   index(): Observable<Trip[]> {
-    return this.http.get<Trip[]>(this.url)
+    // Only allow Logged in users to be on trips page
+    if(!this.authSvc.checkLogin()){
+      this.router.navigateByUrl("login");
+    }
+
+    let credentials = this.authSvc.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.get<Trip[]>(this.url, httpOptions)
       .pipe(
         catchError((err: any) => {
           console.log(err);
@@ -27,7 +48,20 @@ export class TripService {
   }
 
   show(tid: string): Observable<Trip> {
-    return this.http.get<Trip>(this.url + tid)
+
+    if(!this.authSvc.checkLogin()){
+      this.router.navigateByUrl("login");
+    }
+
+    let credentials = this.authSvc.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.get<Trip>(this.url + tid, httpOptions)
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -36,7 +70,21 @@ export class TripService {
   }
 
   create(trip: Trip): Observable<Trip> {
-    return this.http.post<Trip>(this.url, trip)
+
+    if(!this.authSvc.checkLogin()){
+      this.router.navigateByUrl("login");
+    }
+
+    let credentials = this.authSvc.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.post<Trip>(this.url, trip, httpOptions)
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -46,7 +94,21 @@ export class TripService {
   }
 
   update(trip: Trip): Observable<Trip> {
-    return this.http.put<Trip>(this.url + trip.id, trip)
+
+    if(!this.authSvc.checkLogin()){
+      this.router.navigateByUrl("login");
+    }
+
+    let credentials = this.authSvc.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.put<Trip>(this.url + trip.id, trip, httpOptions)
       .pipe(
         catchError((err: any) => {
           return throwError(err);
@@ -56,7 +118,20 @@ export class TripService {
   }
 
   delete(tid: number): Observable<Object> {
-    return this.http.delete(this.url + tid)
+
+    if(!this.authSvc.checkLogin()){
+      this.router.navigateByUrl("login");
+    }
+
+    let credentials = this.authSvc.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.delete(this.url + tid, httpOptions)
       .pipe(
         catchError((err: any) => {
           return throwError(err);
