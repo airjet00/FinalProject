@@ -29,12 +29,12 @@
 
 }
 
-.carousel-item {
-  margin-bottom: 0px;
+.testingthis{
+  height: 600px !important;
 }
 
 .carouselDiv {
-  height: 600px;
+  height: 600px !important;
   margin-bottom: 30px;
 }
 
@@ -61,4 +61,8 @@
 
 .commentDiv {
   margin-bottom: 10px;
+}
+
+.carousel-item {
+  height: 600px !important;
 }
