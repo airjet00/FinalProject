@@ -24,6 +24,7 @@ import { UserService } from './services/user.service';
 import { TripsSidebarComponent } from './components/trips-sidebar/trips-sidebar.component';
 import { AdviceTypesComponent } from './components/advice-types/advice-types.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AboutPageComponent } from './components/about-page/about-page.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     NotFoundComponent,
     TripsSidebarComponent,
-    AdviceTypesComponent
+    AdviceTypesComponent,
+    AboutPageComponent
   ],
   imports: [
     BrowserModule,
