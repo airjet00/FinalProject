@@ -10,35 +10,46 @@
 
 <div class="row">
   <div class="col-4 d-flex mx-auto justify-content-center">
-    <a href=""><h3>Explore Countries</h3></a>
+    <a [routerLink]="['/countries']"><h3>Explore Countries</h3></a>
   </div>
   <div class="col-4 d-flex mx-auto justify-content-center">
-    <a href=""><h3>Plan a Trip</h3></a>
-  </div>
-  <div class="col-4 d-flex mx-auto justify-content-center">
-    <a href=""><h3>Search By Country</h3></a>
-  </div>
-</div>
-<!-- <div class="container-fluid"> -->
-  <div class="border-0">
-<ngb-carousel class="carouselDiv shadow-none">
-  <ng-template ngbSlide *ngFor="let picture of pictures">
-    <div
-      class="no-border mb-3 picsum-img-wrapper carouselImageDiv d-flex justify-content-center"
-    >
-      <img
-        style="max-height: 500px"
-        class="countryImage"
-        [src]="picture.imageUrl"
-        alt="..."
-      />
-    </div>
-  </ng-template>
-</ngb-carousel>
-</div>
-<!-- </div> -->
 
-<h2><a href="">Register now</a> to access:</h2>
-<h3>Trip Planner</h3>
-<h4>Add screenshots of trip planner</h4>
-<h3></h3>
+    <div *ngIf="checkLoggedIn()">
+      <a [routerLink]="['/trips']"><h3>Plan a Trip</h3></a>
+    </div>
+
+    <div *ngIf="!checkLoggedIn()">
+      <a [routerLink]="['/register']"><h3>Plan a Trip</h3></a>
+    </div>
+
+    </div>
+    <div class="col-4 d-flex mx-auto justify-content-center">
+      <a href=""><h3>Search By Country</h3></a>
+    </div>
+  </div>
+  <!-- <div class="container-fluid"> -->
+  <div class="border-0">
+    <ngb-carousel class="carouselDiv shadow-none">
+      <ng-template ngbSlide *ngFor="let picture of pictures">
+        <div
+          class="no-border mb-3 picsum-img-wrapper carouselImageDiv d-flex justify-content-center"
+        >
+          <img
+            style="max-height: 500px"
+            class="countryImage"
+            [src]="picture.imageUrl"
+            alt="..."
+          />
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+  <!-- </div> -->
+
+  <h2><a href="">Register now</a> to access:</h2>
+  <h3>Trip Planner</h3>
+  <h4 style="color: hotpink">Add screenshots of trip planner</h4>
+  <br />
+  <h3>Travel Wishlist</h3>
+  <h4 style="color: hotpink">Add screenshots of wish list</h4>
+  <h2><a href="">Register</a></h2>
