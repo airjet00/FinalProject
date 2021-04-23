@@ -1,1 +1,22 @@
-<p>search works!</p>
+<h2>Search Countries</h2>
+<form>
+  <div class="form-group form-inline">
+    Country Name: <input class="ml-3 mr-3 form-control col-4" type="text" name="keyword" [(ngModel)]="keyword" />
+    <button class="btn btn-primary" (click)="searchCountry()">
+      Search
+    </button>
+  </div>
+</form>
+<hr />
+<h2>Select a Country</h2>
+<form class="form-inline">
+  Country Name:
+<select class="ml-3 mr-3 form-control col-4" [(ngModel)]="chosenCountry" name="chosenCountry">
+<option value="" selected></option>
+  <option *ngFor="let c of countries" [ngValue]="c">{{ c.name }}</option>
+</select>
+
+<button class="btn btn-primary" (click)="chooseCountry()">
+Go
+</button>
+</form>
