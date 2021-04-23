@@ -25,7 +25,8 @@ import { TripsSidebarComponent } from './components/trips-sidebar/trips-sidebar.
 import { AdviceTypesComponent } from './components/advice-types/advice-types.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -46,13 +47,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TripsSidebarComponent,
     AdviceTypesComponent
   ],
+  exports:[
+    MatSidenavModule,
+    MatCheckboxModule
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    MatSidenavModule,
+    MatCheckboxModule
   ],
   providers: [
     AuthService,
