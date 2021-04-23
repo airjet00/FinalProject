@@ -59,6 +59,7 @@ export class AuthService {
     localStorage.removeItem('userRole');
     localStorage.removeItem('userFirstName');
     localStorage.removeItem('userLastName');
+    localStorage.removeItem('username');
   }
 
   checkLogin():boolean {

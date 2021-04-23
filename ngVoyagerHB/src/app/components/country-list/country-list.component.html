@@ -47,19 +47,58 @@
   <!-- Comments div -->
   <div class="container countryDiv">
     <h4>Comments</h4>
-    <div *ngFor="let comment of comments" class="commentDiv">
+
+    <!-- add new comment section -->
+    <div *ngIf="username" class="row container">
+        <input class="col-11" type="text" placeholder="Add Comment..." name="content" [(ngModel)]="createComment.content">
+        <button class="col-1" type="submit" (click)="saveNewComment(createComment)">Add</button>
+    </div>
+
+    <!-- display comment section -->
+    <div *ngFor="let comment of comments; let i = index" [attr.data-index]="i" class="commentDiv">
       <div *ngIf="!comment['originalComment']">
         <div class="row commentRow" >
-          <div class="col-10 ">{{comment['content']}}</div>
+          <div class="col-10" *ngIf="!commentEdit">{{comment['content']}}</div>
+          <div class="col-10" *ngIf="commentEdit && i === commentIndex"><input class="formInputText" type="text" value="{{commentEdit['content']}}" [(ngModel)]="commentEdit['content']"></div>
           <div class="col">{{comment['user']['username']}}</div>
+
+          <!-- comment crud operations buttons and functions -->
+          <div class="col" *ngIf="!commentEdit && (username === comment['user']['username'] || role === 'admin')">
+            <img class="crudIcon" (click)="editComment(comment, i)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Edit_icon_%28the_Noun_Project_30184%29.svg/1024px-Edit_icon_%28the_Noun_Project_30184%29.svg.png" alt="edit button">
+            &nbsp;
+            <img class="crudIcon" (click)="deleteComment(comment['id'])" src="https://icons-for-free.com/iconfiles/png/512/delete+remove+trash+trash+bin+trash+can+icon-1320073117929397588.png" alt="delete button">
+          </div>
+          <div class="col" *ngIf="commentEdit && i === commentIndex && (username === comment['user']['username'] || role === 'admin')">
+            <img class="crudIcon" (click)="saveEdit(commentEdit)" src="data:image/png;base64,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" alt="save button">
+          </div>
         </div>
-        <div class="row " *ngFor="let response of comment['responses']">
+
+        <!-- response section -->
+        <div class="row container responseRow">
+          <input class="col" type="text" placeholder="Respond..." name="content" [(ngModel)]="createComment.content">
+          <input type="hidden" name="responseIndex" [(ngModel)]="responseIndex">
+          <button class="col-1" type="submit" (click)="saveNewComment(createComment, responseIndex)">Add</button>
+        </div>
+
+        <div class="row " *ngFor="let response of comment['responses']; let i = index" [attr.data-index]="i">
           <div class="col-1"></div>
-          <div class="col responseContent">{{response['content']}}</div>
-          <div class="col-2 responseUser">{{response['user']['username']}}</div>
+          <div class="col responseContent" *ngIf="!responseEdit || i !== responseIndex">{{response['content']}}</div>
+          <div class="col resposneContent" *ngIf="responseEdit && i === responseIndex"><input class="formInputText" type="text" value="{{responseEdit['content']}}" [(ngModel)]="responseEdit['content']"></div>
+          <div class="col-1 responseUser">{{response['user']['username']}}</div>
+
+            <!-- response crud operations buttons and functions -->
+            <div class="col-1 responseCrud" *ngIf="!responseEdit && (username === response['user']['username'] || role === 'admin')">
+              <img class="crudIcon" (click)="editResponse(response,i)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Edit_icon_%28the_Noun_Project_30184%29.svg/1024px-Edit_icon_%28the_Noun_Project_30184%29.svg.png" alt="edit button">
+              &nbsp;
+              <img class="crudIcon" (click)="deleteComment(response['id'])" src="https://icons-for-free.com/iconfiles/png/512/delete+remove+trash+trash+bin+trash+can+icon-1320073117929397588.png" alt="delete button">
+            </div>
+            <div class="col-1 responseCrud" *ngIf="responseEdit && i=== responseIndex && (username === response['user']['username'] || role === 'admin')">
+              <img class="crudIcon" (click)="saveEdit(responseEdit)" src="data:image/png;base64,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" alt="save button">
+            </div>
         </div>
       </div>
     </div>
+
   </div>
 
 
