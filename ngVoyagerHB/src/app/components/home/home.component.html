@@ -1,1 +1,44 @@
-<p>home works!</p>
+<h1>Voyager's Handbook</h1>
+<h2>About</h2>
+<p class="lead">Travel can be a wonderful and life-changing experience.</p>
+<p>
+  <span class="lead">But there are some pitfalls that can ruin a trip. </span
+  >What are the visa requirements in Tahiti? What about customs requirements in
+  Thailand?
+</p>
+<p class="lead">Voyager's Handbook has got you covered.</p>
+
+<div class="row">
+  <div class="col-4 d-flex mx-auto justify-content-center">
+    <a href=""><h3>Explore Countries</h3></a>
+  </div>
+  <div class="col-4 d-flex mx-auto justify-content-center">
+    <a href=""><h3>Plan a Trip</h3></a>
+  </div>
+  <div class="col-4 d-flex mx-auto justify-content-center">
+    <a href=""><h3>Search By Country</h3></a>
+  </div>
+</div>
+<!-- <div class="container-fluid"> -->
+  <div class="border-0">
+<ngb-carousel class="carouselDiv shadow-none">
+  <ng-template ngbSlide *ngFor="let picture of pictures">
+    <div
+      class="no-border mb-3 picsum-img-wrapper carouselImageDiv d-flex justify-content-center"
+    >
+      <img
+        style="max-height: 500px"
+        class="countryImage"
+        [src]="picture.imageUrl"
+        alt="..."
+      />
+    </div>
+  </ng-template>
+</ngb-carousel>
+</div>
+<!-- </div> -->
+
+<h2><a href="">Register now</a> to access:</h2>
+<h3>Trip Planner</h3>
+<h4>Add screenshots of trip planner</h4>
+<h3></h3>
