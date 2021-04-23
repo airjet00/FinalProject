@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Country } from 'src/app/models/country';
+import { CountryService } from 'src/app/services/country.service';
 
 @Component({
   selector: 'app-search',
@@ -7,9 +10,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  keyword: String;
+  countries: Country[];
+  chosenCountry: Country;
+
+  constructor(private countryServ: CountryService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loadCountries();
+  }
+
+  loadCountries() {
+    this.countryServ.index().subscribe(
+      data => {
+        this.countries = data;
+      },
+      err => console.error('loadCountries got an error: ' + err)
+    )
+  }
+  searchCountry() {
+    this.countryServ.search(this.keyword).subscribe(
+      data => {
+        this.countries = data;
+      },
+      err => console.error('loadCountries got an error: ' + err)
+    )
+  }
+
+  chooseCountry() {
+    console.warn(this.chosenCountry);
+    let url: string = '/countries/' + this.chosenCountry.id;
+    this.router.navigate([url]);
   }
 
 }
