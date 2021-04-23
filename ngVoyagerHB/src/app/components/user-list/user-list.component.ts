@@ -16,6 +16,7 @@ export class UserListComponent implements OnInit {
   usersname: string = null;
   selected: User = null;
 
+
   constructor(
     private userServ: UserService,
     private router: Router,
@@ -59,6 +60,7 @@ export class UserListComponent implements OnInit {
   updateUser(editUser: User): void {
     this.userServ.update(editUser).subscribe(
       data => {
+
         this.loadUser(data.id);
       },
       fail => {
@@ -71,13 +73,34 @@ export class UserListComponent implements OnInit {
   deleteUser(id){
     this.userServ.delete(id).subscribe(
       data => {
-        this.newUser.enabled = false;
-        this.loadUser(data.id);
+        this.loadUsers();
       },
       fail => {
         console.error("Error deleting user " + fail);
         console.error(fail);
       });
   }
+
+  enableUser(user) {
+
+    let sendUser = new User();
+    sendUser.id = user.id;
+    sendUser.email = user.email;
+    sendUser.firstName = user.firstName;
+    sendUser.middleName = user.middleName;
+    sendUser.lastName = user.lastName;
+    sendUser.suffix = user.suffix;
+    sendUser.dob = user.dob;
+    sendUser.enabled = true;
+    sendUser.role = user.role;
+    this.userServ.update(sendUser).subscribe(
+      data => {
+        this.loadUsers();
+      },
+      fail => {
+        console.error("Error enabling user " + fail);
+      });
+  }
+
 
 }
