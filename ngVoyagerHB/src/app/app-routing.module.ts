@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AboutPageComponent } from './components/about-page/about-page.component';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { CountryListComponent } from './components/country-list/country-list.component';
 import { HomeComponent } from './components/home/home.component';
@@ -12,6 +13,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 
 const routes: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'home' },
 { path: 'home', component: HomeComponent },
+{ path: 'about', component: AboutPageComponent },
 { path: 'register', component: RegisterComponent },
 { path: 'login', component: LoginComponent },
 { path: 'countries', component: CountryListComponent },
