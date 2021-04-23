@@ -15,7 +15,7 @@ export class TripListComponent implements OnInit {
 
   selected: Trip = null;
 
-  newTrip: Trip = null;
+  newTrip: Trip = new Trip();
 
   updatedTrip: Trip = null;
 
@@ -68,18 +68,51 @@ export class TripListComponent implements OnInit {
 
   // create
   createTrip(){
+
     this.newTrip.completed = false;
     this.newTrip.enabled = true;
+
+    console.log(this.newTrip);
+
+    this.newTrip.startDate = this.dateToStringParser(this.newTrip.startDate);
+    this.newTrip.endDate = this.dateToStringParser(this.newTrip.endDate);
+
+    console.log(this.newTrip);
+
     this.tripSvc.create(this.newTrip).subscribe(
       data => {
         this.selected = data;
-        this.newTrip = null;
+        this.newTrip = new Trip();
         this.reloadTrips();
       },
       err => {
         console.error('Observer got an error: ' + err);
       }
     )
+  }
+  dateToStringParser(newTripDate): string {
+      let dateStr = "";
+
+      dateStr += newTripDate["year"];
+      dateStr += "-";
+
+      if(+newTripDate["month"] < 10){
+        dateStr += "0";
+        dateStr += newTripDate["month"];
+      } else {
+        dateStr += newTripDate["month"];
+      }
+      dateStr += "-";
+      if(+newTripDate["day"] < 10){
+        dateStr += "0";
+        dateStr += newTripDate["day"];
+      } else {
+        dateStr += newTripDate["day"];
+      }
+      dateStr += "T00:00:00"
+      console.log(dateStr);
+
+      return dateStr;
   }
   startTripCreate(){
     this.newTrip = new Trip();
