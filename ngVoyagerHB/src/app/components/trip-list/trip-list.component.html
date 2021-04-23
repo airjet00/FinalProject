@@ -21,7 +21,7 @@
             <button class="btn btn-dark btn-outline-success" id="createTripFormBtn" style="float: left;" (click)="open(content)">Temp This btn can do anything</button>
           </div>
           <div class="col-md-6">
-            <button class="btn btn-dark btn-outline-success" id="createTripFormBtn" style="float: right;" (click)="open(content)">Create a Trip!</button>
+            <button class="btn btn-dark btn-outline-success" id="createTripFormBtn" style="float: right;" (click)="open(content); startTripCreate();">Create a Trip!</button>
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@
     <!-- Modal -->
     <ng-template #content let-modal>
       <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <h4 class="modal-title" id="modal-basic-title">Create a new trip!</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -50,16 +50,24 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
+            <label for="name">Trip Name</label>
+            <div class="input-group">
+              <input type="text" name="name" id="name" placeholder="Name" [(ngModel)]="newTrip.name">
+            </div>
+            <label for="">Description</label>
+            <div class="input-group">
+              <textarea name="description" id="description" placeholder="Describe your trip..." cols="40" rows="5"[(ngModel)]="newTrip.description"></textarea>
+            </div>
             <label for="startDate">Start Date</label>
             <div class="input-group">
-              <input id="startDate" class="form-control" placeholder="yyyy-mm-dd" name="startDate" ngbDatepicker #startDate="ngbDatepicker">
+              <input id="startDate" class="form-control" placeholder="yyyy-mm-dd" name="startDate" ngbDatepicker #startDate="ngbDatepicker" [(ngModel)]="newTrip.startDate">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="startDate.toggle()" type="button">Select Date</button>
               </div>
             </div>
             <label for="endDate">End Date</label>
             <div class="input-group">
-              <input id="endDate" class="form-control" placeholder="yyyy-mm-dd" name="endDate" ngbDatepicker #endDate="ngbDatepicker">
+              <input id="endDate" class="form-control" placeholder="yyyy-mm-dd" name="endDate" ngbDatepicker #endDate="ngbDatepicker" [(ngModel)]="newTrip.endDate">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="endDate.toggle()" type="button">Select Date</button>
               </div>
@@ -68,7 +76,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click'); cancelTripCreate();">cancel</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click'); createTrip();">Save</button>
       </div>
     </ng-template>
     <!-- ** End Modal ** -->

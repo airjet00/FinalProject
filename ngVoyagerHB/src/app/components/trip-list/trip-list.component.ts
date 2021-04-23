@@ -67,8 +67,9 @@ export class TripListComponent implements OnInit {
   }
 
   // create
-  createTodo(){
+  createTrip(){
     this.newTrip.completed = false;
+    this.newTrip.enabled = true;
     this.tripSvc.create(this.newTrip).subscribe(
       data => {
         this.selected = data;
@@ -80,9 +81,15 @@ export class TripListComponent implements OnInit {
       }
     )
   }
+  startTripCreate(){
+    this.newTrip = new Trip();
+  }
+  cancelTripCreate(){
+    this.newTrip = null;
+  }
 
   // update
-  updateTodo(updatedTrip:Trip, updateLocation?:String){
+  updateTrip(updatedTrip:Trip, updateLocation?:String){
     this.tripSvc.update(updatedTrip).subscribe(
       data => {
         if(!updateLocation){
@@ -98,7 +105,7 @@ export class TripListComponent implements OnInit {
   }
 
   // delete
-  deleteTodo(id:number){
+  deleteTrip(id:number){
     this.tripSvc.delete(id).subscribe(
       data => {
         this.reloadTrips();
@@ -136,10 +143,7 @@ export class TripListComponent implements OnInit {
     }
   }
 
-
 // SideBar Methods
-
-
   toggleTrip(){
     this.isTripList = true;
   }
