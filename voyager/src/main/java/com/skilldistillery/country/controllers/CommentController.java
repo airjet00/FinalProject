@@ -118,6 +118,7 @@ public class CommentController {
 
 	@DeleteMapping("api/countries/{countryId}/comments/{commentId}")
 	public boolean delete(Principal principal, @PathVariable Integer countryId, @PathVariable Integer commentId, HttpServletResponse resp) {
+
 		try {
 			if (commentServ.destroy(principal.getName(), commentId)) {
 				resp.setStatus(204);
