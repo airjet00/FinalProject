@@ -13,7 +13,7 @@
 </div>
 
 <!-- HTML SECTION FOR SINGLE COUNTRY SELECTION -->
-<div *ngIf = 'selected'>
+<div *ngIf = 'selected' class="countryPageDiv">
   <div class="countryheader">
     <h1>{{selected.name}}</h1>
     <h3>{{selected.description}}</h3>
@@ -35,8 +35,9 @@
   <!-- Picture div -->
   <div class="container pictureDiv">
 
-    <ngb-carousel class="carouselDiv mb-3">
-      <ng-template ngbSlide *ngFor="let picture of pictures">
+    <ngb-carousel class="carouselDiv">
+      <ng-template ngbSlide *ngFor="let picture of pictures" >
+
         <div class="picsum-img-wrapper carouselImageDiv">
           <img class="countryImage" [src]="picture.imageUrl" alt="...">
         </div>
@@ -45,8 +46,21 @@
   </div>
 
   <!-- Comments div -->
-  <div class="containter countryDiv">
+  <div class="container countryDiv">
     <h4>Comments</h4>
+    <div *ngFor="let comment of comments" class="commentDiv">
+      <div *ngIf="!comment['originalComment']">
+        <div class="row commentRow" >
+          <div class="col-10 ">{{comment['content']}}</div>
+          <div class="col">{{comment['user']['username']}}</div>
+        </div>
+        <div class="row " *ngFor="let response of comment['responses']">
+          <div class="col-1"></div>
+          <div class="col responseContent">{{response['content']}}</div>
+          <div class="col-2 responseUser">{{response['user']['username']}}</div>
+        </div>
+      </div>
+    </div>
   </div>
 
 
