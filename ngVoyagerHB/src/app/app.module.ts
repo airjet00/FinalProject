@@ -24,6 +24,8 @@ import { UserService } from './services/user.service';
 import { TripsSidebarComponent } from './components/trips-sidebar/trips-sidebar.component';
 import { AdviceTypesComponent } from './components/advice-types/advice-types.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [
     AuthService,

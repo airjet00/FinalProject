@@ -54,8 +54,8 @@ export class UserService {
     );
   }
 
-  show(id: String): Observable<User>{
-    return this.http.get<User>(this.url + id).pipe(
+  show(id: number): Observable<User>{
+    return this.http.get<User>(this.url + id, this.credentials()).pipe(
       catchError((err: any) =>{
         console.log();
         return throwError("Error getting user" + err);

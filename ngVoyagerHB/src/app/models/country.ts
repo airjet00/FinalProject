@@ -1,3 +1,5 @@
+import { Picture } from "./picture";
+
 export class Country {
   id: number;
   name: string;
@@ -9,6 +11,5 @@ export class Country {
     this.name = name;
     this.description = description;
     this.defaultImage = defaultImage;
-
   }
 }
