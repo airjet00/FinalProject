@@ -25,6 +25,7 @@
 .carouselImageDiv {
   text-align: center;
   margin-bottom: 150px;
+  height: 600px;
 
 }
 
@@ -35,4 +36,29 @@
 .carouselDiv {
   height: 600px;
   margin-bottom: 30px;
+}
+
+.countryPageDiv {
+  padding-bottom: 70px;
+}
+
+.commentRow {
+  border: 1px solid lightgrey;
+  margin: 0px 10px;
+}
+
+.responseContent {
+  border-left: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+
+}
+
+.responseUser {
+  border-right: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  margin-right: 25px;
+}
+
+.commentDiv {
+  margin-bottom: 10px;
 }
