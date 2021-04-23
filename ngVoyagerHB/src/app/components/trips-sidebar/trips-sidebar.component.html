@@ -1,6 +1,6 @@
   <!-- <mat-drawer-container class="example-container" *ngIf="!shouldRun"> -->
-  <mat-drawer-container class="example-container">
-    <mat-drawer #sidenav mode="side" [(opened)]="opened" >
+  <mat-drawer-container class="example-container" [hasBackdrop]="true">
+    <mat-drawer #sidenav mode="Over" [(opened)]="opened" >
       <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">
           <span>
