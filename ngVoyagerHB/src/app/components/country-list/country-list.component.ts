@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbCarouselConfig, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdviceType } from 'src/app/models/advice-type';
 import { Country } from 'src/app/models/country';
 import { Picture } from 'src/app/models/picture';
@@ -33,6 +34,7 @@ export class CountryListComponent implements OnInit {
     this.showCountry(cid);
     }
   }
+
 
   loadCountries(){
     this.countryServ.index().subscribe(
