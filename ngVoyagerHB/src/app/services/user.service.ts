@@ -64,7 +64,7 @@ export class UserService {
     );
   }
   create(user: User): Observable<User>{
-    return this.http.post<User>(this.url, user).pipe(
+    return this.http.post<User>(this.url, user, this.credentials()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError("Error creating user " + err);
@@ -73,7 +73,7 @@ export class UserService {
   }
 
   update(user: User): Observable<User> {
-    return this.http.put<User>(this.url + user.id, user).pipe(
+    return this.http.put<User>(this.url + user.id, user, this.credentials()).pipe(
       catchError((err: any) =>{
         console.log(err);
         return throwError("Error updating user " +err);
@@ -82,7 +82,9 @@ export class UserService {
   }
 
   delete(id: number) {
-    return this.http.delete<User>(this.url + id).pipe(
+    console.log(id + "**************************************");
+
+    return this.http.delete<User>(this.url + id, this.credentials()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError("Error deleting user " + err);
