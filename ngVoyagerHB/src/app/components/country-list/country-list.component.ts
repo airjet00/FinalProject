@@ -4,7 +4,9 @@ import { AdviceType } from 'src/app/models/advice-type';
 import { Country } from 'src/app/models/country';
 import { Picture } from 'src/app/models/picture';
 import { AuthService } from 'src/app/services/auth.service';
+import { CommentService } from 'src/app/services/comment.service';
 import { CountryService } from 'src/app/services/country.service';
+import { Comment } from 'src/app/models/comment';
 
 
 @Component({
@@ -14,6 +16,8 @@ import { CountryService } from 'src/app/services/country.service';
 })
 export class CountryListComponent implements OnInit {
 
+  role: string = null;
+  username: string = null;
   countries: Country[] = null;
   selected: Country = null;
   newCountry: Country = new Country();
@@ -22,11 +26,19 @@ export class CountryListComponent implements OnInit {
   pictures: Picture[] = null;
   advice: AdviceType[] = null;
   comments: Comment[] = null;
+  commentEdit: Comment = null;
+  commentIndex: number = null;
+  responseEdit: Comment = null;
+  responseIndex: number = null;
+  createComment: Comment = new Comment();
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private commentServ: CommentService) { }
 
   ngOnInit(): void {
+    this.role = localStorage.getItem("userRole");
+    this.username = localStorage.getItem("username");
+
     this.loadCountries();
     let cid = +this.route.snapshot.paramMap.get('cid');
     if( cid > 0) {
@@ -55,7 +67,17 @@ export class CountryListComponent implements OnInit {
         this.selected = data;
         this.pictures= data["pictures"]
         this.advice = data["adviceTypes"]
-        this.comments = data["comments"]
+        this.loadComments(cid);
+      },
+      err => console.error('showCountries got an error: ' + err)
+    )
+  }
+
+  loadComments(cid) {
+
+    this.commentServ.index(cid).subscribe(
+      data => {
+        this.comments = data;
       },
       err => console.error('showCountries got an error: ' + err)
     )
@@ -128,6 +150,61 @@ export class CountryListComponent implements OnInit {
     if(!this.authService.checkLogin) {
       this.router.navigateByUrl('/home');
     }
+  }
+
+  editComment(comment: Comment, i) {
+    this.commentEdit = comment;
+    this.commentIndex = i;
+
+  }
+
+  editResponse(comment: Comment, i) {
+    this.responseEdit = comment;
+    this.responseIndex = i;
+  }
+
+  saveEdit(comment: Comment) {
+    let cid = +this.route.snapshot.paramMap.get('cid');
+    this.commentServ.update(comment, cid).subscribe(
+      data => {
+        this.showCountry(cid);
+        this.commentEdit=null;
+        this.responseEdit=null;
+      },
+      fail => {
+        console.error('CountryListComponent.editComment() failed:');
+        console.error(fail);
+      }
+    )
+  }
+
+  saveNewComment(comment: Comment) {
+    let cid = +this.route.snapshot.paramMap.get('cid');
+    this.commentServ.create(cid, comment).subscribe(
+      data => {
+        this.showCountry(cid);
+        this.createComment= new Comment();
+      },
+      fail => {
+        console.error('CountryListComponent.editComment() failed:');
+        console.error(fail);
+      }
+    )
+  }
+
+  deleteComment(id: number) {
+    console.log(id);
+
+    let cid = +this.route.snapshot.paramMap.get('cid');
+    this.commentServ.delete(cid, id).subscribe(
+      data => {
+        this.showCountry(cid);
+      },
+      fail => {
+        console.error('CountryListComponent.deleteComment() failed:');
+        console.error(fail);
+      }
+    )
   }
 
 }

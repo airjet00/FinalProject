@@ -27,6 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AboutPageComponent } from './components/about-page/about-page.component';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     HomeComponent,
     NotFoundComponent,
     TripsSidebarComponent,
-    AdviceTypesComponent
+    AdviceTypesComponent,
+    AboutPageComponent
   ],
   exports:[
     MatSidenavModule,

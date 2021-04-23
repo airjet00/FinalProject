@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userRole', user.role);
         localStorage.setItem('userFirstName', user.firstName);
         localStorage.setItem('userLastName', user.lastName);
+        localStorage.setItem('username', user.username);
       },
       err => {
         console.error("Observer encountered error: " + err);
