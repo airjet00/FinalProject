@@ -173,9 +173,18 @@ GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE `voyagerdb`.* TO 'user';
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `voyagerdb`;
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (1, 'Singapore', 'A place of wonders where one cannot chew gum.', 'singapore.jpg', 'SG');
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (2, 'United Arab Emirates', 'A sandy place, I have heard.', 'uae.jpg', 'AE');
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (3, 'Sweden', 'Cold', 'sweden.jpg', 'SE');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (1, 'Singapore', 'A place of wonders where one cannot chew gum.', 'https://images.idgesg.net/images/article/2018/05/singapore-100758969-large.jpg', 'SG');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (2, 'United Arab Emirates', 'A sandy place, I have heard.', 'https://www.planetware.com/wpimages/2019/12/united-arab-emirates-in-pictures-beautiful-places-to-photograph-the-palm-jumeirah.jpg', 'AE');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (3, 'Sweden', 'Cold', 'https://specials-images.forbesimg.com/imageserve/1154990774/960x0.jpg?fit=scale', 'SE');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (4, 'Argentina', 'Amazin\'', 'https://www.planetware.com/wpimages/2020/02/argentina-in-pictures-beautiful-places-to-photograph-perito-moreno-glacier.jpg', 'AR');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (5, 'Thailand', 'Thai stuff', 'http://ttgasia.2017.ttgasia.com/wp-content/uploads/sites/2/2020/06/Bangkok-1.jpg', 'TH');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (6, 'Mexico', 'Description of Mexico', 'https://www.ktchnrebel.com/wp-content/uploads/2019/03/Working-in-Mexico-City-KTCHNrebel-copyright-Fotolia-javarman.jpg', 'MX');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (7, 'Botswana', 'Description of Botswana', 'https://isthatplacesafe.com/wp-content/uploads/2018/06/is-botswana-safe-to-visit.jpg', 'BW');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (8, 'Spain', 'Description of Spain', 'https://study-eu.s3.amazonaws.com/uploads/image/path/431/wide_fullhd_spain-barcelona.jpg', 'ES');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (9, 'France', 'Description of France', 'https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', 'FR');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (10, 'Brazil', 'Description of Brazil', 'https://www.internationaltaxreview.com/Media/images/international-tax-review/anjana-haines/october-2020/AdobeStock_243289561_Brazil.jpg', 'BR');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (11, 'China', 'Description of China', 'https://www.thedrinksbusiness.com/content/uploads/2016/04/china-05-350x350.jpg', 'CN');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (12, 'Australia', 'Description of Australia', 'https://www.australia.com/content/australia/en/places/south-australia/jcr:content/hero/desktop.adapt.1920.high.jpg', 'AU');
 
 COMMIT;
 
