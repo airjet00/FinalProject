@@ -44,7 +44,7 @@ class PictureTest {
 	@Test
 	void test_Picture_entity_mapping() {
 		assertNotNull(picture);
-		assertEquals(picture.getImageUrl(), "singapore-sightseeing-1.jpg");
+		assertEquals(picture.getImageUrl(), "http://cdn.cnn.com/cnnnext/dam/assets/191212182124-04-singapore-buildings.jpg");
 	}
 	
 	@Test

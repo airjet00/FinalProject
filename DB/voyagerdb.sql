@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `voyagerdb`.`country` (
   `name` VARCHAR(450) NULL,
   `description` TEXT NULL,
   `default_image` VARCHAR(4500) NULL,
+  `country_code` VARCHAR(2) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -172,9 +173,9 @@ GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE `voyagerdb`.* TO 'user';
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `voyagerdb`;
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (1, 'Singapore', 'A place of wonders where one cannot chew gum.', 'singapore.jpg');
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (2, 'United Arab Emirates', 'A sandy place, I have heard.', 'uae.jpg');
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (3, 'Sweden', 'Cold', 'sweden.jpg');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (1, 'Singapore', 'A place of wonders where one cannot chew gum.', 'singapore.jpg', 'SG');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (2, 'United Arab Emirates', 'A sandy place, I have heard.', 'uae.jpg', 'AE');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (3, 'Sweden', 'Cold', 'sweden.jpg', 'SE');
 
 COMMIT;
 
