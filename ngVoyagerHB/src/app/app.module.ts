@@ -25,7 +25,7 @@ import { TripsSidebarComponent } from './components/trips-sidebar/trips-sidebar.
 import { AdviceTypesComponent } from './components/advice-types/advice-types.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutPageComponent } from './components/about-page/about-page.component';
-
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,8 @@ import { AboutPageComponent } from './components/about-page/about-page.component
     NotFoundComponent,
     TripsSidebarComponent,
     AdviceTypesComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,8 @@ import { AboutPageComponent } from './components/about-page/about-page.component
   providers: [
     AuthService,
     CountryService,
-    UserService
+    UserService,
+    CommentListComponent
   ],
   bootstrap: [AppComponent]
 })

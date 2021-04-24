@@ -1,15 +1,26 @@
 
 <!-- HTML SECTION FOR FEATURED COUNTRIES PAGE -->
 <div *ngIf='!selected'>
-<h1>Featured Countries</h1>
-<label for="keyword"></label>
-<input type="text" name="keyword" [(ngModel)]="keyword">
-<button (click)="searchCountry(keyword)">Search</button>
-<ul *ngIf='!selected'>
-  <li *ngFor='let country of countries' (click)="selectCountry(country)">
-    {{country.name}}
-  </li>
-</ul>
+  <h1>Featured Countries</h1>
+  <label for="keyword"></label>
+  <input type="text" name="keyword" [(ngModel)]="keyword">
+  <button (click)="searchCountry(keyword)">Search</button>
+  <div class="row featuredCountryRow">
+    <div class="col-4 countryCard" *ngFor='let country of countries' (click)="selectCountry(country)">
+      <div class = "countryDefaultImg" style= "background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url('{{country.defaultImage}}') " >
+        <h2>{{country.name}}</h2>
+        <h4>+</h4>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TESTING MAP SECTION -->
+  <div>
+    <app-chart></app-chart>
+  </div>
+
 </div>
 
 <!-- HTML SECTION FOR SINGLE COUNTRY SELECTION -->
