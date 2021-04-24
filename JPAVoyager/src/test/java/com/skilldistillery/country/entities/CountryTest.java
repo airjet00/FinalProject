@@ -74,6 +74,12 @@ class CountryTest {
 		assertTrue(country.getPictures().size()>0);
 	}
 
+	@Test
+	void test_Country_country_code_mapping() {
+		assertNotNull(country);
+		assertNotNull(country.getCountryCode());
+		assertEquals("SG", country.getCountryCode());
+	}
 	
 
 }

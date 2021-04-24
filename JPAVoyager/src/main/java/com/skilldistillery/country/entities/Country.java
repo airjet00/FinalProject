@@ -43,6 +43,9 @@ public class Country {
 	@ManyToMany(mappedBy = "countries", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<AdviceType> adviceTypes;
 	
+	@Column(name="country_code")
+	private String countryCode;
+	
 //////// methods
 	public Country() {
 	}
@@ -55,6 +58,14 @@ public class Country {
 		this.id = id;
 	}
 
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
 
 	public String getName() {
 		return name;
