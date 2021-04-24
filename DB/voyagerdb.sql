@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `voyagerdb`.`country` (
   `name` VARCHAR(450) NULL,
   `description` TEXT NULL,
   `default_image` VARCHAR(4500) NULL,
+  `country_code` VARCHAR(2) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -172,9 +173,9 @@ GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE `voyagerdb`.* TO 'user';
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `voyagerdb`;
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (1, 'Singapore', 'A place of wonders where one cannot chew gum.', 'singapore.jpg');
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (2, 'United Arab Emirates', 'A sandy place, I have heard.', 'uae.jpg');
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (3, 'Sweden', 'Cold', 'sweden.jpg');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (1, 'Singapore', 'A place of wonders where one cannot chew gum.', 'singapore.jpg', 'SG');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (2, 'United Arab Emirates', 'A sandy place, I have heard.', 'uae.jpg', 'AE');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (3, 'Sweden', 'Cold', 'sweden.jpg', 'SE');
 
 COMMIT;
 
@@ -210,9 +211,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `voyagerdb`;
-INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (1, 'Southeast Asia Fall 2021', '2021-03-22T20:40:20', '2021-03-22T20:40:20', 0, 1, 1, NULL, 'A whirlwind tour of the opposite side of the globe.');
-INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (2, 'Journalistic Jaunt to North Korea', '2020-11-05', '2020-12-01', 0, 1, 3, NULL, 'A terrible idea');
-INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (3, 'Trip to the Moon', '2021-03-10', '2021-03-22', 1, 1, 3, NULL, 'Really expensive');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (1, 'Southeast Asia Fall 2021', NULL, NULL, 0, 1, 1, NULL, 'A whirlwind tour of the opposite side of the globe.');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (2, 'Journalistic Jaunt to North Korea', NULL, NULL, 0, 1, 3, NULL, 'A terrible idea');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (3, 'Trip to the Moon', NULL, NULL, 1, 1, 3, NULL, 'Really expensive');
 
 COMMIT;
 
