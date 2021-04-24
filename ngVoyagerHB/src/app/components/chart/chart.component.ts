@@ -16,9 +16,10 @@ import { TripService } from 'src/app/services/trip.service';
 
 export class ChartComponent {
   private map: am4maps.MapImage;
-  selectedCountries: string[] = null;
+  selectedCountries: Object[] = null;
 
   constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone, private tripServ: TripService) {}
+
 
   // Run the function only in the browser
   browserOnly(f: () => void) {
@@ -30,42 +31,7 @@ export class ChartComponent {
   }
 
   ngAfterViewInit() {
-    // Chart code goes in here
-
-    this.browserOnly(() => {
-      am4core.useTheme(am4themes_animated);
-
-      let map = am4core.create("chartdiv", am4maps.MapChart);
-      map.geodata = am4geodata_worldLow;
-      map.projection = new am4maps.projections.Miller();
-      let polygonSeries = new am4maps.MapPolygonSeries();
-      polygonSeries.useGeodata = true;
-      map.series.push(polygonSeries);
-
-      // Configure series
-      let polygonTemplate = polygonSeries.mapPolygons.template;
-      polygonTemplate.tooltipText = "{name}";
-      polygonTemplate.fill = am4core.color("#74B266");
-
-      // Create hover state and set alternative fill color
-      let hs = polygonTemplate.states.create("hover");
-      hs.properties.fill = am4core.color("#367B25");
-
-      //Get trips from user to fill in country colors
-      this.getTripCountries();
-
-      polygonSeries.data = [{
-        "id": "US",
-        "fill": am4core.color("#F05C5C")
-      }, {
-        "id": "FR",
-        "fill": am4core.color("#5C5CFF")
-      }];
-
-      polygonTemplate.propertyFields.fill = "fill";
-
-
-    });
+    this.getTripCountries();
   }
 
   ngOnDestroy() {
@@ -87,12 +53,48 @@ export class ChartComponent {
             for (let index = 0; index < trip['itineraryItem'].length; index++) {
               let ii = trip['itineraryItem'][index];
               this.selectedCountries = [];
-              console.log(ii);
-              this.selectedCountries.push(ii['country']['id'])
+              let countryData = Object();
+              countryData.id = ii['country']['countryCode'];
+              countryData.fill = 'blue'
+              this.selectedCountries.push(countryData);
+                  // Chart code goes in here
+                this.browserOnly(() => {
+
+                  am4core.useTheme(am4themes_animated);
+
+                  let map = am4core.create("chartdiv", am4maps.MapChart);
+                  map.geodata = am4geodata_worldLow;
+                  map.projection = new am4maps.projections.Miller();
+                  let polygonSeries = new am4maps.MapPolygonSeries();
+                  polygonSeries.useGeodata = true;
+                  map.series.push(polygonSeries);
+
+                  // Configure series
+                  let polygonTemplate = polygonSeries.mapPolygons.template;
+                  polygonTemplate.tooltipText = "{name}";
+                  polygonTemplate.fill = am4core.color("#74B266");
+
+                  // Create hover state and set alternative fill color
+                  let hs = polygonTemplate.states.create("hover");
+                  hs.properties.fill = am4core.color("#367B25");
+
+                  //Get trips from user to fill in country colors
+                  for (let index = 0; index < this.selectedCountries.length; index++) {
+                    console.log(this.selectedCountries[index]);
+
+                    polygonSeries.data.push(this.selectedCountries[index]);
+
+                  }
+
+                  polygonTemplate.propertyFields.fill = "fill";
+
+
+                });
             }
           }
         }
         console.log(this.selectedCountries);
+
       },
       err => console.error('showCountries got an error: ' + err)
     )
