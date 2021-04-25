@@ -2,9 +2,11 @@
 <!-- HTML SECTION FOR FEATURED COUNTRIES PAGE -->
 <div *ngIf='!selected'>
   <h1>Featured Countries</h1>
+  <form class="form-inline">
   <label for="keyword"></label>
-  <input type="text" name="keyword" [(ngModel)]="keyword">
-  <button (click)="searchCountry(keyword)">Search</button>
+  <input class="form-control" style="max-width: 400px;" type="text" name="keyword" [(ngModel)]="keyword">
+  <button class="btn btn-secondary m-1" (click)="searchCountry(keyword)">Search</button>
+</form>
   <div class="row featuredCountryRow">
     <div class="col-4 countryCard mb-3" *ngFor='let country of countries' (click)="selectCountry(country)">
       <div class = "countryDefaultImg" style= "background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
