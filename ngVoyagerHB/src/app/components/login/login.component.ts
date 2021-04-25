@@ -30,13 +30,11 @@ export class LoginComponent implements OnInit {
         // Log for testing
         // console.log(this.authSvc.getCredentials());
         this.getUserInfo(user.username);
-        if (localStorage.getItem('userRole') === "user") {
-          this.router.navigateByUrl("countries");
-        }
         if (localStorage.getItem('userRole') === "admin") {
           this.router.navigateByUrl("admin-dashboard");
-          console.warn(localStorage.getItem('userRole'));
-
+          console.warn(localStorage.getItem('userRole'));}
+        else {
+          this.router.navigateByUrl("countries");
         }
       },
       err => {
