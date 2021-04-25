@@ -1,1 +1,35 @@
-<p>trips-sidebar works!</p>
+  <mat-drawer-container class="example-container" [hasBackdrop]="true">
+    <mat-drawer #sidenav mode="Over" [(opened)]="opened" >
+      <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">
+          <span>
+            <button class="btn btn-dark" (click)="toggleTrip()">
+              Trip List
+            </button>
+          </span> |
+          <span><button class="btn btn-dark" (click)="toggleWish()">Wish List</button></span>
+        </div>
+        <div class="list-group list-group-flush" *ngIf="isTripList">
+          <a *ngFor="let trip of trips" href="#/trips/{{trip.id}}" class="list-group-item list-group-item-action bg-light">{{trip.name}}</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Completed Trips</a>
+        </div>
+        <div class="list-group list-group-flush" *ngIf="!isTripList">
+          <a href="#" class="list-group-item list-group-item-action bg-light">Wish</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+          <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+        </div>
+      </div>
+    </mat-drawer>
+
+    <mat-drawer-content>
+      <app-navigation></app-navigation>
+      <button class="btn btn-dark" mat-button (click)="sidenav.toggle()">View Trips</button>
+      <app-trip-list></app-trip-list>
+      <app-footer></app-footer>
+    </mat-drawer-content>
+  </mat-drawer-container>
+<div >Please open on Stackblitz to see result</div>
+

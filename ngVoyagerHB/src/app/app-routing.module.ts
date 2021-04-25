@@ -11,6 +11,7 @@ import { PictureListComponent } from './components/picture-list/picture-list.com
 import { RegisterComponent } from './components/register/register.component';
 import { SearchComponent } from './components/search/search.component';
 import { TripListComponent } from './components/trip-list/trip-list.component';
+import { TripsSidebarComponent } from './components/trips-sidebar/trips-sidebar.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 
 const routes: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -25,6 +26,7 @@ const routes: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'home' },
 { path: 'countries/:cid/pictures', component: PictureListComponent },
 { path: 'trips', component: TripListComponent },
 { path: 'trips/:tid', component: TripListComponent },
+{ path: 'sideBar', component: TripsSidebarComponent },
 { path: 'comment-list', component: CommentListComponent },
 { path: 'user-list', component: UserListComponent},
 { path: 'admin-dashboard', component: AdminDashboardComponent},
