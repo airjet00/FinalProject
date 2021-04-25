@@ -53,10 +53,12 @@ export class ChartComponent {
             this.selectedCountries = [];
             for (let index = 0; index < trip['itineraryItem'].length; index++) {
               let ii = trip['itineraryItem'][index];
-              let countryData = Object();
-              countryData.id = ii['country']['countryCode'];
-              countryData.fill = 'blue'
-              this.selectedCountries.push(countryData);
+              if(ii['completed']){
+                let countryData = Object();
+                countryData.id = ii['country']['countryCode'];
+                countryData.fill = 'blue'
+                this.selectedCountries.push(countryData);
+              }
             }
           }
         }
