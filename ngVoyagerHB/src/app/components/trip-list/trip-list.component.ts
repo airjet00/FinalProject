@@ -15,6 +15,8 @@ export class TripListComponent implements OnInit {
 
   selected: Trip = null;
 
+  selectedCountry = null;
+
   newTrip: Trip = new Trip();
 
   updatedTrip: Trip = null;
@@ -150,6 +152,12 @@ export class TripListComponent implements OnInit {
   }
 
 // Display Methods
+  displaySingleTrip(trip: Trip){
+    this.selected = trip;
+  }
+  displayCountryAdvice(country){
+    this.selectedCountry = country;
+  }
 
 
 // Local Storage method

@@ -14,7 +14,8 @@
         </div>
       </div>
       <div class="list-group list-group-flush" *ngIf="isTripList">
-        <a *ngFor="let trip of trips" href="#/trips/{{trip.id}}" class="list-group-item list-group-item-action bg-light">{{trip.name}}</a>
+        <!-- href="#/trips/{{trip.id}}" <-- older method of display, will delete  -->
+        <a *ngFor="let trip of trips" (click)="displaySingleTrip(trip)"  class="list-group-item list-group-item-action bg-light">{{trip.name}}</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Completed Trips</a>
         <div class="row">
           <div class="col-md-6">
@@ -81,6 +82,45 @@
       </div>
     </ng-template>
     <!-- ** End Modal ** -->
+    <!-- Trip single display -->
+    <div *ngIf="selected" class="container">
+      <h1 style="text-align: center;">{{selected.name}}</h1>
+      <div class="row">
+        <!-- itinerary item table -->
+        <table class="col-md-6">
+          <thead>
+            <tr>
+              <th>Country Name</th>
+              <th>Country Description</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="selected['itineraryItem']">
+            <tr *ngFor="let itineraryItem of selected['itineraryItem']" (click)="displayCountryAdvice(itineraryItem['country'])">
+              <td>
+                {{itineraryItem["country"].name}}
+              </td>
+              <td>
+                {{itineraryItem["country"].description}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- ** End itinerary item table ** -->
+        <!-- Advice By Country (iItem) -->
+        <div class="col-md-6" *ngIf="selectedCountry">
+          <h1 style="text-align: center;">{{selectedCountry.name}}</h1>
+          <table style="width:100%">
+            <tr *ngFor="let adviceType of selectedCountry['adviceTypes']">
+              <th>{{adviceType.name}}</th>
+              <td>{{adviceType.description}}</td>
+              <td><a href="{{adviceType.adviceUrl}}">More Info: {{adviceType.name}}</a></td>
+            </tr>
+          </table>
+        </div>
+        <!-- ** End Advice By Country (iItem) ** -->
+      </div>
+    </div>
+    <!-- ** End Trip single display -->
     <hr>
   </mat-drawer-content>
   <!-- ******* End Page Content ****** -->
