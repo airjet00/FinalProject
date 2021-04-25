@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutPageComponent } from './components/about-page/about-page.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { CountryListComponent } from './components/country-list/country-list.component';
 import { HomeComponent } from './components/home/home.component';
@@ -25,7 +26,8 @@ const routes: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'home' },
 { path: 'trips', component: TripListComponent },
 { path: 'trips/:tid', component: TripListComponent },
 { path: 'comment-list', component: CommentListComponent },
-{ path: 'user-list/', component: UserListComponent},
+{ path: 'user-list', component: UserListComponent},
+{ path: 'admin-dashboard', component: AdminDashboardComponent},
 { path: '**', component: NotFoundComponent }
 ];
 
