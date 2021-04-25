@@ -2,7 +2,7 @@
 <form>
   <div class="form-group form-inline">
     Country Name: <input class="ml-3 mr-3 form-control col-4" type="text" name="keyword" [(ngModel)]="keyword" />
-    <button class="btn btn-primary" (click)="searchCountry()">
+    <button type="submit" class="btn btn-primary" (click)="searchCountry()">
       Search
     </button>
   </div>
@@ -16,7 +16,16 @@
   <option *ngFor="let c of countries" [ngValue]="c">{{ c.name }}</option>
 </select>
 
-<button class="btn btn-primary" (click)="chooseCountry()">
+<button type="submit" class="btn btn-primary" (click)="chooseCountry()">
 Go
 </button>
 </form>
+<hr />
+<div *ngIf="searchResults">
+  <div *ngFor="let country of searchResults">
+    <button class="btn btn-success btn-sm mt-1 mb-1 mr-1">Visit</button>{{country.name}}
+  </div>
+</div>
+<div *ngIf="noneFound">
+  No matches found!
+</div>
