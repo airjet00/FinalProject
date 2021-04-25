@@ -11,10 +11,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  user:User = new User();
+  user: User = new User();
 
   constructor(
-    private authSvc:AuthService,
+    private authSvc: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private userSvc: UserService
@@ -23,18 +23,24 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(user:User){
+  login(user: User) {
 
     this.authSvc.login(user.username, user.password).subscribe(
       data => {
         // Log for testing
         // console.log(this.authSvc.getCredentials());
         this.getUserInfo(user.username);
-        this.router.navigateByUrl("countries");
+        if (localStorage.getItem('userRole') === "user") {
+          this.router.navigateByUrl("countries");
+        }
+        if (localStorage.getItem('userRole') === "admin") {
+          this.router.navigateByUrl("admin-dashboard");
+          console.warn(localStorage.getItem('userRole'));
+
+        }
       },
       err => {
         console.error("Encountered Error logging in: " + err);
-
       }
     );
 

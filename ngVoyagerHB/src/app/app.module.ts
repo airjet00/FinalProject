@@ -26,6 +26,7 @@ import { AdviceTypesComponent } from './components/advice-types/advice-types.com
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutPageComponent } from './components/about-page/about-page.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ChartComponent } from './components/chart/chart.component';
     TripsSidebarComponent,
     AdviceTypesComponent,
     AboutPageComponent,
-    ChartComponent
+    ChartComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
