@@ -7,26 +7,198 @@
 
 </div>
 <!-- <p *ngFor="let user of users" (click)="loadUser(user.id)">{{user.username}}</p> -->
+
+<!-- test area start -->
+
+<div class="container my-4">
+  <p class="font-weight-bold"> As an Admin you can view, edit, deactivate, activate other users profile information</p>
+
+    <hr>
+  <p class="font-weight-bold">User Information</p>
+  <!-- TODO: add centering -->
+
+  <!-- Accordion wrapper -->
+<div *ngFor="let user of users" [attr.data-index]="i" class="accordion md-accordion accordion-blocks" id="accordionWrapper" role="tablist"
+  aria-multiselectable="true">
+
+  <!-- Accordion Card -->
+  <div  class="card" >
+
+    <!-- Card header -->
+    <div class="card-header" role="tab" id="headingUnfiled">
+
+      <!-- Options -->
+      <div class="dropdown float-left">
+        <button class="btn btn-info btn-sm m-0 mr-3 p-2 dropdown-toggle" type="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false"><i class="fas fa-pencil-alt"></i>
+      </button>
+        <!-- drop down -->
+        <div class="dropdown-menu dropdown-info">
+          <!-- TODO add update functionality ************************** -->
+          <a class="dropdown-item" href="">Update</a>
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <!-- TODO add get user info ********************** -->
+      <a  data-toggle="collapse" data-parent="#accordionWrapper" href="#collapseUnfiled" aria-expanded="true"
+      aria-controls="collapseUnfiled">
+      <h5 class="mt-1 mb-o">
+        <span>{{user.firstName}} {{user.lastName}}</span>
+        <i class="fa fa-angle-down rotate-icon"></i>
+      </h5>
+    </a>
+
+    </div>
+
+    <!-- Card Body -->
+    <div class="collapse" id="collapseUnfiled" role="tabpanel" aria-labelledby="headingUnfiled"
+      data-parent="#accordionWrapper" >
+      <div class="card-body">
+
+<!-- TODO add user information here with option to edit -->
+        <div class="table-ui p-2 mb-3 mx-3 mb-4">
+
+          <div class="row">
+
+            <div class="col-xl-4 col-lg-6 col-md-12"></div>
+
+              <table class="table">
+                <thead>
+                  <th>Name</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Active</th>
+                </thead>
+                <tbody>
+                  <tr>
+                  <td>{{user.firstName}} {{user.lastName}}</td>
+                  <td>{{user.username}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.enabled}}</td>
+                  </tr>
+                </tbody>
+                <thead>
+                  <th>Role</th>
+                  <th>DOB</th>
+                  <th>Created Date</th>
+                  <th>Updated Date</th>
+                </thead>
+                <tbody>
+                  <tr>
+                  <td>{{user.role}}</td>
+                  <td>{{user.dob}}</td>
+                  <td>{{user.createDate}}</td>
+                  <td>{{user.updateDate}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+          </div>
+        </div>
+
+        <div class="card text-center">
+          <div class="card-header">
+            Comment Review
+          </div>
+        </div>
+
+      <!-- Table responsive wrapper  -->
+      <div class="table table-hover mb-o">
+        <!-- Table -->
+        <table>
+
+        <!-- Table Head -->
+        <!-- Listing comments -->
+        <thead>
+          <tr>
+            <th>
+              <input class="form-check-input" type="checkbox" name="" id="checkbox">
+              <label for="checkbox" class="mr-2 label-table"></label>
+            </th>
+            <th class="th-lg"><a>Name<i class="fas fa-sort ml-1"></i></a></th>
+            <th class="th-lg"><a>Comment<i class="fas fa-sort ml-1"></i></a></th>
+            <th class="th-lg"><a>Created Date<i class="fas fa-sort ml-1"></i></a></th>
+            <th class="th-lg"><a>Update Date<i class="fas fa-sort ml-1"></i></a></th>
+            <th class="th-lg"><a>Enabled<i class="fas fa-sort ml-1"></i></a></th>
+          </tr>
+        </thead>
+        <!-- Table Head End-->
+
+        <!-- Table Body -->
+        <!-- TODO set up a comment loop -->
+        <tbody>
+          <tr>
+            <th scope="row">
+              <input class="form-check-input" type="checkbox" id="checkbox1">
+              <label for="checkbox1" class="label-table"></label>
+            </th>
+            <td>{{user.firstName}} {{user.lastName}}</td>
+            <td>A comment</td>
+            <td>12.06.2017</td>
+            <td>12.06.2020</td>
+            <td>
+              <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                  title="Tooltip on top"></i></a>
+              <a><i class="fas fa-pen-square mx-1"></i></a>
+              <a><i class="fas fa-times mx-1"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <input class="form-check-input" type="checkbox" id="checkbox2">
+              <label for="checkbox2" class="label-table"></label>
+            </th>
+            <td>Product Hunt Visitor</td>
+            <td>Scroll % equals or greater than <strong>80</strong></td>
+            <td>13.06.2017</td>
+            <td>
+              <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                  title="Tooltip on top"></i></a>
+              <a><i class="fas fa-pen-square mx-1"></i></a>
+              <a><i class="fas fa-times mx-1"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <input class="form-check-input" type="checkbox" id="checkbox3">
+              <label for="checkbox3" class="label-table"></label>
+            </th>
+            <td>Test subscription</td>
+            <td>Scroll % equals or greater than <strong>80</strong></td>
+            <td>12.06.2017</td>
+            <td>
+              <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
+                  title="Tooltip on top"></i></a>
+              <a><i class="fas fa-pen-square mx-1"></i></a>
+              <a><i class="fas fa-times mx-1"></i></a>
+            </td>
+          </tr>
+        </tbody>
+        <!-- Table Body End -->
+
+      </table>
+      <!-- Table End -->
+
+      </div>
+      <!-- Table responsive wrapper End -->
+    </div>
+  </div>
+
+  </div>
+<!-- Accordion Card End -->
+
+</div>
+</div>
+
+
+
+
+<!-- test area end -->
 <!--
-<table class="table">
-  <thead>
-    <tr>
-      <th >User Information</th>
-
-    </tr>
-    <th scope="col">User ID</th>
-    <th scope="col">Username</th>
-    <th scope="col">First Name</th>
-    <th scope="col">Last Name</th>
-    <th scope="col">User Info</th>
-    <th></th>
-
-  </thead>
-
-</table> -->
-
   <div class="accordion" id="accordionExample">
-    <table class="table">
+    <table >
       <thead>
         <tr>
           <th >User Information</th>
@@ -41,12 +213,12 @@
 
       </thead>
 
-    <!-- </table> -->
+
       <div *ngFor="let user of users" class="card">
         <div class="card-header" id="headingOne">
           <h2 class="mb-0">
 
-              <!-- <table class="table"> -->
+
                 <tr scope="row">
               <td >{{user.id}}</td>
               <td> {{user.username}}</td>
@@ -82,7 +254,33 @@
                       <button *ngIf="user.enabled == false" class="btn btn-primary" type="submit" (click)="enableUser(user)">Activate</button>
                       </div>
 
-                      <button class="btn btn-primary" type="submit" (click)="updateUser(user)">update</button>
+                      <div>
+                        <button class="btn btn-primary" type="submit">Update</button>
+                        <form action="">
+                          <input type="hidden" name="id" value={{user.id}}
+                          [(ngModel)]='newUser.id'>
+                          <input type="text" name="username" placeholder="username"
+                          [(ngModel)]='newUser.username'>
+                          <input type="text" name="firstName" placeholder="firstName"
+                          [(ngModel)]='newUser.username'>
+                          <input type="text" name="lastName" placeholder="lastName"
+                          [(ngModel)]='newUser.username'>
+                          <input type="text" name="middleName" placeholder="middleName"
+                          [(ngModel)]='newUser.username'>
+                          <input type="text" name="email" placeholder="email"
+                          [(ngModel)]='newUser.username'>
+                          <input type="text" name="suffix" placeholder="suffix"
+                          [(ngModel)]='newUser.username'>
+                          <input type="text" name="dob" placeholder="dob"
+                          [(ngModel)]='newUser.username'>
+                          <input type="text" name="enabled" placeholder="enabled"
+                          [(ngModel)]='newUser.username'>
+                          <input type="text" name="role" placeholder="role"
+                          [(ngModel)]='newUser.username'>
+                          <button class="btn btn-danger" type="submit" (click)="updateUser(newUser)">Submit</button><button class="btn btn-primary" (click)="newUser = null">Cancel</button>
+                        </form>
+
+                      </div>
 
                     </tr>
                   </tbody>
@@ -93,7 +291,7 @@
             </h2>
             </div>
             </div>
- </table>
+ </table> -->
 
 
 

@@ -25,7 +25,7 @@ const routes: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'home' },
 { path: 'trips', component: TripListComponent },
 { path: 'trips/:tid', component: TripListComponent },
 { path: 'comment-list', component: CommentListComponent },
-{ path: 'user-list/', component: UserListComponent},
+{ path: 'user-list', component: UserListComponent},
 { path: '**', component: NotFoundComponent }
 ];
 
