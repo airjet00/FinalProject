@@ -28,7 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AboutPageComponent } from './components/about-page/about-page.component';
-
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,8 @@ import { AboutPageComponent } from './components/about-page/about-page.component
     NotFoundComponent,
     TripsSidebarComponent,
     AdviceTypesComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    ChartComponent
   ],
   exports:[
     MatSidenavModule,
@@ -67,7 +68,8 @@ import { AboutPageComponent } from './components/about-page/about-page.component
   providers: [
     AuthService,
     CountryService,
-    UserService
+    UserService,
+    CommentListComponent
   ],
   bootstrap: [AppComponent]
 })

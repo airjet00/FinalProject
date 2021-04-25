@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `voyagerdb`.`country` (
   `name` VARCHAR(450) NULL,
   `description` TEXT NULL,
   `default_image` VARCHAR(4500) NULL,
+  `country_code` VARCHAR(2) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -172,9 +173,18 @@ GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE `voyagerdb`.* TO 'user';
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `voyagerdb`;
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (1, 'Singapore', 'A place of wonders where one cannot chew gum.', 'singapore.jpg');
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (2, 'United Arab Emirates', 'A sandy place, I have heard.', 'uae.jpg');
-INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`) VALUES (3, 'Sweden', 'Cold', 'sweden.jpg');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (1, 'Singapore', 'A place of wonders where one cannot chew gum.', 'https://images.idgesg.net/images/article/2018/05/singapore-100758969-large.jpg', 'SG');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (2, 'United Arab Emirates', 'A sandy place, I have heard.', 'https://www.planetware.com/wpimages/2019/12/united-arab-emirates-in-pictures-beautiful-places-to-photograph-the-palm-jumeirah.jpg', 'AE');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (3, 'Sweden', 'Cold', 'https://specials-images.forbesimg.com/imageserve/1154990774/960x0.jpg?fit=scale', 'SE');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (4, 'Argentina', 'Amazin\'', 'https://www.planetware.com/wpimages/2020/02/argentina-in-pictures-beautiful-places-to-photograph-perito-moreno-glacier.jpg', 'AR');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (5, 'Thailand', 'Thai stuff', 'http://ttgasia.2017.ttgasia.com/wp-content/uploads/sites/2/2020/06/Bangkok-1.jpg', 'TH');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (6, 'Mexico', 'Description of Mexico', 'https://www.ktchnrebel.com/wp-content/uploads/2019/03/Working-in-Mexico-City-KTCHNrebel-copyright-Fotolia-javarman.jpg', 'MX');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (7, 'Botswana', 'Description of Botswana', 'https://isthatplacesafe.com/wp-content/uploads/2018/06/is-botswana-safe-to-visit.jpg', 'BW');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (8, 'Spain', 'Description of Spain', 'https://study-eu.s3.amazonaws.com/uploads/image/path/431/wide_fullhd_spain-barcelona.jpg', 'ES');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (9, 'France', 'Description of France', 'https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg', 'FR');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (10, 'Brazil', 'Description of Brazil', 'https://www.internationaltaxreview.com/Media/images/international-tax-review/anjana-haines/october-2020/AdobeStock_243289561_Brazil.jpg', 'BR');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (11, 'China', 'Description of China', 'https://www.thedrinksbusiness.com/content/uploads/2016/04/china-05-350x350.jpg', 'CN');
+INSERT INTO `voyagerdb`.`country` (`id`, `name`, `description`, `default_image`, `country_code`) VALUES (12, 'Australia', 'Description of Australia', 'https://www.australia.com/content/australia/en/places/south-australia/jcr:content/hero/desktop.adapt.1920.high.jpg', 'AU');
 
 COMMIT;
 
@@ -210,9 +220,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `voyagerdb`;
-INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (1, 'Southeast Asia Fall 2021', '2021-03-22T20:40:20', '2021-03-22T20:40:20', 0, 1, 1, NULL, 'A whirlwind tour of the opposite side of the globe.');
-INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (2, 'Journalistic Jaunt to North Korea', '2020-11-05', '2020-12-01', 0, 1, 3, NULL, 'A terrible idea');
-INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (3, 'Trip to the Moon', '2021-03-10', '2021-03-22', 1, 1, 3, NULL, 'Really expensive');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (1, 'Southeast Asia Fall 2021', '2021-09-01', '2021-10-25', 0, 1, 3, NULL, 'A whirlwind tour of the opposite side of the globe.');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (2, 'Brazil Vacation', '2022-02-11', '2022-02-25', 0, 1, 3, NULL, 'Should be a nice beach vacation while it\'s winter up north!');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (3, 'Trip to London for work', '2020-05-09', '2020-05-16', 1, 1, 3, NULL, 'All reimbursement received');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (4, 'Visiting the in-laws', '2019-12-23', '2019-12-30', 1, 1, 3, NULL, '');
 
 COMMIT;
 
@@ -222,7 +233,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `voyagerdb`;
-INSERT INTO `voyagerdb`.`itinerary_item` (`id`, `trip_id`, `country_id`, `sequence_num`, `notes`) VALUES (1, 1, 1, 1, 'I am so excited!!!');
+INSERT INTO `voyagerdb`.`itinerary_item` (`id`, `trip_id`, `country_id`, `sequence_num`, `notes`) VALUES (1, 1, 5, 1, 'I am so excited!!!');
+INSERT INTO `voyagerdb`.`itinerary_item` (`id`, `trip_id`, `country_id`, `sequence_num`, `notes`) VALUES (2, 1, 1, 2, NULL);
+INSERT INTO `voyagerdb`.`itinerary_item` (`id`, `trip_id`, `country_id`, `sequence_num`, `notes`) VALUES (3, 1, 11, 3, NULL);
 
 COMMIT;
 
