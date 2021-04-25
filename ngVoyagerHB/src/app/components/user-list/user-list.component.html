@@ -10,11 +10,11 @@
 
 <!-- test area start -->
 
-<div class="container my-4">
-  <p class="font-weight-bold"> As an Admin you can view, edit, deactivate, activate other users profile information</p>
+<div class="container my-4 rounded-lg" >
+  <h3 class="font-weight-bold"> As an Admin you can view, edit, deactivate, activate other users profile information</h3>
 
     <hr>
-  <p class="font-weight-bold">User Information</p>
+  <h3 class="font-weight-bold">User Information</h3>
   <!-- TODO: add centering -->
 
   <!-- Accordion wrapper -->
@@ -44,6 +44,9 @@
       <a  data-toggle="collapse" data-parent="#accordionWrapper" href="#collapseUnfiled" aria-expanded="true"
       aria-controls="collapseUnfiled">
       <h5 class="mt-1 mb-o">
+        <div *ngIf="user.firstName == null">
+          <p>Test User</p>
+        </div>
         <span>{{user.firstName}} {{user.lastName}}</span>
         <i class="fa fa-angle-down rotate-icon"></i>
       </h5>
@@ -51,10 +54,19 @@
 
     </div>
 
+
+
     <!-- Card Body -->
     <div class="collapse" id="collapseUnfiled" role="tabpanel" aria-labelledby="headingUnfiled"
       data-parent="#accordionWrapper" >
       <div class="card-body">
+
+
+        <div class="card text-center">
+          <h4 class="card-header bg-info">
+            Travelers Information
+          </h4>
+        </div>
 
 <!-- TODO add user information here with option to edit -->
         <div class="table-ui p-2 mb-3 mx-3 mb-4">
@@ -64,7 +76,7 @@
             <div class="col-xl-4 col-lg-6 col-md-12"></div>
 
               <table class="table">
-                <thead>
+                <thead class="table-primary">
                   <th>Name</th>
                   <th>Username</th>
                   <th>Email</th>
@@ -78,7 +90,7 @@
                   <td>{{user.enabled}}</td>
                   </tr>
                 </tbody>
-                <thead>
+                <thead class="table-primary">
                   <th>Role</th>
                   <th>DOB</th>
                   <th>Created Date</th>
@@ -97,11 +109,75 @@
 
           </div>
         </div>
+<!-- TODO Add form in here -->
+<p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Update User
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="{{user.firstName}}">First Name</label>
+          <input type="text" class="form-control" id="{{user.firstName}}" placeholder="First">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="{{user.middleName}}">Middle Name</label>
+          <input type="text" class="form-control" id="{{user.middleName}}" placeholder="Middle">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="{{user.lastName}}">Last Name</label>
+          <input type="text" class="form-control" id="{{user.lastName}}" placeholder="Last">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="{{user.email}}">Email</label>
+          <input type="text" class="form-control" id="{{user.email}}" placeholder="user_email@email.com">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="{{user.createDate}}">Created Date</label>
+          <input type="text" class="form-control" id="{{user.createDate}}" placeholder="mm/dd/yyyy">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="{{user.updateDate}}">Updated Date</label>
+          <input type="text" class="form-control" id="{{user.updateDate}}" placeholder="mm/dd/yyyy">
+        </div>
+        </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="{{user.dob}}">DOB</label>
+        <input type="text" class="form-control" id="{{user.dob}}" placeholder="mm/dd/yyyy">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="{{user.role}}">Role</label>
+        <input type="text" class="form-control" id="{{user.role}}" placeholder="user/admin">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="{{user.enabled}}">Active</label>
+        <input type="text" class="form-control" id="{{user.enabled}}" placeholder="Active">
+      </div>
+    </div>
+
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="gridCheck">
+          <label class="form-check-label" for="gridCheck">
+            Confirm update
+          </label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
 
         <div class="card text-center">
-          <div class="card-header">
+          <h4 class="card-header bg-info">
             Comment Review
-          </div>
+          </h4>
         </div>
 
       <!-- Table responsive wrapper  -->
@@ -114,7 +190,7 @@
         <thead>
           <tr>
             <th>
-              <input class="form-check-input" type="checkbox" name="" id="checkbox">
+              <input class="form-check-input" type="hidden" name="" id="checkbox">
               <label for="checkbox" class="mr-2 label-table"></label>
             </th>
             <th class="th-lg"><a>Name<i class="fas fa-sort ml-1"></i></a></th>
