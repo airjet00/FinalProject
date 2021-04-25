@@ -23,9 +23,13 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UserService } from './services/user.service';
 import { TripsSidebarComponent } from './components/trips-sidebar/trips-sidebar.component';
 import { AdviceTypesComponent } from './components/advice-types/advice-types.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AboutPageComponent } from './components/about-page/about-page.component';
-
+import { ChartComponent } from './components/chart/chart.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -45,19 +49,29 @@ import { AboutPageComponent } from './components/about-page/about-page.component
     NotFoundComponent,
     TripsSidebarComponent,
     AdviceTypesComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    ChartComponent,
+    AdminDashboardComponent
+  ],
+  exports:[
+    MatSidenavModule,
+    MatCheckboxModule
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    BrowserAnimationsModule,
+    NgbModule,
+    MatSidenavModule,
+    MatCheckboxModule
   ],
   providers: [
     AuthService,
     CountryService,
-    UserService
+    UserService,
+    CommentListComponent
   ],
   bootstrap: [AppComponent]
 })

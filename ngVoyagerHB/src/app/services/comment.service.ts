@@ -23,6 +23,9 @@ export class CommentService {
 
   // loads only comments with enabled = true:
   index(countryId: number): Observable<Comment[]> {
+    console.log("in index method of service");
+    console.log(this.urlWithoutAPI + countryId + "/comments");
+
     return this.http.get<Comment[]>(this.urlWithoutAPI + countryId + "/comments")
       .pipe(
         catchError((err: any) => {

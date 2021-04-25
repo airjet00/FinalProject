@@ -13,6 +13,8 @@ export class SearchComponent implements OnInit {
   keyword: String;
   countries: Country[];
   chosenCountry: Country;
+  searchResults: Country[];
+  noneFound: boolean;
 
   constructor(private countryServ: CountryService, private router: Router) { }
 
@@ -31,8 +33,11 @@ export class SearchComponent implements OnInit {
   searchCountry() {
     this.countryServ.search(this.keyword).subscribe(
       data => {
-        this.countries = data;
-      },
+        this.searchResults = data;
+        console.warn(this.searchResults);
+
+        if (this.searchResults.length===0)
+ {this.noneFound = true;}      },
       err => console.error('loadCountries got an error: ' + err)
     )
   }
