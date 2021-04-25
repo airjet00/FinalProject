@@ -220,9 +220,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `voyagerdb`;
-INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (1, 'Southeast Asia Fall 2021', NULL, NULL, 0, 1, 1, NULL, 'A whirlwind tour of the opposite side of the globe.');
-INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (2, 'Journalistic Jaunt to North Korea', NULL, NULL, 0, 1, 3, NULL, 'A terrible idea');
-INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (3, 'Trip to the Moon', NULL, NULL, 1, 1, 3, NULL, 'Really expensive');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (1, 'Southeast Asia Fall 2021', '2021-09-01', '2021-10-25', 0, 1, 3, NULL, 'A whirlwind tour of the opposite side of the globe.');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (2, 'Brazil Vacation', '2022-02-11', '2022-02-25', 0, 1, 3, NULL, 'Should be a nice beach vacation while it\'s winter up north!');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (3, 'Trip to London for work', '2020-05-09', '2020-05-16', 1, 1, 3, NULL, 'All reimbursement received');
+INSERT INTO `voyagerdb`.`trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (4, 'Visiting the in-laws', '2019-12-23', '2019-12-30', 1, 1, 3, NULL, '');
 
 COMMIT;
 
@@ -232,7 +233,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `voyagerdb`;
-INSERT INTO `voyagerdb`.`itinerary_item` (`id`, `trip_id`, `country_id`, `sequence_num`, `notes`) VALUES (1, 1, 1, 1, 'I am so excited!!!');
+INSERT INTO `voyagerdb`.`itinerary_item` (`id`, `trip_id`, `country_id`, `sequence_num`, `notes`) VALUES (1, 1, 5, 1, 'I am so excited!!!');
+INSERT INTO `voyagerdb`.`itinerary_item` (`id`, `trip_id`, `country_id`, `sequence_num`, `notes`) VALUES (2, 1, 1, 2, NULL);
+INSERT INTO `voyagerdb`.`itinerary_item` (`id`, `trip_id`, `country_id`, `sequence_num`, `notes`) VALUES (3, 1, 11, 3, NULL);
 
 COMMIT;
 
