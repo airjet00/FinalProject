@@ -30,12 +30,6 @@ export class LoginComponent implements OnInit {
         // Log for testing
         // console.log(this.authSvc.getCredentials());
         this.getUserInfo(user.username);
-        if (localStorage.getItem('userRole') === "admin") {
-          this.router.navigateByUrl("admin-dashboard");
-          console.warn(localStorage.getItem('userRole'));}
-        else {
-          this.router.navigateByUrl("countries");
-        }
       },
       err => {
         console.error("Encountered Error logging in: " + err);
@@ -52,6 +46,17 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userFirstName', user.firstName);
         localStorage.setItem('userLastName', user.lastName);
         localStorage.setItem('username', user.username);
+
+        if (localStorage.getItem('userRole') === "admin") {
+          this.router.navigateByUrl("admin-dashboard");
+          console.warn("if");
+          }
+
+        else {
+          this.router.navigateByUrl("countries");
+          console.warn("else");
+
+        }
       },
       err => {
         console.error("Observer encountered error: " + err);
