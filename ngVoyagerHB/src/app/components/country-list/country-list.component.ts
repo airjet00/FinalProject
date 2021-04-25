@@ -31,6 +31,8 @@ export class CountryListComponent implements OnInit {
   responseEdit: Comment = null;
   responseIndex: number = null;
   createComment: Comment = new Comment();
+  createResponse: Comment = new Comment();
+  activeIndex: number = null;
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
     private route: ActivatedRoute, private commentServ: CommentService) { }
@@ -192,6 +194,28 @@ export class CountryListComponent implements OnInit {
     )
   }
 
+  saveNewResponse(comment: Comment, originalCommentId: number) {
+    console.log(comment);
+    console.log(originalCommentId);
+    let ogComment = new Comment();
+    ogComment.id = originalCommentId;
+
+    let cid = +this.route.snapshot.paramMap.get('cid');
+    comment.originalComment = ogComment;
+
+    this.commentServ.create(cid, comment).subscribe(
+      data => {
+        this.showCountry(cid);
+        this.createResponse= new Comment();
+        this.activeIndex = null;
+      },
+      fail => {
+        console.error('CountryListComponent.editComment() failed:');
+        console.error(fail);
+      }
+    )
+  }
+
   deleteComment(id: number) {
     console.log(id);
 
@@ -205,6 +229,16 @@ export class CountryListComponent implements OnInit {
         console.error(fail);
       }
     )
+  }
+
+  addNewResponse(index) {
+    if (this.activeIndex === index){
+      this.activeIndex = null;
+    }
+    else{
+      this.activeIndex = index;
+    }
+
   }
 
 }
