@@ -29,6 +29,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AboutPageComponent } from './components/about-page/about-page.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ChartComponent } from './components/chart/chart.component';
     TripsSidebarComponent,
     AdviceTypesComponent,
     AboutPageComponent,
-    ChartComponent
+    ChartComponent,
+    AdminDashboardComponent
   ],
   exports:[
     MatSidenavModule,
