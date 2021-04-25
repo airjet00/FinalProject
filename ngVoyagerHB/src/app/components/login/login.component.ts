@@ -43,9 +43,8 @@ export class LoginComponent implements OnInit {
         console.error("Encountered Error logging in: " + err);
       }
     );
-
-
   }
+
   getUserInfo(username: string): void {
     let user: User = null;
     this.userSvc.showByUsername(username).subscribe(
