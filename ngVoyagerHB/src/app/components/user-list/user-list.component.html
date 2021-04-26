@@ -17,15 +17,19 @@
   <h3 class="font-weight-bold">User Information</h3>
   <!-- TODO: add centering -->
 
+  <div *ngFor="let user of users">
+
+
+
   <!-- Accordion wrapper -->
-<div *ngFor="let user of users" class="accordion md-accordion accordion-blocks" id="accordionWrapper" role="tablist"
+<div  class="accordion md-accordion accordion-blocks" [id]="'mainaccordion'+user.id" role="tablist"
   aria-multiselectable="true">
 
   <!-- Accordion Card -->
   <div  class="card" >
 
     <!-- Card header -->
-    <div class="card-header" role="tab" id="headingUnfiled">
+    <div class="card-header" role="tab" [id]="'headaccordion'+user.id">
 
       <!-- Options -->
       <div class="dropdown float-left">
@@ -41,13 +45,13 @@
 
       <!-- Heading -->
       <!-- TODO add get user info ********************** -->
-      <a  data-toggle="collapse" data-parent="#accordionWrapper" href="#collapseUnfiled" aria-expanded="true"
-      aria-controls="collapseUnfiled">
+      <a  data-toggle="collapse" [attr.data-parent]="'#mainaccordion'+user.id" [href]="'#tailaccordion'+user.id" aria-expanded="true"
+      [attr.aria-controls]="'tailaccordion'+user.id">
       <h5 class="mt-1 mb-o">
         <div *ngIf="user.firstName == null">
           <p>Test User</p>
         </div>
-        <span>{{user.firstName}} {{user.lastName}}</span>
+        <span>{{user.id}} {{user.firstName}} {{user.lastName}}</span>
         <i class="fa fa-angle-down rotate-icon"></i>
       </h5>
     </a>
@@ -57,8 +61,8 @@
 
 
     <!-- Card Body -->
-    <div class="collapse" id="collapseUnfiled" role="tabpanel" aria-labelledby="headingUnfiled"
-      data-parent="#accordionWrapper" >
+    <div class="collapse" [id]="'tailaccordion'+user.id" role="tabpanel" [attr.aria-labelledby]="'accordion'+user.id"
+    [attr.data-parent]="'#mainaccordion'+user.id" >
       <div class="card-body">
 
 
@@ -121,7 +125,8 @@
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="{{user.firstName}}">First Name</label>
-          <input type="text" class="form-control" id="{{user.firstName}}" placeholder="First">
+          <input type="text" class="form-control" name="{{user.firstName}}" placeholder="firstName"
+          [(ngModel)]='newUser.username'>
         </div>
         <div class="form-group col-md-4">
           <label for="{{user.middleName}}">Middle Name</label>
@@ -169,6 +174,28 @@
 
       </div>
     </div>
+
+    <!-- <input type="hidden" name="id" value={{user.id}}
+    [(ngModel)]='newUser.id'>
+    <input type="text" name="username" placeholder="username"
+    [(ngModel)]='newUser.username'>
+    <input type="text" name="firstName" placeholder="firstName"
+    [(ngModel)]='newUser.username'>
+    <input type="text" name="lastName" placeholder="lastName"
+    [(ngModel)]='newUser.username'>
+    <input type="text" name="middleName" placeholder="middleName"
+    [(ngModel)]='newUser.username'>
+    <input type="text" name="email" placeholder="email"
+    [(ngModel)]='newUser.username'>
+    <input type="text" name="suffix" placeholder="suffix"
+    [(ngModel)]='newUser.username'>
+    <input type="text" name="dob" placeholder="dob"
+    [(ngModel)]='newUser.username'>
+    <input type="text" name="enabled" placeholder="enabled"
+    [(ngModel)]='newUser.username'>
+    <input type="text" name="role" placeholder="role"
+    [(ngModel)]='newUser.username'>
+    <button class="btn btn-danger" type="submit" (click)="updateUser(newUser)">Submit</button><button class="btn btn-primary" (click)="newUser = null">Cancel</button> -->
 
       <div class="form-group">
         <div class="form-check">
@@ -273,6 +300,8 @@
 
   </div>
 <!-- Accordion Card End -->
+
+</div>
 
 </div>
 </div>
