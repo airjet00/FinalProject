@@ -51,6 +51,7 @@ Back End:
 
 
 ### Comment
+
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
 |-------------|--------------|--------------|---------|--------|
 | GET | `countries/{countryId}/comments` | void | `List<Comment>` | Get all enabled comments for a country |
@@ -63,6 +64,7 @@ Back End:
 
 
 ### Country
+
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
 |-------------|--------------|--------------|---------|--------|
 | GET | `countries` | void | `List<Country>` | Gets all countries |
@@ -74,8 +76,17 @@ Back End:
 
 
 #### Picture
+
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
 |-------------|--------------|--------------|---------|--------|
+| GET | `countries/{cid}/pictures` | void | `List<Picture>` | Get all pictures for a given country |
+| GET | `countries/{cid}/pictures/{pid}` | void | `Picture` | Get a picture by picture ID and country ID |
+| POST | `api/countries/{cid}/pictures` | `Picture`, `Principal` | `Picture` | Create new picture for a given country |
+| PUT | `api/countries/{cid}/pictures/{pid}` | `Picture`, `Principal` | `Picture` | Edit a picture |
+| DELETE | `api/countries/{cid}/pictures/{pid}` | `Principal` | void | Deletes a picture by country ID and picture ID |
+
+
+
 
 #### Trip
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
