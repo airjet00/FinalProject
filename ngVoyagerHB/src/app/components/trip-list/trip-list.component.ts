@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -115,7 +116,7 @@ export class TripListComponent implements OnInit {
 
     this.newTrip.startDate = this.dateToStringParser(this.newTrip.startDate);
     this.newTrip.endDate = this.dateToStringParser(this.newTrip.endDate);
-
+    this.newTrip.itineraryItems = [];
     console.log(this.newTrip);
 
     this.tripSvc.create(this.newTrip).subscribe(
@@ -173,6 +174,19 @@ export class TripListComponent implements OnInit {
     tripToSend.name = updatedTrip.name;
     tripToSend.startDate = updatedTrip.startDate;
     tripToSend.itineraryItems = updatedTrip.itineraryItems;
+
+    // Fix each country JSON on iItem
+    tripToSend.itineraryItems.forEach( itinItem => {
+      let countryJson: Country = new Country();
+
+      countryJson.id = itinItem.country.id;
+      countryJson.name = itinItem.country.name;
+      countryJson.description = itinItem.country.description;
+      countryJson.defaultImage = itinItem.country.defaultImage;
+      countryJson.countryCode = itinItem.country.countryCode;
+
+      itinItem.country = countryJson;
+    })
 
     this.tripSvc.update(tripToSend).subscribe(
       data => {
@@ -328,6 +342,19 @@ export class TripListComponent implements OnInit {
   }
   toggleWish(){
     this.isTripList = false;
+  }
+
+// DragDrop Methods
+  drop(event: CdkDragDrop<string[]>, selectedTrip?: Trip) {
+    moveItemInArray(this.orderedItineraryItems, event.previousIndex, event.currentIndex);
+    let count: number = 1;
+
+    this.orderedItineraryItems.forEach(II => {
+      II.sequenceNum = count;
+      count ++;
+    })
+    selectedTrip.itineraryItems = this.orderedItineraryItems;
+    this.updateTrip(selectedTrip);
   }
 
 }

@@ -95,21 +95,21 @@
           <table class='table table-bordered table-dark'>
             <thead class="thead-light">
               <tr>
+                <th>Order</th>
                 <th>Country Name</th>
                 <th>Country Description</th>
-                <th>Order</th>
                 <th *ngIf="deleting">Remove Country</th>
               </tr>
             </thead>
-            <tbody *ngIf="selected['itineraryItems']">
-              <tr *ngFor="let itineraryItem of orderedItineraryItems" (click)="displayCountryAdvice(itineraryItem['country'])">
+            <tbody *ngIf="selected['itineraryItems']" cdkDropList (cdkDropListDropped)="drop($event, selected)">
+              <tr *ngFor="let itineraryItem of orderedItineraryItems" cdkDrag cdkDragLockAxis="y" (click)="displayCountryAdvice(itineraryItem['country'])">
+                <td>{{itineraryItem.sequenceNum}}</td>
                 <td>
                   {{itineraryItem["country"].name}}
                 </td>
                 <td>
                   {{itineraryItem["country"].description}}
                 </td>
-                <td>{{itineraryItem.sequenceNum}}</td>
                 <td *ngIf="deleting">
                   <button class="btn btn-danger" (click)="removeItineraryItem(itineraryItem, selected)">X</button>
                 </td>
@@ -119,6 +119,20 @@
           <button class="btn btn-dark" (click)="displayDelete()" style="float: right;">{{deleteBtnMsg}}</button>
         </div>
         <!-- ** End itinerary item table ** -->
+
+
+
+        <!-- Drag Drop Test -->
+        <div>
+
+
+        </div>
+        <!-- ** End Drag Drop Test -->
+
+
+
+
+
         <!-- Advice By Country (iItem) -->
         <div class="col-md-6" *ngIf="selectedCountry">
           <h1 style="text-align: center;">{{selectedCountry.name}}</h1>
