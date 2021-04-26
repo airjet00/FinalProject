@@ -95,13 +95,15 @@
           <table class='table table-bordered table-dark'>
             <thead class="thead-light">
               <tr>
+                <th>Order</th>
                 <th>Country Name</th>
                 <th>Country Description</th>
                 <th *ngIf="deleting">Remove Country</th>
               </tr>
             </thead>
-            <tbody *ngIf="selected['itineraryItems']">
-              <tr *ngFor="let itineraryItem of selected['itineraryItems']" (click)="displayCountryAdvice(itineraryItem['country'])">
+            <tbody *ngIf="selected['itineraryItems']" cdkDropList (cdkDropListDropped)="drop($event, selected)">
+              <tr *ngFor="let itineraryItem of orderedItineraryItems" cdkDrag cdkDragLockAxis="y" (click)="displayCountryAdvice(itineraryItem['country'], itineraryItem)">
+                <td>{{itineraryItem.sequenceNum}}</td>
                 <td>
                   {{itineraryItem["country"].name}}
                 </td>
@@ -119,14 +121,27 @@
         <!-- ** End itinerary item table ** -->
         <!-- Advice By Country (iItem) -->
         <div class="col-md-6" *ngIf="selectedCountry">
-          <h1 style="text-align: center;">{{selectedCountry.name}}</h1>
-          <table style="width:100%">
-            <tr *ngFor="let adviceType of selectedCountry['adviceTypes']">
-              <th>{{adviceType.name}}</th>
-              <td>{{adviceType.description}}</td>
-              <td><a href="{{adviceType.adviceUrl}}">More Info: {{adviceType.name}}</a></td>
-            </tr>
-          </table>
+          <div class="row">
+            <h1 style="text-align: center;">{{selectedCountry.name}}</h1>
+            <table style="width:100%">
+              <tr *ngFor="let adviceType of selectedCountry['adviceTypes']">
+                <th>{{adviceType.name}}</th>
+                <td>{{adviceType.description}}</td>
+                <td><a href="{{adviceType.adviceUrl}}">More Info: {{adviceType.name}}</a></td>
+              </tr>
+            </table>
+          </div>
+          <!-- Notes on itineraryItems -->
+          <hr>
+          <div class="row" *ngIf="selectedII">
+            <h1 style="text-align: center;">Notes</h1>
+            <form action="">
+              <textarea name="notes" id="IINotes" cols="30" rows="10" [(ngModel)]="selectedII.notes">{{selectedII.notes}}</textarea>
+              <button (click)="cancelNotes(selected, selectedII, selectedCountry)">Cancel Changes</button>
+              <button (click)="saveNotes(selected)">Save</button>
+            </form>
+          </div>
+          <!-- ** End Notes on itineraryItems ** -->
         </div>
         <!-- ** End Advice By Country (iItem) ** -->
       </div>

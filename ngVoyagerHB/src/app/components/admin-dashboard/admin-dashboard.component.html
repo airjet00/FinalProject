@@ -1,4 +1,13 @@
-<h1>This is the admin dashboard</h1>
+<h1>Admin Dashboard</h1>
 
-<a [routerLink]="['/user-list']"><h2>Manage users</h2></a>
-<a [routerLink]="['/manage-countries']"><h2>Manage countries</h2></a>
+<button (click)="manageCountries()" class="btn btn-info mr-3">
+  Manage Countries
+</button>
+<button (click)="manageUsers()" class="btn btn-info">Manage Users</button>
+<div *ngIf="viewCountries">
+  <app-manage-countries></app-manage-countries>
+</div>
+
+<div *ngIf="viewUsers">
+  <app-user-list></app-user-list>
+</div>

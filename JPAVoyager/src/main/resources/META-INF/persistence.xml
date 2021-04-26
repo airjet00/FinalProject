@@ -23,7 +23,7 @@
     <properties>
       <property name="javax.persistence.jdbc.url" 
       	value="jdbc:mysql://localhost:3306/voyagerdb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Central" />
-      <property name="javax.persistence.jdbc.user" value="user"/>
+      <property name="javax.persistence.jdbc.user" value="ambersparkles"/>
       <property name="javax.persistence.jdbc.password" value="user" />
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 

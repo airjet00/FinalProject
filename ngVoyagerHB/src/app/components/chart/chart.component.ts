@@ -117,11 +117,14 @@ export class ChartComponent {
       am4core.useTheme(am4themes_animated);
 
       this.map = am4core.create("chartdiv", am4maps.MapChart);
+
       this.map.geodata = am4geodata_worldLow;
       this.map.projection = new am4maps.projections.Miller();
       let polygonSeries = new am4maps.MapPolygonSeries();
       polygonSeries.useGeodata = true;
       this.map.series.push(polygonSeries);
+
+
 
       // Configure series
       let polygonTemplate = polygonSeries.mapPolygons.template;
