@@ -44,10 +44,13 @@ Back End:
 ### Comment
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
 |-------------|--------------|--------------|---------|--------|
-
-
-
-
+| GET | `countries/{countryId}/comments` | void | `List<Comment>` | Get all enabled comments for a country |
+| GET | `countries/{countryId}/comments/all` | void | `List<Comment>` | Get all comments for a country (including disabled) |
+| GET | `countries/{countryId}/comments/disabled` | void | `List<Comment>` | Gets all disabled comments for a country |
+| GET | `countries/{countryId}/comments/{cid}` | `Principal` | `Comment` | Get comment by country and comment ID |
+| POST | `api/countries/{countryId}/comments` | `Principal`, `Comment` | `Comment` | Create a comment for a given country | 
+| PUT | `api/countries/{countryId}/comments/{commentId}` | `Comment`, `Principal` | 
+| DELETE | `api/countries/{countryId}/comments/{commentId}` | `Principal` | `boolean` | Deletes comment by ID |
 
 
 
