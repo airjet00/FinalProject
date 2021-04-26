@@ -30,6 +30,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AboutPageComponent } from './components/about-page/about-page.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { ManageCountriesComponent } from './components/manage-countries/manage-countries.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
     AdviceTypesComponent,
     AboutPageComponent,
     ChartComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    ManageCountriesComponent
   ],
   exports:[
     MatSidenavModule,

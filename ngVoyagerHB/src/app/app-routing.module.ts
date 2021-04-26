@@ -6,6 +6,7 @@ import { CommentListComponent } from './components/comment-list/comment-list.com
 import { CountryListComponent } from './components/country-list/country-list.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { ManageCountriesComponent } from './components/manage-countries/manage-countries.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PictureListComponent } from './components/picture-list/picture-list.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -30,6 +31,7 @@ const routes: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'home' },
 { path: 'comment-list', component: CommentListComponent },
 { path: 'user-list', component: UserListComponent},
 { path: 'admin-dashboard', component: AdminDashboardComponent},
+{ path: 'manage-countries', component: ManageCountriesComponent},
 { path: '**', component: NotFoundComponent }
 ];
 
