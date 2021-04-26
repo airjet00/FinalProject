@@ -19,8 +19,6 @@ export class ManageCountriesComponent implements OnInit {
   username: string = null;
   countries: Country[] = null;
   selected: Country = null;
-  newCountry: Country = new Country();
-  editCountry: Country = null;
   keyword: String = null;
   pictures: Picture[] = null;
   advice: AdviceType[] = null;
@@ -34,14 +32,15 @@ export class ManageCountriesComponent implements OnInit {
   activeIndex: number = null;
 
   chosenCountry = new Country();
+  deleteCountry: Country;
+  countryToCreate: Country = new Country();
+
+
   viewEdit: boolean = false;
   viewAdd: boolean = false;
   viewDelete: boolean = false;
-  deleteCountry: Country;
-  addCountry: Country = new Country();
   deleteConfirmed: boolean = false;
   showCountryChanges: Country;
-  countryToCreate: Country = new Country();
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
     private route: ActivatedRoute, private commentServ: CommentService) { }
@@ -94,11 +93,6 @@ export class ManageCountriesComponent implements OnInit {
     )
   }
 
-  back() {
-    this.selected = null;
-    this.router.navigateByUrl('countries')
-  }
-
   searchCountry() {
     this.countryServ.search(this.keyword).subscribe(
       data => {
@@ -120,11 +114,6 @@ export class ManageCountriesComponent implements OnInit {
         console.error(fail);
       }
     );
-  }
-
-  editLocation(country) {
-    this.loginCheck();
-    this.editCountry = country;
   }
 
   submitEdit() {
@@ -149,10 +138,6 @@ export class ManageCountriesComponent implements OnInit {
         console.error(fail);
       }
     )
-  }
-
-  cancel() {
-    this.editCountry = null;
   }
 
   delete() {
