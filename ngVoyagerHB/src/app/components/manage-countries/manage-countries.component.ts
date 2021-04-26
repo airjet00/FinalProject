@@ -41,6 +41,7 @@ export class ManageCountriesComponent implements OnInit {
   addCountry: Country = new Country();
   deleteConfirmed: boolean = false;
   showCountryChanges: Country;
+  countryToCreate: Country = new Country();
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
     private route: ActivatedRoute, private commentServ: CommentService) { }
@@ -109,9 +110,10 @@ export class ManageCountriesComponent implements OnInit {
 
   addNewCountry() {
     this.loginCheck();
-    this.countryServ.create(this.newCountry).subscribe(
+    this.countryServ.create(this.countryToCreate).subscribe(
       data => {
         this.loadCountries();
+        this.countryToCreate = new Country();
       },
       fail => {
         console.error('CountryListComponent.createCountry() failed:');
