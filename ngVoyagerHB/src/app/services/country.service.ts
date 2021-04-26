@@ -12,9 +12,10 @@ import { AuthService } from './auth.service';
 })
 export class CountryService {
 
+  private baseUrl = environment.baseUrl;
   private url = environment.baseUrl + 'countries';
 
-  constructor(private http: HttpClient, private authService: AuthService,) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   index(): Observable<Country[]> {
     return this.http.get<Country[]>(this.url).pipe(
@@ -70,7 +71,10 @@ export class CountryService {
 
   destroy(id)  {
     let httpOptions = this.credentials();
-    return this.http.delete<void>(this.url +'/'+ id, httpOptions).pipe(
+    let restEndpoint : string = this.baseUrl + "api/countries/" + id;
+    console.warn(restEndpoint);
+
+    return this.http.delete<void>(restEndpoint, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('CountryService.destroy(): error deleting country: ' + err);
