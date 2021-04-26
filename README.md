@@ -21,12 +21,49 @@ Back End:
 * Test-driven design with JUnit
 * Relational databases: MySQL, Java Persistence API with Hibernate
 
-### API
+## API
+### AdviceType
+
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
 |-------------|--------------|--------------|---------|--------|
-| GET         | `api/comments` |   void           | `List<Comment>` | void | Gets all comments |
+| GET | `countries/{cid}/adviceTypes` | void | `List<AdviceType>` | Gets all AdviceTypes for a given Country |
+| GET | `countries/{cid}/adviceTypes/{atid}` | void | `AdviceType` | Get an AdviceType by Country ID and advice type ID |
+| POST | `api/countries/{cid}/adviceTypes` | `AdviceType`, `Principal` | `AdviceType` | Create AdviceType for a given Country |
+| PUT | `api/countries/{cid}/adviceTypes/{atid}` | `AdviceType`, `Principal` | `AdviceType` | Create an AdviceType for a given Country | 
+| DELETE | `api/countries/{cid}/adviceTypes/{atid}` | `Principal` | void | Delete AdviceType by Country ID and AdviceType ID |
 
-(TODO)
+
+### Auth
+
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+| GET | `authenticate` | `Principal` | `Principal` | Authenticates a User |
+| POST | `register` | `User` | `User` | Registers a new User |
+
+
+### Comment
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+
+
+
+
+
+
+
+
+#### Picture
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+
+#### Trip
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+
+#### User
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+
 
 ### Lessons Learned
 * Erik:
