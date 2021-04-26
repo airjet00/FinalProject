@@ -2,7 +2,7 @@
 <!-- SideBar / page container -->
 <mat-drawer-container class="example-container" [hasBackdrop]="true">
   <!-- SideBar -->
-  <mat-drawer #sidenav mode="Over" [(opened)]="opened" >
+  <mat-drawer #sidenav mode="Over" [(opened)]="opened">
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">
         <div class="row">
@@ -42,7 +42,7 @@
   <!-- ******* Page Content ***************************************************************** -->
   <mat-drawer-content>
 
-    <button class="btn btn-dark" mat-button (click)="sidenav.toggle()">View Trips</button>
+    <button *ngIf="username" class="btn btn-dark" mat-button (click)="sidenav.toggle()">View Trips</button>
     <!-- Modal -->
     <ng-template #content let-modal >
       <div class="modal-header">
