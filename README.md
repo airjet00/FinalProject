@@ -100,4 +100,9 @@ Back End:
 #### User
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
 |-------------|--------------|--------------|---------|--------|
-
+| GET | `api/users` |`Principal` | `List<User>` | Gets all users |
+| GET | `users/search/{username}` | `Principal` | `User` | Gets a User by username |
+| GET | `api/users/{uid}` | `Principal` | `User` | Gets a User by ID |
+| POST | `api/users` | `Principal` | `User` | Creates a new user |
+| PUT | `api/users/{uid}` | `User`, `Principal` | `User` | Edit a User |
+| DELETE | `api/users/{uid}` | `Principal` | void | Deletes a User by ID |
