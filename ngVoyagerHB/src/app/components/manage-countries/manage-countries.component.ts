@@ -65,11 +65,11 @@ export class ManageCountriesComponent implements OnInit {
     )
   }
 
-  selectEdit() { this.viewEdit = true; this.viewAdd = false; this.viewDelete = false; this.deleteConfirmed = false;}
+  selectEdit() { this.viewEdit = true; this.viewAdd = false; this.viewDelete = false; this.deleteConfirmed = false; this.showCountryChanges = null;}
 
-  selectAdd() { this.viewAdd = true; this.viewEdit = false; this.viewDelete = false; this.deleteConfirmed = false;}
+  selectAdd() { this.viewAdd = true; this.viewEdit = false; this.viewDelete = false; this.deleteConfirmed = false; this.showCountryChanges = null;}
 
-  selectDelete() { this.viewDelete = true; this.viewAdd = false; this.viewEdit = false; this.deleteConfirmed = false;}
+  selectDelete() { this.viewDelete = true; this.viewAdd = false; this.viewEdit = false; this.deleteConfirmed = false; this.showCountryChanges = null;}
 
   showCountry(cid) {
     this.countryServ.show(cid).subscribe(
