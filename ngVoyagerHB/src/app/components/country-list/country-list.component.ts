@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { CountryService } from 'src/app/services/country.service';
 import { Comment } from 'src/app/models/comment';
+import { ChartComponent } from '../chart/chart.component';
 
 
 @Component({
@@ -33,13 +34,17 @@ export class CountryListComponent implements OnInit {
   createComment: Comment = new Comment();
   createResponse: Comment = new Comment();
   activeIndex: number = null;
+  formattedUN: string = null;
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
-    private route: ActivatedRoute, private commentServ: CommentService) { }
+    private route: ActivatedRoute, private commentServ: CommentService, private mapComp: ChartComponent) { }
 
   ngOnInit(): void {
     this.role = localStorage.getItem("userRole");
     this.username = localStorage.getItem("username");
+    if(this.username){
+    this.formattedUN = this.username.charAt(0).toUpperCase() + this.username.slice(1);
+    }
 
     this.loadCountries();
     let cid = +this.route.snapshot.paramMap.get('cid');
@@ -48,17 +53,19 @@ export class CountryListComponent implements OnInit {
     }
   }
 
-
   loadCountries(){
     this.countryServ.index().subscribe(
       data => {
         this.countries = data;
+        this.countries = this.shuffleCountries(this.countries);
+        this.countries = this.countries.slice(0,6);
       },
       err => console.error('loadCountries got an error: ' + err)
     )
   }
 
   selectCountry(country: Country) {
+    this.mapComp.ngOnDestroy();
     this.selected = country;
     this.router.navigateByUrl('countries/' + country.id)
   }
@@ -241,4 +248,20 @@ export class CountryListComponent implements OnInit {
 
   }
 
+  shuffleCountries(arrCountries : Country []) {
+    let m = arrCountries.length, t, i;
+
+    // While there remain elements to shuffle
+    while (m) {
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+
+      // And swap it with the current element.
+      t = arrCountries[m];
+      arrCountries[m] = arrCountries[i];
+      arrCountries[i] = t;
+    }
+
+    return arrCountries;
+  }
 }

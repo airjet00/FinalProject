@@ -7,6 +7,7 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import * as am4maps from '@amcharts/amcharts4/maps';
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import { TripService } from 'src/app/services/trip.service';
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-chart',
@@ -14,9 +15,12 @@ import { TripService } from 'src/app/services/trip.service';
   styleUrls: ['./chart.component.css']
 })
 
+@Injectable({ providedIn: 'root' })
+
 export class ChartComponent {
-  private map: am4maps.MapImage;
+  map= null;
   selectedCountries: Object[] = null;
+  username = null;
 
   constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone, private tripServ: TripService) {}
 
@@ -31,7 +35,14 @@ export class ChartComponent {
   }
 
   ngAfterViewInit() {
+    // this.map = am4maps.MapImage;
+    this.username = localStorage.getItem("username")
+    if(this.username){
     this.getTripCountries();
+    }
+    else{
+      this.getBlankMap();
+    }
   }
 
   ngOnDestroy() {
@@ -39,6 +50,7 @@ export class ChartComponent {
     this.browserOnly(() => {
       if (this.map) {
         this.map.dispose();
+        this.map = null;
       }
     });
   }
@@ -49,10 +61,10 @@ export class ChartComponent {
         let trips = data;
         for (let index = 0; index < trips.length; index++) {
           let trip = trips[index];
-          if(trip['itineraryItem'].length >0 ) {
+          if(trip['itineraryItems'].length >0 ) {
             this.selectedCountries = [];
-            for (let index = 0; index < trip['itineraryItem'].length; index++) {
-              let ii = trip['itineraryItem'][index];
+            for (let index = 0; index < trip['itineraryItems'].length; index++) {
+              let ii = trip['itineraryItems'][index];
               if(ii['completed']){
                 let countryData = Object();
                 countryData.id = ii['country']['countryCode'];
@@ -67,12 +79,12 @@ export class ChartComponent {
 
     am4core.useTheme(am4themes_animated);
 
-    let map = am4core.create("chartdiv", am4maps.MapChart);
-    map.geodata = am4geodata_worldLow;
-    map.projection = new am4maps.projections.Miller();
+    this.map = am4core.create("chartdiv", am4maps.MapChart);
+    this.map.geodata = am4geodata_worldLow;
+    this.map.projection = new am4maps.projections.Miller();
     let polygonSeries = new am4maps.MapPolygonSeries();
     polygonSeries.useGeodata = true;
-    map.series.push(polygonSeries);
+    this.map.series.push(polygonSeries);
 
     // Configure series
     let polygonTemplate = polygonSeries.mapPolygons.template;
@@ -99,5 +111,28 @@ export class ChartComponent {
       },
       err => console.error('showCountries got an error: ' + err)
     )
+  }
+
+  getBlankMap() {
+    this.browserOnly(() => {
+
+      am4core.useTheme(am4themes_animated);
+
+      this.map = am4core.create("chartdiv", am4maps.MapChart);
+      this.map.geodata = am4geodata_worldLow;
+      this.map.projection = new am4maps.projections.Miller();
+      let polygonSeries = new am4maps.MapPolygonSeries();
+      polygonSeries.useGeodata = true;
+      this.map.series.push(polygonSeries);
+
+      // Configure series
+      let polygonTemplate = polygonSeries.mapPolygons.template;
+      polygonTemplate.tooltipText = "{name}";
+      polygonTemplate.fill = am4core.color("#74B266");
+
+      // Create hover state and set alternative fill color
+      let hs = polygonTemplate.states.create("hover");
+      hs.properties.fill = am4core.color("#367B25");
+    })
   }
 }
