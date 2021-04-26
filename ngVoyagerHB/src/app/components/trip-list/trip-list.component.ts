@@ -106,15 +106,9 @@ export class TripListComponent implements OnInit {
   reloadTrips(): void {
     this.tripSvc.index().subscribe(
       data => {
-       for (let index = 0; index < data.length; index++) {
-         let trip = data[index];
-         if(trip['name'].toLowerCase() === "wishlist"){
-            this.wishlist = trip;
-         }
-         else {
-           this.trips.push(trip)
-         }
-       }
+      let index: number = data.findIndex( (wishList) => wishList.name === "wishlist")
+      this.wishlist = data.splice(index, 1)[0];
+      this.trips = data;
       },
       err => {console.error("Observer got an error loading trips: " + err)}
     )
@@ -206,6 +200,14 @@ export class TripListComponent implements OnInit {
       data => {
         if(!updateLocation){
           this.selected = data;
+          if(this.selectedCountry && this.selectedII){
+            this.selected.itineraryItems.forEach(II => {
+              if(II.id === this.selectedII.id){
+                this.selectedII = II;
+                this.selectedCountry = II.country;
+              }
+            })
+          }
           this.orderIIList(this.selected);
         }
         this.updatedTrip = null;
@@ -287,13 +289,12 @@ export class TripListComponent implements OnInit {
         iItem.trip.name = trip.name
         iItem.trip.startDate = trip.startDate
     })
-    this.selectedCountry = null;
-    this.selectedII = null;
     this.updateTrip(trip);
   }
 
   // Update ItineraryItems
   saveNotes(trip: Trip){
+    this.selectedII
     this.updateTrip(trip);
   }
 
