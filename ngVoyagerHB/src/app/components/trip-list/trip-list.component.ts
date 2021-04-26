@@ -205,9 +205,48 @@ export class TripListComponent implements OnInit {
   }
 
   // Remove itineraryItem
-  removeItineraryItem(id: number){
+  removeItineraryItem(iItemToRemove: ItineraryItem, trip: Trip){
+
+    let sqncNum: number = iItemToRemove.sequenceNum;
+    let index: number = trip.itineraryItems.findIndex( (II) => II.id === iItemToRemove.id)
+
+    trip.itineraryItems.splice(index, 1);
+
+    trip.itineraryItems.forEach(iItem =>{
+      if(iItem.sequenceNum > sqncNum ){
+        // Fix SequenceNum
+        iItem.sequenceNum -= 1;
+      }
+
+        // Fix Country JSON (definitely nessessary)
+        let countryJson: Country = new Country();
+
+        countryJson.id = iItem.country.id;
+        countryJson.name = iItem.country.name;
+        countryJson.description = iItem.country.description;
+        countryJson.defaultImage = iItem.country.defaultImage;
+        countryJson.countryCode = iItem.country.countryCode;
+
+        iItem.country = countryJson;
+
+        // Fix Trip JSON (not sure if nessessary)
+        iItem.trip = new Trip();
+        iItem.trip.id = trip.id
+        iItem.trip.completed = trip.completed
+        iItem.trip.createDate = trip.createDate
+        iItem.trip.description = trip.description
+        iItem.trip.enabled = trip.enabled
+        iItem.trip.endDate = trip.endDate
+        iItem.trip.name = trip.name
+        iItem.trip.startDate = trip.startDate
+    })
+    this.updateTrip(trip);
+  }
+  // Update ItineraryItems
+  updateItinItem(){
 
   }
+
   // delete
   deleteTrip(id:number){
     this.tripSvc.delete(id).subscribe(

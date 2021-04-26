@@ -49,7 +49,7 @@ public class Trip {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@OneToMany(cascade = {CascadeType.ALL}, mappedBy="trip")
+	@OneToMany(orphanRemoval = true, cascade = {CascadeType.ALL}, mappedBy="trip")
 	@JsonIgnoreProperties(value="trip")
 	private List<ItineraryItem> itineraryItems;
 

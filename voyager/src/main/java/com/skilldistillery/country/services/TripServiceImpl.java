@@ -1,5 +1,6 @@
 package com.skilldistillery.country.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,8 +76,14 @@ public class TripServiceImpl implements TripService {
 				}
 			}
 			// Remove desired iItems
-			if (managed.getItineraryItems() != null) {
-				for (ItineraryItem iItem : managed.getItineraryItems()) {
+			// Copy array
+			List<ItineraryItem> IICopy = new ArrayList<>();
+			for (ItineraryItem II : managed.getItineraryItems()) {
+				IICopy.add(II);
+			}
+			// loop through copy and remove from original
+			if (IICopy != null) {
+				for (ItineraryItem iItem : IICopy) {
 					// If no iItems, remove all
 					if (trip.getItineraryItems() == null) {
 						managed.removeItineraryItems(iItem);
@@ -85,6 +92,15 @@ public class TripServiceImpl implements TripService {
 						managed.removeItineraryItems(iItem);
 					}
 				}	
+			}
+			// Update All ItineraryItems (at this point the lists should match)
+			for (ItineraryItem II : managed.getItineraryItems()) {
+				for (ItineraryItem updatedII : trip.getItineraryItems()) {
+					if (II.getId() == updatedII.getId()) {
+						II.setNotes(updatedII.getNotes());
+						II.setSequenceNum(updatedII.getSequenceNum());
+					}
+				}
 			}
 			
 			managed = tripRepo.save(managed);
