@@ -157,7 +157,16 @@
       </div>
       <div class="form-group col-md-4">
         <label for="{{user.enabled}}">Active</label>
-        <input type="text" class="form-control" id="{{user.enabled}}" placeholder="Active">
+        <!-- <input type="text" class="form-control" id="{{user.enabled}}" placeholder="Active"> -->
+
+        <div *ngIf="user.enabled">
+          <button class="btn btn-danger" type="submit" (click)="deleteUser(user.id)">Deactivate</button>
+          </div>
+
+          <div *ngIf="!user.enabled">
+          <button *ngIf="user.enabled == false" class="btn btn-danger" type="submit" (click)="enableUser(user)">Activate</button>
+          </div>
+
       </div>
     </div>
 
