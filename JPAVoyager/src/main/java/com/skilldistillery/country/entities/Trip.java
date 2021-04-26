@@ -1,8 +1,10 @@
 package com.skilldistillery.country.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,6 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -48,9 +49,9 @@ public class Trip {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@OneToMany(mappedBy="trip")
+	@OneToMany(orphanRemoval = true, cascade = {CascadeType.ALL}, mappedBy="trip")
 	@JsonIgnoreProperties(value="trip")
-	private List<ItineraryItem> itineraryItem;
+	private List<ItineraryItem> itineraryItems;
 
 
 //// CTOR
@@ -60,7 +61,7 @@ public class Trip {
 	}
 
 	public Trip(int id, String name, String description, LocalDateTime startDate, LocalDateTime endDate,
-			Boolean completed, Boolean enabled, LocalDateTime createDate, User user, List<ItineraryItem> itineraryItem) {
+			Boolean completed, Boolean enabled, LocalDateTime createDate, User user, List<ItineraryItem> itineraryItems) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -71,12 +72,35 @@ public class Trip {
 		this.enabled = enabled;
 		this.createDate = createDate;
 		this.user = user;
-		this.itineraryItem = itineraryItem;
+		this.itineraryItems = itineraryItems;
 	}
 
 
 //// METHODS
 	
+	// Add / Remove itineraryItem;
+	
+	public void addItineraryItems(ItineraryItem iItem) {
+		if(itineraryItems == null) itineraryItems = new ArrayList<>();
+		
+		if (!itineraryItems.contains(iItem)) {
+			itineraryItems.add(iItem);
+			if (iItem.getTrip() != null) {
+				iItem.getTrip().getItineraryItems().remove(iItem);
+			}
+			iItem.setTrip(this);
+		}
+	}
+	
+	public void removeItineraryItems(ItineraryItem iItem) {
+		iItem.setTrip(null);
+		if (itineraryItems != null) {
+			itineraryItems.remove(iItem);
+		}
+	}
+	
+	
+	// end Add / Remove
 	public int getId() {
 		return id;
 	}
@@ -149,12 +173,12 @@ public class Trip {
 		this.user = user;
 	}
 
-	public List<ItineraryItem> getItineraryItem() {
-		return itineraryItem;
+	public List<ItineraryItem> getItineraryItems() {
+		return itineraryItems;
 	}
 
-	public void setItineraryItem(List<ItineraryItem> itineraryItem) {
-		this.itineraryItem = itineraryItem;
+	public void setItineraryItems(List<ItineraryItem> itineraryItem) {
+		this.itineraryItems = itineraryItem;
 	}
 
 	@Override

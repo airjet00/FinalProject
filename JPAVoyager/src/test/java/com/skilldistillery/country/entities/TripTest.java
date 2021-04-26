@@ -58,6 +58,6 @@ class TripTest {
 	@DisplayName("Trip has OneToMany mapping with Itinerary item")
 	void test3() {
 		assertNotNull(trip);
-		assertEquals(trip.getItineraryItem().get(0).getId(), 1);
+		assertEquals(trip.getItineraryItems().get(0).getId(), 1);
 	}
 }

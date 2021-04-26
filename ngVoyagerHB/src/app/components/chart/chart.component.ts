@@ -49,10 +49,10 @@ export class ChartComponent {
         let trips = data;
         for (let index = 0; index < trips.length; index++) {
           let trip = trips[index];
-          if(trip['itineraryItem'].length >0 ) {
+          if(trip['itineraryItems'].length >0 ) {
             this.selectedCountries = [];
-            for (let index = 0; index < trip['itineraryItem'].length; index++) {
-              let ii = trip['itineraryItem'][index];
+            for (let index = 0; index < trip['itineraryItems'].length; index++) {
+              let ii = trip['itineraryItems'][index];
               if(ii['completed']){
                 let countryData = Object();
                 countryData.id = ii['country']['countryCode'];
