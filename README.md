@@ -86,11 +86,16 @@ Back End:
 | DELETE | `api/countries/{cid}/pictures/{pid}` | `Principal` | void | Deletes a picture by country ID and picture ID |
 
 
-
-
 #### Trip
+
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
 |-------------|--------------|--------------|---------|--------|
+| GET | `api/trips` | `Principal` | `List<Trip>` | Gets all trips associated with a given user |
+| GET | `api/trips/{id}` | void | `Trip` | Gets a trip by ID |
+| POST | `api/trips` | `Trip`, `Principal` | `Trip` | Creates a new trip |
+| PUT | `api/trips/{id}` | `Trip`, `Principal` | `Trip` | Edits a given trip |
+| DELETE | `api/trips/{id}` | `Principal` | void | Deletes a given trip |
+
 
 #### User
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
