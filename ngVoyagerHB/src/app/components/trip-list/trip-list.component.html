@@ -97,17 +97,19 @@
               <tr>
                 <th>Country Name</th>
                 <th>Country Description</th>
+                <th>Order</th>
                 <th *ngIf="deleting">Remove Country</th>
               </tr>
             </thead>
             <tbody *ngIf="selected['itineraryItems']">
-              <tr *ngFor="let itineraryItem of selected['itineraryItems']" (click)="displayCountryAdvice(itineraryItem['country'])">
+              <tr *ngFor="let itineraryItem of orderedItineraryItems" (click)="displayCountryAdvice(itineraryItem['country'])">
                 <td>
                   {{itineraryItem["country"].name}}
                 </td>
                 <td>
                   {{itineraryItem["country"].description}}
                 </td>
+                <td>{{itineraryItem.sequenceNum}}</td>
                 <td *ngIf="deleting">
                   <button class="btn btn-danger" (click)="removeItineraryItem(itineraryItem, selected)">X</button>
                 </td>

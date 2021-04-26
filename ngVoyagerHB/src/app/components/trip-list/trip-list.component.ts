@@ -16,6 +16,8 @@ export class TripListComponent implements OnInit {
 
   trips: Trip[] = [];
 
+  orderedItineraryItems: ItineraryItem [] = [];
+
   countries: Country [] = [];
 
   selected: Trip = null;
@@ -67,6 +69,22 @@ export class TripListComponent implements OnInit {
     }
     this.reloadTrips();
     this.reloadCountries();
+  }
+
+
+// ItineraryItem Methods
+  orderIIList(trip: Trip){
+    let IIArray: ItineraryItem [] = [];
+    let count: number = 1;
+    while(trip.itineraryItems.length != IIArray.length){
+      trip.itineraryItems.forEach(II => {
+        if(II.sequenceNum === count){
+          IIArray.push(II);
+        }
+      })
+      count++;
+    }
+    this.orderedItineraryItems = IIArray;
   }
 
 // Country Methods
@@ -160,6 +178,7 @@ export class TripListComponent implements OnInit {
       data => {
         if(!updateLocation){
           this.selected = data;
+          this.orderIIList(this.selected);
         }
         this.updatedTrip = null;
         this.reloadTrips();
@@ -261,6 +280,7 @@ export class TripListComponent implements OnInit {
 
 // Display Methods
   displaySingleTrip(trip: Trip){
+    this.orderIIList(trip);
     this.selected = trip;
   }
   displayCountryAdvice(country){
