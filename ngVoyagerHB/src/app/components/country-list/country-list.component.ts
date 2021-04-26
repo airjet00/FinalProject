@@ -55,6 +55,7 @@ export class CountryListComponent implements OnInit {
   ngOnInit(): void {
     this.role = localStorage.getItem("userRole");
     this.username = localStorage.getItem("username");
+    this.loadCountries();
 
 
     let cid = +this.route.snapshot.paramMap.get('cid');
@@ -63,7 +64,6 @@ export class CountryListComponent implements OnInit {
     }
 
     if(this.username && !(cid > 0)){
-      this.loadCountries();
       this.formattedUN = this.username.charAt(0).toUpperCase() + this.username.slice(1);
       this.reloadTrips();
     }
