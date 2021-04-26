@@ -34,6 +34,7 @@ export class CountryListComponent implements OnInit {
   createComment: Comment = new Comment();
   createResponse: Comment = new Comment();
   activeIndex: number = null;
+  formattedUN: string = null;
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
     private route: ActivatedRoute, private commentServ: CommentService, private mapComp: ChartComponent) { }
@@ -41,6 +42,9 @@ export class CountryListComponent implements OnInit {
   ngOnInit(): void {
     this.role = localStorage.getItem("userRole");
     this.username = localStorage.getItem("username");
+    if(this.username){
+    this.formattedUN = this.username.charAt(0).toUpperCase() + this.username.slice(1);
+    }
 
     this.loadCountries();
     let cid = +this.route.snapshot.paramMap.get('cid');

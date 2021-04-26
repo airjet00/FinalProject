@@ -20,6 +20,7 @@ import { Injectable } from '@angular/core';
 export class ChartComponent {
   map= null;
   selectedCountries: Object[] = null;
+  username = null;
 
   constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone, private tripServ: TripService) {}
 
@@ -35,7 +36,13 @@ export class ChartComponent {
 
   ngAfterViewInit() {
     // this.map = am4maps.MapImage;
+    this.username = localStorage.getItem("username")
+    if(this.username){
     this.getTripCountries();
+    }
+    else{
+      this.getBlankMap();
+    }
   }
 
   ngOnDestroy() {
@@ -104,5 +111,28 @@ export class ChartComponent {
       },
       err => console.error('showCountries got an error: ' + err)
     )
+  }
+
+  getBlankMap() {
+    this.browserOnly(() => {
+
+      am4core.useTheme(am4themes_animated);
+
+      this.map = am4core.create("chartdiv", am4maps.MapChart);
+      this.map.geodata = am4geodata_worldLow;
+      this.map.projection = new am4maps.projections.Miller();
+      let polygonSeries = new am4maps.MapPolygonSeries();
+      polygonSeries.useGeodata = true;
+      this.map.series.push(polygonSeries);
+
+      // Configure series
+      let polygonTemplate = polygonSeries.mapPolygons.template;
+      polygonTemplate.tooltipText = "{name}";
+      polygonTemplate.fill = am4core.color("#74B266");
+
+      // Create hover state and set alternative fill color
+      let hs = polygonTemplate.states.create("hover");
+      hs.properties.fill = am4core.color("#367B25");
+    })
   }
 }
