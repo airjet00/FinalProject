@@ -46,11 +46,11 @@ public class ItineraryItem {
 		this.id = id;
 	}
 
-	public Integer getSequenceNumber() {
+	public Integer getSequenceNum() {
 		return sequenceNum;
 	}
 
-	public void setSequenceNumber(Integer sequenceNum) {
+	public void setSequenceNum(Integer sequenceNum) {
 		this.sequenceNum = sequenceNum;
 	}
 

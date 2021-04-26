@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.country.entities.ItineraryItem;
 import com.skilldistillery.country.entities.Trip;
 import com.skilldistillery.country.entities.User;
 import com.skilldistillery.country.repositories.TripRepository;
@@ -65,6 +66,27 @@ public class TripServiceImpl implements TripService {
 			managed.setStartDate(trip.getStartDate());
 			managed.setEndDate(trip.getEndDate());
 			managed.setEnabled(trip.getEnabled());
+			
+			// Handle changes to itineraryItem
+			// Add in new iItems
+			for (ItineraryItem iItem : trip.getItineraryItems()) {
+				if (managed.getItineraryItems() == null || !managed.getItineraryItems().contains(iItem)) {
+					managed.addItineraryItems(iItem);
+				}
+			}
+			// Remove desired iItems
+			if (managed.getItineraryItems() != null) {
+				for (ItineraryItem iItem : managed.getItineraryItems()) {
+					// If no iItems, remove all
+					if (trip.getItineraryItems() == null) {
+						managed.removeItineraryItems(iItem);
+					} // If trip doesn't have an iItem managed does, remove iItem from managed
+					else if (!trip.getItineraryItems().contains(iItem)) {
+						managed.removeItineraryItems(iItem);
+					}
+				}	
+			}
+			
 			managed = tripRepo.save(managed);
 		}
 		else {

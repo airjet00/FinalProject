@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Country } from 'src/app/models/country';
+import { ItineraryItem } from 'src/app/models/itinerary-item';
 import { Trip } from 'src/app/models/trip';
+import { CountryService } from 'src/app/services/country.service';
 import { TripService } from 'src/app/services/trip.service';
 
 @Component({
@@ -13,6 +16,8 @@ export class TripListComponent implements OnInit {
 
   trips: Trip[] = [];
 
+  countries: Country [] = [];
+
   selected: Trip = null;
 
   selectedCountry = null;
@@ -22,6 +27,9 @@ export class TripListComponent implements OnInit {
   updatedTrip: Trip = null;
 
   userRole: string = "Hello";
+
+  deleting: boolean = false;
+  deleteBtnMsg: string = "Remove a Country";
 
   events: string[] = [];
   opened: boolean;
@@ -37,6 +45,7 @@ export class TripListComponent implements OnInit {
 
   constructor(
     private tripSvc: TripService,
+    private countrySvc: CountryService,
     private route: ActivatedRoute,
     private router: Router,
     private modalService: NgbModal
@@ -57,14 +66,24 @@ export class TripListComponent implements OnInit {
       )
     }
     this.reloadTrips();
+    this.reloadCountries();
   }
-// Crud Methods
+
+// Country Methods
+  reloadCountries(){
+    this.countrySvc.index().subscribe(
+      data => {this.countries = data},
+      err => {console.error("Observer Got an Error loading countries" + err);}
+    )
+  }
+
+// Trip Crud Methods
 
   // index
   reloadTrips(): void {
     this.tripSvc.index().subscribe(
       data => {this.trips = data},
-      err => {console.error("Observer got an error: " + err)}
+      err => {console.error("Observer got an error loading trips: " + err)}
     )
   }
 
@@ -92,6 +111,7 @@ export class TripListComponent implements OnInit {
       }
     )
   }
+  // Parser for Trip creation
   dateToStringParser(newTripDate): string {
       let dateStr = "";
 
@@ -125,7 +145,18 @@ export class TripListComponent implements OnInit {
 
   // update
   updateTrip(updatedTrip:Trip, updateLocation?:String){
-    this.tripSvc.update(updatedTrip).subscribe(
+    let tripToSend: Trip = new Trip();
+    tripToSend.completed = updatedTrip.completed;
+    tripToSend.createDate = updatedTrip.createDate;
+    tripToSend.description = updatedTrip.description;
+    tripToSend.enabled = updatedTrip.enabled;
+    tripToSend.endDate = updatedTrip.endDate;
+    tripToSend.id = updatedTrip.id;
+    tripToSend.name = updatedTrip.name;
+    tripToSend.startDate = updatedTrip.startDate;
+    tripToSend.itineraryItems = updatedTrip.itineraryItems;
+
+    this.tripSvc.update(tripToSend).subscribe(
       data => {
         if(!updateLocation){
           this.selected = data;
@@ -138,7 +169,45 @@ export class TripListComponent implements OnInit {
       }
     )
   }
+  // Add new itineraryItem + fix country JSON for all iItems + update Trip
+  addIItem(country: Country, trip: Trip){
+    let iItem: ItineraryItem = new ItineraryItem ();
+    // Fix each country JSON on iItem
+    trip.itineraryItems.forEach( itinItem => {
+      let countryJson: Country = new Country();
 
+      countryJson.id = itinItem.country.id;
+      countryJson.name = itinItem.country.name;
+      countryJson.description = itinItem.country.description;
+      countryJson.defaultImage = itinItem.country.defaultImage;
+      countryJson.countryCode = itinItem.country.countryCode;
+
+      itinItem.country = countryJson;
+    })
+
+    // Fix CountryJSON for new iItem
+    let countryToAdd: Country = new Country ();
+    countryToAdd.id = country.id;
+    countryToAdd.name = country.name;
+    countryToAdd.description = country.description;
+    countryToAdd.defaultImage = country.defaultImage;
+    countryToAdd.countryCode = country.countryCode;
+
+    iItem.country = countryToAdd;
+    iItem.notes = "";
+    // Grow the sequence Numer by 1
+    iItem.sequenceNum = (trip.itineraryItems.length + 1);
+
+    trip.itineraryItems.push(iItem);
+    this.updateTrip(trip);
+
+
+  }
+
+  // Remove itineraryItem
+  removeItineraryItem(id: number){
+
+  }
   // delete
   deleteTrip(id:number){
     this.tripSvc.delete(id).subscribe(
@@ -158,7 +227,17 @@ export class TripListComponent implements OnInit {
   displayCountryAdvice(country){
     this.selectedCountry = country;
   }
+  // delete display
+  displayDelete(): void {
+    if(this.deleting === false){
+      this.deleting = true;
+      this.deleteBtnMsg = "Hide Delete Options"
+    } else {
+      this.deleting = false;
+      this.deleteBtnMsg = "Remove a Country";
+    }
 
+  }
 
 // Local Storage method
 

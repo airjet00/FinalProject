@@ -37,7 +37,7 @@
     </div>
   </mat-drawer>
   <!-- ***** End SideBar ***** -->
-  <!-- Page Content -->
+  <!-- ******* Page Content ***************************************************************** -->
   <mat-drawer-content>
     <button class="btn btn-dark" mat-button (click)="sidenav.toggle()">View Trips</button>
     <!-- Modal -->
@@ -83,28 +83,39 @@
     </ng-template>
     <!-- ** End Modal ** -->
     <!-- Trip single display -->
+    <div *ngIf="!selected">
+      <h1 style="text-align: center;">Start by selecting or adding a Trip in your Trip List</h1>
+    </div>
     <div *ngIf="selected" class="container">
       <h1 style="text-align: center;">{{selected.name}}</h1>
       <div class="row">
         <!-- itinerary item table -->
-        <table class="col-md-6">
-          <thead>
-            <tr>
-              <th>Country Name</th>
-              <th>Country Description</th>
-            </tr>
-          </thead>
-          <tbody *ngIf="selected['itineraryItem']">
-            <tr *ngFor="let itineraryItem of selected['itineraryItem']" (click)="displayCountryAdvice(itineraryItem['country'])">
-              <td>
-                {{itineraryItem["country"].name}}
-              </td>
-              <td>
-                {{itineraryItem["country"].description}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="col-md-6">
+          <h1 style="text-align: center;">Countries To Visit</h1>
+          <table class='table table-bordered table-dark'>
+            <thead class="thead-light">
+              <tr>
+                <th>Country Name</th>
+                <th>Country Description</th>
+                <th *ngIf="deleting">Remove Country</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="selected['itineraryItems']">
+              <tr *ngFor="let itineraryItem of selected['itineraryItems']" (click)="displayCountryAdvice(itineraryItem['country'])">
+                <td>
+                  {{itineraryItem["country"].name}}
+                </td>
+                <td>
+                  {{itineraryItem["country"].description}}
+                </td>
+                <td *ngIf="deleting">
+                  <button class="btn btn-danger" (click)="removeItineraryItem(itineraryItem.id)">X</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-dark" (click)="displayDelete()" style="float: right;">{{deleteBtnMsg}}</button>
+        </div>
         <!-- ** End itinerary item table ** -->
         <!-- Advice By Country (iItem) -->
         <div class="col-md-6" *ngIf="selectedCountry">
@@ -122,6 +133,36 @@
     </div>
     <!-- ** End Trip single display -->
     <hr>
+    <!-- Add Country (iItem) to Trip -->
+    <div *ngIf="selected" class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <table>
+            <thead>
+              <tr>
+                <th>Country</th>
+                <th>Add To Trip</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let country of countries">
+                <td>{{country.name}}</td>
+                <td><button (click)="addIItem(country, selected)">Add Country to Trip</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Fixes issue where countries extend into footer (but not really...) (better solution should be found) -->
+      <div class="row">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
   </mat-drawer-content>
   <!-- ******* End Page Content ****** -->
 </mat-drawer-container>
