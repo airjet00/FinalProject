@@ -40,6 +40,7 @@ export class ManageCountriesComponent implements OnInit {
   deleteCountry: Country;
   addCountry: Country = new Country();
   deleteConfirmed: boolean = false;
+  showCountryChanges: Country;
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
     private route: ActivatedRoute, private commentServ: CommentService) { }
@@ -124,11 +125,22 @@ export class ManageCountriesComponent implements OnInit {
     this.editCountry = country;
   }
 
-  completeEdit() {
-    this.countryServ.update(this.editCountry).subscribe(
+  submitEdit() {
+
+    let payload = new Country();
+    payload.id = this.chosenCountry.id;
+    payload.countryCode = this.chosenCountry.countryCode;
+    payload.defaultImage = this.chosenCountry.defaultImage;
+    payload.description = this.chosenCountry.description;
+    payload.name = this.chosenCountry.name;
+
+    this.countryServ.update(payload).subscribe(
       data => {
+        this.showCountryChanges = payload;
         this.loadCountries();
-        this.editCountry = null;
+        this.chosenCountry = new Country();
+        this.viewEdit = false;
+        payload = null;
       },
       fail => {
         console.error('CountryListComponent.updateCountry() failed:');
