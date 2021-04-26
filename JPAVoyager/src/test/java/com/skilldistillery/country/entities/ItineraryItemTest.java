@@ -56,7 +56,7 @@ class ItineraryItemTest {
 	@Test
 	void test_ItineraryItem_Country_relational_mapping() {
 		assertNotNull(itineraryItem.getCountry());
-		assertEquals(itineraryItem.getCountry().getId(), 1);
+		assertEquals(itineraryItem.getCountry().getId(), 5);
 	}
 
 
