@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { CountryService } from 'src/app/services/country.service';
 import { Comment } from 'src/app/models/comment';
+import { filter } from 'rxjs/operators';
 
 
 @Component({
@@ -53,6 +54,7 @@ export class CountryListComponent implements OnInit {
       data => {
         this.countries = data;
         this.countries = this.shuffleCountries(this.countries);
+        this.countries = this.countries.slice(0,6);
       },
       err => console.error('loadCountries got an error: ' + err)
     )
