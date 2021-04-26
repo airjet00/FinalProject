@@ -48,11 +48,11 @@ export class CountryListComponent implements OnInit {
     }
   }
 
-
   loadCountries(){
     this.countryServ.index().subscribe(
       data => {
         this.countries = data;
+        this.countries = this.shuffleCountries(this.countries);
       },
       err => console.error('loadCountries got an error: ' + err)
     )
@@ -241,4 +241,20 @@ export class CountryListComponent implements OnInit {
 
   }
 
+  shuffleCountries(arrCountries : Country []) {
+    let m = arrCountries.length, t, i;
+
+    // While there remain elements to shuffle
+    while (m) {
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+
+      // And swap it with the current element.
+      t = arrCountries[m];
+      arrCountries[m] = arrCountries[i];
+      arrCountries[i] = t;
+    }
+
+    return arrCountries;
+  }
 }
