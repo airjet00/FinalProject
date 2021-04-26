@@ -86,13 +86,23 @@ Back End:
 | DELETE | `api/countries/{cid}/pictures/{pid}` | `Principal` | void | Deletes a picture by country ID and picture ID |
 
 
-
-
 #### Trip
+
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
 |-------------|--------------|--------------|---------|--------|
+| GET | `api/trips` | `Principal` | `List<Trip>` | Gets all trips associated with a given user |
+| GET | `api/trips/{id}` | void | `Trip` | Gets a trip by ID |
+| POST | `api/trips` | `Trip`, `Principal` | `Trip` | Creates a new trip |
+| PUT | `api/trips/{id}` | `Trip`, `Principal` | `Trip` | Edits a given trip |
+| DELETE | `api/trips/{id}` | `Principal` | void | Deletes a given trip |
+
 
 #### User
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
 |-------------|--------------|--------------|---------|--------|
-
+| GET | `api/users` |`Principal` | `List<User>` | Gets all users |
+| GET | `users/search/{username}` | `Principal` | `User` | Gets a User by username |
+| GET | `api/users/{uid}` | `Principal` | `User` | Gets a User by ID |
+| POST | `api/users` | `Principal` | `User` | Creates a new user |
+| PUT | `api/users/{uid}` | `User`, `Principal` | `User` | Edit a User |
+| DELETE | `api/users/{uid}` | `Principal` | void | Deletes a User by ID |
