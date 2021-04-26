@@ -1,8 +1,26 @@
-<h1>Login</h1>
+<h2>Log In</h2>
 <form>
-  <label for="username">Username</label>
-  <input type="text" name="username" id="username" placeholder="username" [(ngModel)]='user.username'>
-  <label for="password">Password</label>
-  <input type="text" name="password" id="password" placeholder="password" [(ngModel)]='user.password'>
-  <button type="submit" (click)="login(user)">Login</button>
+  <div class="form-group form-inline">
+    <label for="username">Username: </label>
+    <input
+      class="form-control ml-3"
+      type="text"
+      name="username"
+      id="username"
+      [(ngModel)]="user.username"
+    />
+  </div>
+  <div class="form-group form-inline">
+    <label for="password">Password</label>
+    <input
+      class="form-control ml-3"
+      type="password"
+      name="password"
+      id="password"
+      [(ngModel)]="user.password"
+    />
+  </div>
+  <button class="btn btn-success" type="submit" (click)="login(user)">
+    Log In
+  </button>
 </form>
