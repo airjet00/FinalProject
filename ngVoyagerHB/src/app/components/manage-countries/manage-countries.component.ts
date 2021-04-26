@@ -37,6 +37,9 @@ export class ManageCountriesComponent implements OnInit {
   viewEdit: boolean = false;
   viewAdd: boolean = false;
   viewDelete: boolean = false;
+  deleteCountry: Country;
+  addCountry: Country = new Country();
+  deleteConfirmed: boolean = false;
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
     private route: ActivatedRoute, private commentServ: CommentService) { }
@@ -61,11 +64,11 @@ export class ManageCountriesComponent implements OnInit {
     )
   }
 
-  selectEdit() { this.viewEdit = true; this.viewAdd = false; this.viewDelete = false; }
+  selectEdit() { this.viewEdit = true; this.viewAdd = false; this.viewDelete = false; this.deleteConfirmed = false;}
 
-  selectAdd() { this.viewAdd = true; this.viewEdit = false; this.viewDelete = false; }
+  selectAdd() { this.viewAdd = true; this.viewEdit = false; this.viewDelete = false; this.deleteConfirmed = false;}
 
-  selectDelete() { this.viewDelete = true; this.viewAdd = false; this.viewEdit = false;}
+  selectDelete() { this.viewDelete = true; this.viewAdd = false; this.viewEdit = false; this.deleteConfirmed = false;}
 
   showCountry(cid) {
     this.countryServ.show(cid).subscribe(
@@ -140,10 +143,14 @@ export class ManageCountriesComponent implements OnInit {
 
   delete() {
     this.loginCheck();
-    this.countryServ.destroy(this.editCountry.id).subscribe(
+    console.warn("in component, delete(), chosenCountry.name " + this.chosenCountry.name + "\nchosenCountry ID: " + this.chosenCountry.id);
+
+    this.countryServ.destroy(this.chosenCountry.id).subscribe(
       data => {
+        this.viewDelete = false;
+        this.chosenCountry = null;
+        this.deleteConfirmed = true;
         this.loadCountries();
-        this.editCountry = null;
       },
       fail => {
         console.error('CountryListComponent.deleteCountry() failed:');

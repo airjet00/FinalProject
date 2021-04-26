@@ -31,12 +31,14 @@
         class="form-control"
         value="{{ chosenCountry.description }}"
         [(ngModel)]="chosenCountry.description"
+        name="chosenCountryDescr"
       ></textarea>
       Default image URL:
       <textarea
         class="form-control"
         value="{{ chosenCountry.defaultImage }}"
         [(ngModel)]="chosenCountry.defaultImage"
+        name="chosenCountryImgUrl"
       ></textarea>
     <button class="btn btn-info mt-1 mb-3">Submit Changes</button>
   </form>
@@ -45,6 +47,11 @@
   <h1>.</h1>
 </div>
 
-<div *ngIf="viewDelete">in delete {{ chosenCountry.name }}</div>
+<div *ngIf="viewDelete">Are you sure you want to delete {{ chosenCountry.name }}?
+  <button class="btn btn-danger" (click)="delete()">Confirm Delete</button>
+</div>
+<div *ngIf="deleteConfirmed">Deleted.</div>
 
-<div *ngIf="viewAdd">in add {{ chosenCountry.name }}</div>
+<div *ngIf="viewAdd">in add
+</div>
+
