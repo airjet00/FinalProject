@@ -62,4 +62,47 @@
 
 <div *ngIf="deleteConfirmed">Deleted.</div>
 
-<div *ngIf="viewAdd">in add</div>
+<div *ngIf="viewAdd">
+  <h3>New Country:</h3>
+  <form>
+    <div class="form-group">
+      Name:
+      <input type="text"
+        class="form-control"
+        [(ngModel)]="countryToCreate.name"
+        name="newCountryName"
+      />
+    </div>
+    <div class="form-group">
+      Country Code (2 letters, capitalized):
+      <input type="text"
+        class="form-control"
+        [(ngModel)]="countryToCreate.countryCode"
+        name="newCountryCode"
+      />
+    </div>
+
+    <div class="form-group">
+      Description:
+      <textarea
+        class="form-control"
+        [(ngModel)]="countryToCreate.description"
+        name="newCountryDescr"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      Default image URL:
+      <textarea
+        class="form-control"
+        [(ngModel)]="countryToCreate.defaultImage"
+        name="chosenCountryImgUrl"
+      ></textarea>
+    </div>
+
+    <button (click)="addNewCountry()" class="btn btn-info mt-1 mb-3">
+      Submit Changes
+    </button>
+  </form>
+  <button class="btn btn-info mt-1 mb-3 mr-3">Add Image</button>
+</div>
