@@ -19,8 +19,6 @@ export class ManageCountriesComponent implements OnInit {
   username: string = null;
   countries: Country[] = null;
   selected: Country = null;
-  newCountry: Country = new Country();
-  editCountry: Country = null;
   keyword: String = null;
   pictures: Picture[] = null;
   advice: AdviceType[] = null;
@@ -34,11 +32,13 @@ export class ManageCountriesComponent implements OnInit {
   activeIndex: number = null;
 
   chosenCountry = new Country();
+  deleteCountry: Country;
+  countryToCreate: Country = new Country();
+
+
   viewEdit: boolean = false;
   viewAdd: boolean = false;
   viewDelete: boolean = false;
-  deleteCountry: Country;
-  addCountry: Country = new Country();
   deleteConfirmed: boolean = false;
   showCountryChanges: Country;
 
@@ -65,11 +65,11 @@ export class ManageCountriesComponent implements OnInit {
     )
   }
 
-  selectEdit() { this.viewEdit = true; this.viewAdd = false; this.viewDelete = false; this.deleteConfirmed = false;}
+  selectEdit() { this.viewEdit = true; this.viewAdd = false; this.viewDelete = false; this.deleteConfirmed = false; this.showCountryChanges = null;}
 
-  selectAdd() { this.viewAdd = true; this.viewEdit = false; this.viewDelete = false; this.deleteConfirmed = false;}
+  selectAdd() { this.viewAdd = true; this.viewEdit = false; this.viewDelete = false; this.deleteConfirmed = false; this.showCountryChanges = null;}
 
-  selectDelete() { this.viewDelete = true; this.viewAdd = false; this.viewEdit = false; this.deleteConfirmed = false;}
+  selectDelete() { this.viewDelete = true; this.viewAdd = false; this.viewEdit = false; this.deleteConfirmed = false; this.showCountryChanges = null;}
 
   showCountry(cid) {
     this.countryServ.show(cid).subscribe(
@@ -93,11 +93,6 @@ export class ManageCountriesComponent implements OnInit {
     )
   }
 
-  back() {
-    this.selected = null;
-    this.router.navigateByUrl('countries')
-  }
-
   searchCountry() {
     this.countryServ.search(this.keyword).subscribe(
       data => {
@@ -109,20 +104,16 @@ export class ManageCountriesComponent implements OnInit {
 
   addNewCountry() {
     this.loginCheck();
-    this.countryServ.create(this.newCountry).subscribe(
+    this.countryServ.create(this.countryToCreate).subscribe(
       data => {
         this.loadCountries();
+        this.countryToCreate = new Country();
       },
       fail => {
         console.error('CountryListComponent.createCountry() failed:');
         console.error(fail);
       }
     );
-  }
-
-  editLocation(country) {
-    this.loginCheck();
-    this.editCountry = country;
   }
 
   submitEdit() {
@@ -147,10 +138,6 @@ export class ManageCountriesComponent implements OnInit {
         console.error(fail);
       }
     )
-  }
-
-  cancel() {
-    this.editCountry = null;
   }
 
   delete() {

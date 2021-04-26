@@ -31,6 +31,7 @@ import { AboutPageComponent } from './components/about-page/about-page.component
 import { ChartComponent } from './components/chart/chart.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { ManageCountriesComponent } from './components/manage-countries/manage-countries.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -54,10 +55,12 @@ import { ManageCountriesComponent } from './components/manage-countries/manage-c
     ChartComponent,
     AdminDashboardComponent,
     ManageCountriesComponent
+
   ],
   exports:[
     MatSidenavModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    DragDropModule
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { ManageCountriesComponent } from './components/manage-countries/manage-c
     BrowserAnimationsModule,
     NgbModule,
     MatSidenavModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    DragDropModule
   ],
   providers: [
     AuthService,

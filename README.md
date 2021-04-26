@@ -21,13 +21,6 @@ Back End:
 * Test-driven design with JUnit
 * Relational databases: MySQL, Java Persistence API with Hibernate
 
-### API
-| HTTP Method | Resource URI | Request Body | Returns | Functionality |
-|-------------|--------------|--------------|---------|--------|
-| GET         | `api/comments` |   void           | `List<Comment>` | void | Gets all comments |
-
-(TODO)
-
 ### Lessons Learned
 * Erik:
 
@@ -36,3 +29,70 @@ Back End:
 * Chelsey:
 
 * Thomas:
+
+## API
+### AdviceType
+
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+| GET | `countries/{cid}/adviceTypes` | void | `List<AdviceType>` | Gets all AdviceTypes for a given Country |
+| GET | `countries/{cid}/adviceTypes/{atid}` | void | `AdviceType` | Get an AdviceType by Country ID and advice type ID |
+| POST | `api/countries/{cid}/adviceTypes` | `AdviceType`, `Principal` | `AdviceType` | Create AdviceType for a given Country |
+| PUT | `api/countries/{cid}/adviceTypes/{atid}` | `AdviceType`, `Principal` | `AdviceType` | Edit an AdviceType for a given Country | 
+| DELETE | `api/countries/{cid}/adviceTypes/{atid}` | `Principal` | void | Delete AdviceType by Country ID and AdviceType ID |
+
+
+### Auth
+
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+| GET | `authenticate` | `Principal` | `Principal` | Authenticates a User |
+| POST | `register` | `User` | `User` | Registers a new User |
+
+
+### Comment
+
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+| GET | `countries/{countryId}/comments` | void | `List<Comment>` | Get all enabled comments for a country |
+| GET | `countries/{countryId}/comments/all` | void | `List<Comment>` | Get all comments for a country (including disabled) |
+| GET | `countries/{countryId}/comments/disabled` | void | `List<Comment>` | Gets all disabled comments for a country |
+| GET | `countries/{countryId}/comments/{cid}` | `Principal` | `Comment` | Get comment by country and comment ID |
+| POST | `api/countries/{countryId}/comments` | `Principal`, `Comment` | `Comment` | Create a comment for a given country | 
+| PUT | `api/countries/{countryId}/comments/{commentId}` | `Comment`, `Principal` | Edits a comment |
+| DELETE | `api/countries/{countryId}/comments/{commentId}` | `Principal` | `boolean` | Deletes comment by ID |
+
+
+### Country
+
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+| GET | `countries` | void | `List<Country>` | Gets all countries |
+| GET | `countries/search/{keyword}` | void | `List<Country>` | Search for country by keyword |
+| GET | `countries/{cid}` | void | `Country` | Get a country by ID |
+| POST | `api/countries` | `Country`, `Principal` | `Country` | Creates a new country |
+| PUT | `api/countries/{cid}` | `Country`, `Principal` | `Country` | Edits a country |
+| DELETE | `api/countries/{cid}` | `Principal` | void | Delete a country by ID |
+
+
+#### Picture
+
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+| GET | `countries/{cid}/pictures` | void | `List<Picture>` | Get all pictures for a given country |
+| GET | `countries/{cid}/pictures/{pid}` | void | `Picture` | Get a picture by picture ID and country ID |
+| POST | `api/countries/{cid}/pictures` | `Picture`, `Principal` | `Picture` | Create new picture for a given country |
+| PUT | `api/countries/{cid}/pictures/{pid}` | `Picture`, `Principal` | `Picture` | Edit a picture |
+| DELETE | `api/countries/{cid}/pictures/{pid}` | `Principal` | void | Deletes a picture by country ID and picture ID |
+
+
+
+
+#### Trip
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+
+#### User
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+
