@@ -8,6 +8,9 @@ import { CommentService } from 'src/app/services/comment.service';
 import { CountryService } from 'src/app/services/country.service';
 import { Comment } from 'src/app/models/comment';
 import { ChartComponent } from '../chart/chart.component';
+import { Trip } from 'src/app/models/trip';
+import { TripService } from 'src/app/services/trip.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -36,21 +39,35 @@ export class CountryListComponent implements OnInit {
   activeIndex: number = null;
   formattedUN: string = null;
 
+  //side-nav
+  opened: boolean;
+  isTripList: boolean = true;
+  trips: Trip[] = [];
+  newTrip: Trip = new Trip();
+
+  // Modal
+  closeResult = '';
+
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
-    private route: ActivatedRoute, private commentServ: CommentService, private mapComp: ChartComponent) { }
+    private route: ActivatedRoute, private commentServ: CommentService, private mapComp: ChartComponent,
+    private tripSvc: TripService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.role = localStorage.getItem("userRole");
     this.username = localStorage.getItem("username");
-    if(this.username){
-    this.formattedUN = this.username.charAt(0).toUpperCase() + this.username.slice(1);
-    }
 
-    this.loadCountries();
+
     let cid = +this.route.snapshot.paramMap.get('cid');
     if( cid > 0) {
-    this.showCountry(cid);
+      this.showCountry(cid);
     }
+
+    if(this.username && !(cid > 0)){
+      this.loadCountries();
+      this.formattedUN = this.username.charAt(0).toUpperCase() + this.username.slice(1);
+      this.reloadTrips();
+    }
+
   }
 
   loadCountries(){
@@ -264,4 +281,101 @@ export class CountryListComponent implements OnInit {
 
     return arrCountries;
   }
+
+  //side-nav functions
+
+  reloadTrips(): void {
+    this.tripSvc.index().subscribe(
+      data => {this.trips = data},
+      err => {console.error("Observer got an error loading trips: " + err)}
+    )
+  }
+
+  displaySingleTrip(trip: Trip) {
+    this.router.navigateByUrl('trips/' + trip.id)
+  }
+
+   // create
+   createTrip(){
+
+    this.newTrip.completed = false;
+    this.newTrip.enabled = true;
+
+    console.log(this.newTrip);
+
+    this.newTrip.startDate = this.dateToStringParser(this.newTrip.startDate);
+    this.newTrip.endDate = this.dateToStringParser(this.newTrip.endDate);
+
+    console.log(this.newTrip);
+
+    this.tripSvc.create(this.newTrip).subscribe(
+      data => {
+        this.newTrip = new Trip();
+        this.reloadTrips();
+        this.router.navigateByUrl('trips/' + data.id)
+      },
+      err => {
+        console.error('Observer got an error: ' + err);
+      }
+    )
+  }
+  // Parser for Trip creation
+  dateToStringParser(newTripDate): string {
+      let dateStr = "";
+
+      dateStr += newTripDate["year"];
+      dateStr += "-";
+
+      if(+newTripDate["month"] < 10){
+        dateStr += "0";
+        dateStr += newTripDate["month"];
+      } else {
+        dateStr += newTripDate["month"];
+      }
+      dateStr += "-";
+      if(+newTripDate["day"] < 10){
+        dateStr += "0";
+        dateStr += newTripDate["day"];
+      } else {
+        dateStr += newTripDate["day"];
+      }
+      dateStr += "T00:00:00"
+      console.log(dateStr);
+
+      return dateStr;
+  }
+  startTripCreate(){
+    this.newTrip = new Trip();
+  }
+  cancelTripCreate(){
+    this.newTrip = null;
+  }
+
+  // Modal Methods
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+// SideBar Methods
+  toggleTrip(){
+    this.isTripList = true;
+  }
+  toggleWish(){
+    this.isTripList = false;
+  }
+
 }
