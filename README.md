@@ -21,6 +21,15 @@ Back End:
 * Test-driven design with JUnit
 * Relational databases: MySQL, Java Persistence API with Hibernate
 
+### Lessons Learned
+* Erik:
+
+* Eric: This was a great opportunity to build something from the ground up while collaborating remotely. Communication was key to avoid merge conflicts and wasted effort. We did great as a team by communicating on Slack, Trello, and Zoom. It was also great to get some more experience in Angular, along with the by-now-familiar back-end technologies.
+
+* Chelsey:
+
+* Thomas:
+
 ## API
 ### AdviceType
 
@@ -29,7 +38,7 @@ Back End:
 | GET | `countries/{cid}/adviceTypes` | void | `List<AdviceType>` | Gets all AdviceTypes for a given Country |
 | GET | `countries/{cid}/adviceTypes/{atid}` | void | `AdviceType` | Get an AdviceType by Country ID and advice type ID |
 | POST | `api/countries/{cid}/adviceTypes` | `AdviceType`, `Principal` | `AdviceType` | Create AdviceType for a given Country |
-| PUT | `api/countries/{cid}/adviceTypes/{atid}` | `AdviceType`, `Principal` | `AdviceType` | Create an AdviceType for a given Country | 
+| PUT | `api/countries/{cid}/adviceTypes/{atid}` | `AdviceType`, `Principal` | `AdviceType` | Edit an AdviceType for a given Country | 
 | DELETE | `api/countries/{cid}/adviceTypes/{atid}` | `Principal` | void | Delete AdviceType by Country ID and AdviceType ID |
 
 
@@ -49,10 +58,19 @@ Back End:
 | GET | `countries/{countryId}/comments/disabled` | void | `List<Comment>` | Gets all disabled comments for a country |
 | GET | `countries/{countryId}/comments/{cid}` | `Principal` | `Comment` | Get comment by country and comment ID |
 | POST | `api/countries/{countryId}/comments` | `Principal`, `Comment` | `Comment` | Create a comment for a given country | 
-| PUT | `api/countries/{countryId}/comments/{commentId}` | `Comment`, `Principal` | 
+| PUT | `api/countries/{countryId}/comments/{commentId}` | `Comment`, `Principal` | Edits a comment |
 | DELETE | `api/countries/{countryId}/comments/{commentId}` | `Principal` | `boolean` | Deletes comment by ID |
 
 
+### Country
+| HTTP Method | Resource URI | Request Body | Returns | Functionality |
+|-------------|--------------|--------------|---------|--------|
+| GET | `countries` | void | `List<Country>` | Gets all countries |
+| GET | `countries/search/{keyword}` | void | `List<Country>` | Search for country by keyword |
+| GET | `countries/{cid}` | void | `Country` | Get a country by ID |
+| POST | `api/countries` | `Country`, `Principal` | `Country` | Creates a new country |
+| PUT | `api/countries/{cid}` | `Country`, `Principal` | `Country` | Edits a country |
+| DELETE | `api/countries/{cid}` | `Principal` | void | Delete a country by ID |
 
 
 #### Picture
@@ -67,12 +85,3 @@ Back End:
 | HTTP Method | Resource URI | Request Body | Returns | Functionality |
 |-------------|--------------|--------------|---------|--------|
 
-
-### Lessons Learned
-* Erik:
-
-* Eric: This was a great opportunity to build something from the ground up while collaborating remotely. Communication was key to avoid merge conflicts and wasted effort. We did great as a team by communicating on Slack, Trello, and Zoom. It was also great to get some more experience in Angular, along with the by-now-familiar back-end technologies.
-
-* Chelsey:
-
-* Thomas:
