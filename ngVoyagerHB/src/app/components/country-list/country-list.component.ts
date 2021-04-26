@@ -11,6 +11,7 @@ import { ChartComponent } from '../chart/chart.component';
 import { Trip } from 'src/app/models/trip';
 import { TripService } from 'src/app/services/trip.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ItineraryItem } from 'src/app/models/itinerary-item';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class CountryListComponent implements OnInit {
   opened: boolean;
   isTripList: boolean = true;
   trips: Trip[] = [];
+  wishlist: Trip = null;
   newTrip: Trip = new Trip();
 
   // Modal
@@ -286,7 +288,19 @@ export class CountryListComponent implements OnInit {
 
   reloadTrips(): void {
     this.tripSvc.index().subscribe(
-      data => {this.trips = data},
+      data => {
+       for (let index = 0; index < data.length; index++) {
+         let trip = data[index];
+
+         if(trip['name'].toLowerCase() === "wishlist"){
+            this.wishlist = trip;
+         }
+         else {
+           this.trips.push(trip)
+         }
+       }
+
+      },
       err => {console.error("Observer got an error loading trips: " + err)}
     )
   }
@@ -376,6 +390,24 @@ export class CountryListComponent implements OnInit {
   }
   toggleWish(){
     this.isTripList = false;
+  }
+
+
+  addCountryToWL(cid: number, event) {
+    event.stopPropagation();
+    let ii = new ItineraryItem();
+    ii.country = new Country();
+    ii.country.id = cid;
+    this.wishlist.itineraryItems.push(ii);
+    this.tripSvc.update(this.wishlist).subscribe(
+      data => {
+        this.ngOnInit();
+      },
+      fail => {
+        console.error('CountryListComponent.addCountryToWishList() failed:');
+        console.error(fail);
+      }
+    )
   }
 
 }
