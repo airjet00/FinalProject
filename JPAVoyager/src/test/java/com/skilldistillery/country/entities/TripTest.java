@@ -52,7 +52,7 @@ class TripTest {
 	@DisplayName("Trip has ManyToOne mapping with User")
 	void test2() {
 		assertNotNull(trip);
-		assertEquals(trip.getUser().getId(), 1);
+		assertEquals(trip.getUser().getId(), 3);
 	}
 	@Test
 	@DisplayName("Trip has OneToMany mapping with Itinerary item")
