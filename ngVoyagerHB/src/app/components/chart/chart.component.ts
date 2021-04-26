@@ -38,9 +38,11 @@ export class ChartComponent {
     // this.map = am4maps.MapImage;
     this.username = localStorage.getItem("username")
     if(this.username){
+      console.log("Username is not null. Should show map with user countries");
     this.getTripCountries();
     }
     else{
+      console.log("Username is null. Should show blank map");
       this.getBlankMap();
     }
   }
@@ -113,15 +115,22 @@ export class ChartComponent {
 
   getBlankMap() {
     this.browserOnly(() => {
+      console.log("inside getBlankMap()");
 
       am4core.useTheme(am4themes_animated);
 
       this.map = am4core.create("chartdiv", am4maps.MapChart);
+      console.log("created Map:");
+      console.log(this.map);
+
       this.map.geodata = am4geodata_worldLow;
       this.map.projection = new am4maps.projections.Miller();
       let polygonSeries = new am4maps.MapPolygonSeries();
       polygonSeries.useGeodata = true;
       this.map.series.push(polygonSeries);
+      console.log("added GeoData:");
+
+
 
       // Configure series
       let polygonTemplate = polygonSeries.mapPolygons.template;
