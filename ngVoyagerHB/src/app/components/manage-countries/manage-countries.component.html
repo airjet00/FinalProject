@@ -1,0 +1,50 @@
+<h2>Manage Countries</h2>
+
+<form class="form-inline">
+  Country:
+  <select
+    class="ml-3 mr-3 form-control"
+    [(ngModel)]="chosenCountry"
+    name="chosenCountry"
+  >
+    <option value="" selected></option>
+    <option *ngFor="let c of countries" [ngValue]="c">{{ c.name }}</option>
+  </select>
+  <button (click)="selectEdit()" class="btn btn-info mr-3" type="submit">
+    Edit
+  </button>
+  <button (click)="selectDelete()" class="btn btn-danger mb-3 mt-3 mr-3">
+    Delete
+  </button>
+</form>
+
+<button (click)="selectAdd()" class="btn btn-success mt-3 mb-3 mr-3">
+  Add a Country
+</button>
+<hr />
+
+<div *ngIf="viewEdit">
+  <h3>Editing: {{ chosenCountry.name }}</h3>
+  <form>
+      Description:
+      <textarea
+        class="form-control"
+        value="{{ chosenCountry.description }}"
+        [(ngModel)]="chosenCountry.description"
+      ></textarea>
+      Default image URL:
+      <textarea
+        class="form-control"
+        value="{{ chosenCountry.defaultImage }}"
+        [(ngModel)]="chosenCountry.defaultImage"
+      ></textarea>
+    <button class="btn btn-info mt-1 mb-3">Submit Changes</button>
+  </form>
+  <button class="btn btn-info mt-1 mb-3 mr-3">Add Image</button>
+
+  <h1>.</h1>
+</div>
+
+<div *ngIf="viewDelete">in delete {{ chosenCountry.name }}</div>
+
+<div *ngIf="viewAdd">in add {{ chosenCountry.name }}</div>
