@@ -23,7 +23,11 @@ export class TripListComponent implements OnInit {
 
   selected: Trip = null;
 
+  wishlist: Trip = null;
+
   selectedCountry = null;
+
+  selectedII: ItineraryItem = null;
 
   newTrip: Trip = new Trip();
 
@@ -101,7 +105,17 @@ export class TripListComponent implements OnInit {
   // index
   reloadTrips(): void {
     this.tripSvc.index().subscribe(
-      data => {this.trips = data},
+      data => {
+       for (let index = 0; index < data.length; index++) {
+         let trip = data[index];
+         if(trip['name'].toLowerCase() === "wishlist"){
+            this.wishlist = trip;
+         }
+         else {
+           this.trips.push(trip)
+         }
+       }
+      },
       err => {console.error("Observer got an error loading trips: " + err)}
     )
   }
@@ -273,9 +287,33 @@ export class TripListComponent implements OnInit {
         iItem.trip.name = trip.name
         iItem.trip.startDate = trip.startDate
     })
+    this.selectedCountry = null;
+    this.selectedII = null;
     this.updateTrip(trip);
   }
+
   // Update ItineraryItems
+  saveNotes(trip: Trip){
+    this.updateTrip(trip);
+  }
+
+  cancelNotes(trip: Trip, II: ItineraryItem, country){
+    this.reloadTrips();
+
+    this.trips.forEach(refreshedTrip => {
+      if(refreshedTrip.id === trip.id){
+        this.selected = refreshedTrip;
+        this.selected.itineraryItems.forEach(IItem => {
+          if(IItem.id === II.id){
+            this.selectedII = IItem;
+            this.selectedCountry = this.selectedII.country;
+          }
+        })
+      }
+    })
+
+  }
+
   updateItinItem(){
 
   }
@@ -297,8 +335,9 @@ export class TripListComponent implements OnInit {
     this.orderIIList(trip);
     this.selected = trip;
   }
-  displayCountryAdvice(country){
+  displayCountryAdvice(country, II?: ItineraryItem){
     this.selectedCountry = country;
+    this.selectedII = II;
   }
   // delete display
   displayDelete(): void {
