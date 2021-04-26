@@ -41,6 +41,7 @@ export class ManageCountriesComponent implements OnInit {
   addCountry: Country = new Country();
   deleteConfirmed: boolean = false;
   showCountryChanges: Country;
+  countryToCreate: Country = new Country();
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
     private route: ActivatedRoute, private commentServ: CommentService) { }
@@ -65,11 +66,11 @@ export class ManageCountriesComponent implements OnInit {
     )
   }
 
-  selectEdit() { this.viewEdit = true; this.viewAdd = false; this.viewDelete = false; this.deleteConfirmed = false;}
+  selectEdit() { this.viewEdit = true; this.viewAdd = false; this.viewDelete = false; this.deleteConfirmed = false; this.showCountryChanges = null;}
 
-  selectAdd() { this.viewAdd = true; this.viewEdit = false; this.viewDelete = false; this.deleteConfirmed = false;}
+  selectAdd() { this.viewAdd = true; this.viewEdit = false; this.viewDelete = false; this.deleteConfirmed = false; this.showCountryChanges = null;}
 
-  selectDelete() { this.viewDelete = true; this.viewAdd = false; this.viewEdit = false; this.deleteConfirmed = false;}
+  selectDelete() { this.viewDelete = true; this.viewAdd = false; this.viewEdit = false; this.deleteConfirmed = false; this.showCountryChanges = null;}
 
   showCountry(cid) {
     this.countryServ.show(cid).subscribe(
@@ -109,9 +110,10 @@ export class ManageCountriesComponent implements OnInit {
 
   addNewCountry() {
     this.loginCheck();
-    this.countryServ.create(this.newCountry).subscribe(
+    this.countryServ.create(this.countryToCreate).subscribe(
       data => {
         this.loadCountries();
+        this.countryToCreate = new Country();
       },
       fail => {
         console.error('CountryListComponent.createCountry() failed:');
