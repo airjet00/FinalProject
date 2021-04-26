@@ -7,6 +7,7 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import * as am4maps from '@amcharts/amcharts4/maps';
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import { TripService } from 'src/app/services/trip.service';
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-chart',
@@ -14,8 +15,10 @@ import { TripService } from 'src/app/services/trip.service';
   styleUrls: ['./chart.component.css']
 })
 
+@Injectable({ providedIn: 'root' })
+
 export class ChartComponent {
-  private map: am4maps.MapImage;
+  map= null;
   selectedCountries: Object[] = null;
 
   constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone, private tripServ: TripService) {}
@@ -31,6 +34,7 @@ export class ChartComponent {
   }
 
   ngAfterViewInit() {
+    // this.map = am4maps.MapImage;
     this.getTripCountries();
   }
 
@@ -39,6 +43,7 @@ export class ChartComponent {
     this.browserOnly(() => {
       if (this.map) {
         this.map.dispose();
+        this.map = null;
       }
     });
   }
@@ -67,12 +72,12 @@ export class ChartComponent {
 
     am4core.useTheme(am4themes_animated);
 
-    let map = am4core.create("chartdiv", am4maps.MapChart);
-    map.geodata = am4geodata_worldLow;
-    map.projection = new am4maps.projections.Miller();
+    this.map = am4core.create("chartdiv", am4maps.MapChart);
+    this.map.geodata = am4geodata_worldLow;
+    this.map.projection = new am4maps.projections.Miller();
     let polygonSeries = new am4maps.MapPolygonSeries();
     polygonSeries.useGeodata = true;
-    map.series.push(polygonSeries);
+    this.map.series.push(polygonSeries);
 
     // Configure series
     let polygonTemplate = polygonSeries.mapPolygons.template;

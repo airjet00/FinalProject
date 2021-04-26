@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { CountryService } from 'src/app/services/country.service';
 import { Comment } from 'src/app/models/comment';
-import { filter } from 'rxjs/operators';
+import { ChartComponent } from '../chart/chart.component';
 
 
 @Component({
@@ -36,7 +36,7 @@ export class CountryListComponent implements OnInit {
   activeIndex: number = null;
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
-    private route: ActivatedRoute, private commentServ: CommentService) { }
+    private route: ActivatedRoute, private commentServ: CommentService, private mapComp: ChartComponent) { }
 
   ngOnInit(): void {
     this.role = localStorage.getItem("userRole");
@@ -61,6 +61,7 @@ export class CountryListComponent implements OnInit {
   }
 
   selectCountry(country: Country) {
+    this.mapComp.ngOnDestroy();
     this.selected = country;
     this.router.navigateByUrl('countries/' + country.id)
   }
