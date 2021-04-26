@@ -48,7 +48,7 @@ export class CountryService {
   create(country: Country) {
     let httpOptions = this.credentials();
 
-    return this.http.post<Country>(this.url, country, httpOptions)
+    return this.http.post<Country>(this.baseUrl + "api/countries", country, httpOptions)
     .pipe(
       catchError((err: any) => {
         console.log(err);
@@ -61,7 +61,7 @@ export class CountryService {
   update(country: Country) {
     let httpOptions = this.credentials();
 
-    return this.http.put<Country>(this.url +'/'+ country.id, country, httpOptions).pipe(
+    return this.http.put<Country>(this.baseUrl +'api/countries/'+ country.id, country, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError('CountryService.update(): error updating country: ' + err);

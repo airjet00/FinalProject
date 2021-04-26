@@ -24,8 +24,9 @@
 <hr />
 
 <div *ngIf="viewEdit">
-  <h3>Editing: {{ chosenCountry.name }}</h3>
-  <form>
+  <div *ngIf="!showCountryChanges">
+    <h3>Editing: {{ chosenCountry.name }}</h3>
+    <form>
       Description:
       <textarea
         class="form-control"
@@ -40,18 +41,25 @@
         [(ngModel)]="chosenCountry.defaultImage"
         name="chosenCountryImgUrl"
       ></textarea>
-    <button class="btn btn-info mt-1 mb-3">Submit Changes</button>
-  </form>
-  <button class="btn btn-info mt-1 mb-3 mr-3">Add Image</button>
-
-  <h1>.</h1>
+      <button (click)="submitEdit()" class="btn btn-info mt-1 mb-3">
+        Submit Changes
+      </button>
+    </form>
+    <button class="btn btn-info mt-1 mb-3 mr-3">Add Image</button>
+  </div>
 </div>
 
-<div *ngIf="viewDelete">Are you sure you want to delete {{ chosenCountry.name }}?
+<div *ngIf="showCountryChanges">
+  <h3>Successfully edited {{ showCountryChanges.name }}:</h3>
+  Description: {{ showCountryChanges.description }} <br />Image Url:
+  {{ showCountryChanges.defaultImage }}
+</div>
+
+<div *ngIf="viewDelete">
+  Are you sure you want to delete {{ chosenCountry.name }}?
   <button class="btn btn-danger" (click)="delete()">Confirm Delete</button>
 </div>
+
 <div *ngIf="deleteConfirmed">Deleted.</div>
 
-<div *ngIf="viewAdd">in add
-</div>
-
+<div *ngIf="viewAdd">in add</div>
