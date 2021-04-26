@@ -151,6 +151,7 @@ public class UserController {
 							@PathVariable int uid, 
 							Principal principal) 
 	{
+		System.out.println(uid + "********************************");
 		int i = userSvc.deactivate(principal.getName(), uid);
 		switch (i) {
 		case 204:
