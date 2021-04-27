@@ -132,7 +132,7 @@ public class CommentController {
 
 		try {
 			if (commentServ.destroy(principal.getName(), commentId)) {
-				resp.setStatus(204);
+				resp.setStatus(200);
 				return true;
 			} else {
 				resp.setStatus(404);

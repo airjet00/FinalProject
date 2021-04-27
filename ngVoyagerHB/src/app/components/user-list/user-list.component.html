@@ -227,13 +227,14 @@
                   <td>{{comment.createDate}}</td>
                   <td>{{comment.updateDate}}</td>
                   <td>{{comment.enabled}}</td>
-                  <div *ngIf="comment.enabled">
+                  <td *ngIf="comment.enabled">
                     <!-- TODO add method to deactivate/activate comment -->
-                    <button class="btn btn-danger" type="submit" >Deactivate</button>
-                  </div>
-                  <div *ngIf="!comment.enabled">
-                    <button class="btn btn-danger" type="submit">Activate</button>
-                  </div>
+                    <button class="btn btn-danger" type="submit" (click)="deleteComment(comment['country'].id, comment.id)">Deactivate</button>
+                  </td>
+                  <td *ngIf="!comment.enabled">
+                    <button class="btn btn-danger" type="submit"
+                    (click)="enableComment(comment, comment['country'].id)">Activate</button>
+                  </td>
 
                   <td>
                     <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"

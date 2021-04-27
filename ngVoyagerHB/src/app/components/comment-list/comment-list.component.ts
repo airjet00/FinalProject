@@ -27,7 +27,7 @@ export class CommentListComponent implements OnInit {
 
   commentForDeletion: Comment = null;
 
-  commentsByUser: Comment[];
+
 
   //////// init:
   constructor(private router: Router, private authService: AuthService, private commentServ: CommentService, private route: ActivatedRoute) { }
@@ -106,17 +106,6 @@ export class CommentListComponent implements OnInit {
 
   }
 
-  indexByUsername(username: string) {
-    this.commentServ.indexByUsername(username).subscribe(
-      data => {
-        this.commentsByUser = data;
-        return data;
-      },
-      failure => {
-        console.error(failure);
-      });
-    return null;
-  }
 
 }
 
