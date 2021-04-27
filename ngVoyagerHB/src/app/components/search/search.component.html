@@ -14,7 +14,7 @@
         />
         <button
           type="submit"
-          class=" btn btn-primary"
+          class=" btn btn-success"
           (click)="searchCountry()"
         >
           Search
@@ -32,7 +32,7 @@
         <option *ngFor="let c of countries" [ngValue]="c">{{ c.name }}</option>
       </select>
 
-      <button type="submit" class="btn btn-primary" (click)="chooseCountry()">
+      <button type="submit" class="btn btn-success" (click)="chooseCountry()">
         Go
       </button>
     </form>
