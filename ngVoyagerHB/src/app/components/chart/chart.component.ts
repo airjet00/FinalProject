@@ -35,7 +35,8 @@ export class ChartComponent {
     {code:"BR" , latitude: -14.235004, longitude: -51.92528},
     {code:"CN" , latitude: 35.86166, longitude: 104.195397},
     {code:"AU" , latitude: -25.274398, longitude: 133.775136},
-    {code:"GB" , latitude: 55.378051, longitude: -3.435973}
+    {code:"GB" , latitude: 55.378051, longitude: -3.435973},
+    {code:"VN" , latitude: 14.058324, longitude: 108.277199}
   ];
 
   mylines: Object[];
@@ -86,7 +87,9 @@ export class ChartComponent {
     this.tripServ.index().subscribe(
       data => {
         let trips = data;
-        this.selectedCountries = [];
+        this.selectedCountries = [
+          {id: "US", fill: "#22b3b8"}
+        ];
         for (let index = 0; index < trips.length; index++) {
           let trip = trips[index];
           if(trip['completed'] && trip['itineraryItems'].length >0 ) {
@@ -94,7 +97,7 @@ export class ChartComponent {
               let ii = trip['itineraryItems'][index];
               let countryData = Object();
               countryData.id = ii['country']['countryCode'];
-              countryData.fill = 'blue'
+              countryData.fill = '#22b3b8'
               this.selectedCountries.push(countryData);
             }
           }
@@ -168,8 +171,10 @@ export class ChartComponent {
     this.tripServ.show(tid).subscribe(
       data => {
         let trip = data;
-        this.selectedCountries = [];
-        this.mylines = [];
+        this.selectedCountries = [
+          {id: "US", fill: "#22b3b8"}
+        ];
+        this.mylines = [{latitude: 37.09024, longitude: -95.712891}];
 
         if(trip['itineraryItems'].length >0 ) {
           for (let index = 0; index < trip['itineraryItems'].length; index++) {
@@ -231,6 +236,8 @@ export class ChartComponent {
 
           imageSeriesTemplate.propertyFields.latitude = "latitude";
           imageSeriesTemplate.propertyFields.longitude = "longitude";
+
+          this.mylines.push({latitude: 37.09024, longitude: -95.712891});
 
           imageSeries.data = this.mylines;
 
