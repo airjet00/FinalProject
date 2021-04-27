@@ -1,5 +1,5 @@
 <!-- backgr https://images.unsplash.com/photo-1498307833015-e7b400441eb8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60 -->
-<div class="backgroundImage">
+<div class="backgroundImage mt-0">
 
 
   <div class="center-content card mx-auto text-center" style="max-width: 500px">
@@ -7,14 +7,14 @@
     <form>
       <div class="form-group form-inline col-12">
         <input
-          class="ml-3 mr-3 form-control col-8 mx-auto"
+          class="ml-3 form-control col-8 mx-auto"
           type="text"
           name="keyword"
           [(ngModel)]="keyword"
         />
         <button
           type="submit"
-          class="ml-2 btn btn-primary"
+          class=" btn btn-primary"
           (click)="searchCountry()"
         >
           Search
@@ -22,9 +22,9 @@
       </div>
     </form>
     <h3>Select:</h3>
-    <form class="col-8 form-inline">
+    <form class="col-12 form-inline mb-3">
       <select
-        class="mx-auto col-8 ml-3 mr-3 form-control"
+        class="mx-auto col-8 form-control"
         [(ngModel)]="chosenCountry"
         name="chosenCountry"
       >
@@ -39,11 +39,15 @@
   </div>
 
 
-  <div *ngIf="searchResults">
+  <div class="mt-3 text-left card mx-auto" style="max-width: 500px" *ngIf="searchResults || noneFound">
+  <div class="content-center m-2">
+    <div class="searchResults" *ngIf="searchResults">
+      <h3>Results:</h3>
     <div *ngFor="let country of searchResults">
       <button class="btn btn-success btn-sm mt-1 mb-1 mr-1">Visit</button
       >{{ country.name }}
     </div>
   </div>
-  <div *ngIf="noneFound">No matches found!</div>
+  <div *ngIf="noneFound"><h3>No matches found!</h3></div>
+</div></div>
 </div>
