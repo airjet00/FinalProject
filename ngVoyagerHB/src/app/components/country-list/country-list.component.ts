@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdviceType } from 'src/app/models/advice-type';
 import { Country } from 'src/app/models/country';
@@ -12,7 +12,8 @@ import { Trip } from 'src/app/models/trip';
 import { TripService } from 'src/app/services/trip.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ItineraryItem } from 'src/app/models/itinerary-item';
-import { MatDrawer, MatSidenav } from '@angular/material/sidenav';
+import { MatSidenav } from '@angular/material/sidenav';
+
 
 
 @Component({
@@ -45,11 +46,33 @@ export class CountryListComponent implements OnInit {
   opened: boolean;
   isTripList: boolean = true;
   trips: Trip[] = [];
+  completedTrips: Trip[] = [];
   wishlist: Trip = null;
   newTrip: Trip = new Trip();
 
+
   // Modal
   closeResult = '';
+
+  // Drop down for sidenav
+  @ViewChild('sidenav') sidenav: MatSidenav;
+  isExpanded = true;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
+
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+    }
+  }
+
+  mouseleave() {
+    if (!this.isExpanded) {
+      this.isShowing = false;
+    }
+  }
+  // ** End Drop down for sidenav **
 
   constructor(private countryServ: CountryService, private router: Router, private authService: AuthService,
     private route: ActivatedRoute, private commentServ: CommentService, private mapComp: ChartComponent,
@@ -290,9 +313,21 @@ export class CountryListComponent implements OnInit {
   reloadTrips(): void {
     this.tripSvc.index().subscribe(
       data => {
-      let index: number = data.findIndex( (wishList) => wishList.name === "wishlist")
-      this.wishlist = data.splice(index, 1)[0];
-      this.trips = data;
+        // Remove WishList
+        let index: number = data.findIndex( (wishList) => wishList.name === "wishlist")
+        this.wishlist = data.splice(index, 1)[0];
+        // Seperate Completed from uncompleted
+        let compTrips: Trip[] = [];
+        let uncompTrips: Trip [] = [];
+        data.forEach(trip => {
+          if(trip.completed){
+            compTrips.push(trip);
+          } else {
+            uncompTrips.push(trip);
+          }
+        })
+        this.trips = uncompTrips;
+        this.completedTrips = compTrips;
       },
       err => {console.error("Observer got an error loading trips: " + err)}
     )
@@ -402,5 +437,7 @@ export class CountryListComponent implements OnInit {
       }
     )
   }
+
+
 
 }
