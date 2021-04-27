@@ -49,7 +49,7 @@
         <br>
       </div>
       <div class="list-group list-group-flush" *ngIf="!isTripList">
-        <a class="list-group-item list-group-item-action bg-light">Search countries on country page and click "+" to add to bucket list</a>
+        <a (click)="displaySingleTrip(wishlist)" class="list-group-item list-group-item-action bg-light">Bucket List (search countries on country page and click "+" to add)</a>
         <div *ngFor="let ii of wishlist['itineraryItems']">
           <a href="#/countries/{{ii['country']['id']}}" class="list-group-item list-group-item-action bg-light">{{ii['country']['name']}}</a>
         </div>
@@ -107,7 +107,8 @@
       <h1 style="text-align: center;">Start by selecting or adding a Trip in your Trip List</h1>
     </div>
     <div *ngIf="selected" class="container">
-      <h1 style="text-align: center;">{{selected.name}}</h1>
+      <h1 *ngIf="selected.name === 'wishlist'" style="text-align: center;">Bucket List</h1>
+      <h1 *ngIf="selected.name !== 'wishlist'"style="text-align: center;">{{selected.name}}</h1>
       <div class="row">
         <!-- itinerary item table -->
         <div class="col-md-6">

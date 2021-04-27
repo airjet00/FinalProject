@@ -222,6 +222,8 @@ export class ChartComponent {
 
           polygonTemplate.propertyFields.fill = "fill";
 
+          if(trip.name !== "wishlist"){
+          //Add pinpoint for cities
           let imageSeries = this.map.series.push(new am4maps.MapImageSeries());
           let imageSeriesTemplate = imageSeries.mapImages.template;
           let circle = imageSeriesTemplate.createChild(am4core.Circle);
@@ -252,7 +254,8 @@ export class ChartComponent {
           lineSeries.mapLines.template.line.strokeWidth = 4;
           lineSeries.mapLines.template.line.strokeDasharray = "3,3";
           lineSeries.mapLines.template.line.shortestDistance = true;
-        });
+        }
+      });
 
       },
       err => console.error('showCountries got an error: ' + err)
