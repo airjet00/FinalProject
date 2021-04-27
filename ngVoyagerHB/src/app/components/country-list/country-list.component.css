@@ -96,6 +96,7 @@ ngb-carousel:focus {
   display: flex;
   color: white;
   text-align: center;
+  justify-content: center;
 }
 
 .countryCard h2 {
