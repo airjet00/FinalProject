@@ -49,12 +49,10 @@
         <br>
       </div>
       <div class="list-group list-group-flush" *ngIf="!isTripList">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Wish</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+        <a class="list-group-item list-group-item-action bg-light">Search countries on country page and click "+" to add to wishlist</a>
+        <div *ngFor="let ii of wishlist['itineraryItems']">
+          <a href="#/countries/{{ii['country']['id']}}" class="list-group-item list-group-item-action bg-light">{{ii['country']['name']}}</a>
+        </div>
       </div>
     </div>
   </mat-drawer>
