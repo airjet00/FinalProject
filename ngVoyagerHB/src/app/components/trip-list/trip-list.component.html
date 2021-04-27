@@ -15,8 +15,26 @@
       </div>
       <div class="list-group list-group-flush" *ngIf="isTripList">
         <!-- href="#/trips/{{trip.id}}" <-- older method of display, will delete  -->
-        <a *ngFor="let trip of trips" (click)="displaySingleTrip(trip)"  class="list-group-item list-group-item-action bg-light">{{trip.name}}</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Completed Trips</a>
+        <mat-nav-list class="list-group-item list-group-item-action bg-light">
+          <!-- test (to undo move this a tag above matNavList and remove mat-list-item  and add back class="list-group-item list-group-item-action bg-light") -->
+          <mat-list-item *ngFor="let trip of trips" (click)="displaySingleTrip(trip)" >
+            <mat-icon mat-list-icon>airplanemode_active</mat-icon>
+            <a >{{trip.name}}</a>
+          </mat-list-item>
+          <!-- Completed Drop Down -->
+          <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+            <span class="full-width" *ngIf="isExpanded || isShowing">Completed Trips</span>
+            <mat-icon mat-list-icon>map</mat-icon>
+            <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+          </mat-list-item>
+            <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+              <mat-list-item *ngFor="let trip of completedTrips" (click)="displaySingleTrip(trip)">
+                <mat-icon>check_box</mat-icon>
+                <a >{{trip.name}}</a>
+              </mat-list-item>
+            </div>
+        </mat-nav-list>
+          <!-- ** End Completed Drop Down ** -->
         <div class="row">
           <div class="col-md-6">
             <button class="btn btn-dark btn-outline-success" id="createTripFormBtn" style="float: left;" (click)="open(content)">Temp This btn can do anything</button>
@@ -25,14 +43,16 @@
             <button class="btn btn-dark btn-outline-success" id="createTripFormBtn" style="float: right;" (click)="open(content); startTripCreate();">Create a Trip!</button>
           </div>
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
       </div>
       <div class="list-group list-group-flush" *ngIf="!isTripList">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Wish</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+        <a class="list-group-item list-group-item-action bg-light">Search countries on country page and click "+" to add to wishlist</a>
+        <div *ngFor="let ii of wishlist['itineraryItems']">
+          <a href="#/countries/{{ii['country']['id']}}" class="list-group-item list-group-item-action bg-light">{{ii['country']['name']}}</a>
+        </div>
       </div>
     </div>
   </mat-drawer>
@@ -95,13 +115,15 @@
           <table class='table table-bordered table-dark'>
             <thead class="thead-light">
               <tr>
+                <th>Order</th>
                 <th>Country Name</th>
                 <th>Country Description</th>
                 <th *ngIf="deleting">Remove Country</th>
               </tr>
             </thead>
-            <tbody *ngIf="selected['itineraryItems']">
-              <tr *ngFor="let itineraryItem of selected['itineraryItems']" (click)="displayCountryAdvice(itineraryItem['country'])">
+            <tbody *ngIf="selected['itineraryItems']" cdkDropList (cdkDropListDropped)="drop($event, selected)">
+              <tr *ngFor="let itineraryItem of orderedItineraryItems" cdkDrag cdkDragLockAxis="y" (click)="displayCountryAdvice(itineraryItem['country'], itineraryItem)">
+                <td>{{itineraryItem.sequenceNum}}</td>
                 <td>
                   {{itineraryItem["country"].name}}
                 </td>
@@ -114,19 +136,39 @@
               </tr>
             </tbody>
           </table>
-          <button class="btn btn-dark" (click)="displayDelete()" style="float: right;">{{deleteBtnMsg}}</button>
+            <div class="row">
+              <div class="col-md-6">
+                <button class="btn btn-dark btn-outline-success" id="createTripFormBtn" style="float: left;" (click)="toggleCompleted(selected)">{{toggleCompleteMsg}}</button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-dark btn-outline-success" (click)="displayDelete()" style="float: right;">{{deleteBtnMsg}}</button>
+            </div>
+          </div>
         </div>
         <!-- ** End itinerary item table ** -->
         <!-- Advice By Country (iItem) -->
         <div class="col-md-6" *ngIf="selectedCountry">
-          <h1 style="text-align: center;">{{selectedCountry.name}}</h1>
-          <table style="width:100%">
-            <tr *ngFor="let adviceType of selectedCountry['adviceTypes']">
-              <th>{{adviceType.name}}</th>
-              <td>{{adviceType.description}}</td>
-              <td><a href="{{adviceType.adviceUrl}}">More Info: {{adviceType.name}}</a></td>
-            </tr>
-          </table>
+          <div class="row">
+            <h1 style="text-align: center;">{{selectedCountry.name}}</h1>
+            <table style="width:100%">
+              <tr *ngFor="let adviceType of selectedCountry['adviceTypes']">
+                <th>{{adviceType.name}}</th>
+                <td>{{adviceType.description}}</td>
+                <td><a href="{{adviceType.adviceUrl}}">More Info: {{adviceType.name}}</a></td>
+              </tr>
+            </table>
+          </div>
+          <!-- Notes on itineraryItems -->
+          <hr>
+          <div class="row" *ngIf="selectedII">
+            <h1 style="text-align: center;">Notes</h1>
+            <form action="">
+              <textarea name="notes" id="IINotes" cols="30" rows="10" [(ngModel)]="selectedII.notes">{{selectedII.notes}}</textarea>
+              <button (click)="cancelNotes(selected, selectedII, selectedCountry)">Cancel Changes</button>
+              <button (click)="saveNotes(selected)">Save</button>
+            </form>
+          </div>
+          <!-- ** End Notes on itineraryItems ** -->
         </div>
         <!-- ** End Advice By Country (iItem) ** -->
       </div>
@@ -163,6 +205,14 @@
         <br>
       </div>
     </div>
+
+      <!-- MAP SECTION -->
+      <div>
+        <h1 class="p-3 text-center mt-2">Your Trip</h1>
+        <app-chart></app-chart>
+      </div>
+
+
   </mat-drawer-content>
   <!-- ******* End Page Content ****** -->
 </mat-drawer-container>

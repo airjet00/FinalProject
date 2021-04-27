@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Country } from 'src/app/models/country';
@@ -16,11 +18,19 @@ export class TripListComponent implements OnInit {
 
   trips: Trip[] = [];
 
+  completedTrips: Trip[] = [];
+
+  orderedItineraryItems: ItineraryItem [] = [];
+
   countries: Country [] = [];
 
   selected: Trip = null;
 
+  wishlist: Trip = null;
+
   selectedCountry = null;
+
+  selectedII: ItineraryItem = null;
 
   newTrip: Trip = new Trip();
 
@@ -31,6 +41,8 @@ export class TripListComponent implements OnInit {
   deleting: boolean = false;
   deleteBtnMsg: string = "Remove a Country";
 
+  toggleCompleteMsg: string = "Set To Completed";
+
   events: string[] = [];
   opened: boolean;
 
@@ -40,6 +52,31 @@ export class TripListComponent implements OnInit {
   closeResult = '';
 
 // Methods
+
+// Drop down for sidenav
+@ViewChild('sidenav') sidenav: MatSidenav;
+  isExpanded = true;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
+
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+    }
+  }
+
+  mouseleave() {
+    if (!this.isExpanded) {
+      this.isShowing = false;
+    }
+  }
+// ** End Drop down for sidenav **
+
+
+
+
+
 
 // Methods
 
@@ -69,6 +106,22 @@ export class TripListComponent implements OnInit {
     this.reloadCountries();
   }
 
+
+// ItineraryItem Methods
+  orderIIList(trip: Trip){
+    let IIArray: ItineraryItem [] = [];
+    let count: number = 1;
+    while(trip.itineraryItems.length != IIArray.length){
+      trip.itineraryItems.forEach(II => {
+        if(II.sequenceNum === count){
+          IIArray.push(II);
+        }
+      })
+      count++;
+    }
+    this.orderedItineraryItems = IIArray;
+  }
+
 // Country Methods
   reloadCountries(){
     this.countrySvc.index().subscribe(
@@ -82,7 +135,23 @@ export class TripListComponent implements OnInit {
   // index
   reloadTrips(): void {
     this.tripSvc.index().subscribe(
-      data => {this.trips = data},
+      data => {
+        // Remove WishList
+        let index: number = data.findIndex( (wishList) => wishList.name === "wishlist")
+        this.wishlist = data.splice(index, 1)[0];
+        // Seperate Completed from uncompleted
+        let compTrips: Trip[] = [];
+        let uncompTrips: Trip [] = [];
+        data.forEach(trip => {
+          if(trip.completed){
+            compTrips.push(trip);
+          } else {
+            uncompTrips.push(trip);
+          }
+        })
+        this.trips = uncompTrips;
+        this.completedTrips = compTrips;
+      },
       err => {console.error("Observer got an error loading trips: " + err)}
     )
   }
@@ -97,7 +166,7 @@ export class TripListComponent implements OnInit {
 
     this.newTrip.startDate = this.dateToStringParser(this.newTrip.startDate);
     this.newTrip.endDate = this.dateToStringParser(this.newTrip.endDate);
-
+    this.newTrip.itineraryItems = [];
     console.log(this.newTrip);
 
     this.tripSvc.create(this.newTrip).subscribe(
@@ -156,10 +225,32 @@ export class TripListComponent implements OnInit {
     tripToSend.startDate = updatedTrip.startDate;
     tripToSend.itineraryItems = updatedTrip.itineraryItems;
 
+    // Fix each country JSON on iItem
+    tripToSend.itineraryItems.forEach( itinItem => {
+      let countryJson: Country = new Country();
+
+      countryJson.id = itinItem.country.id;
+      countryJson.name = itinItem.country.name;
+      countryJson.description = itinItem.country.description;
+      countryJson.defaultImage = itinItem.country.defaultImage;
+      countryJson.countryCode = itinItem.country.countryCode;
+
+      itinItem.country = countryJson;
+    })
+
     this.tripSvc.update(tripToSend).subscribe(
       data => {
         if(!updateLocation){
           this.selected = data;
+          if(this.selectedCountry && this.selectedII){
+            this.selected.itineraryItems.forEach(II => {
+              if(II.id === this.selectedII.id){
+                this.selectedII = II;
+                this.selectedCountry = II.country;
+              }
+            })
+          }
+          this.orderIIList(this.selected);
         }
         this.updatedTrip = null;
         this.reloadTrips();
@@ -242,7 +333,40 @@ export class TripListComponent implements OnInit {
     })
     this.updateTrip(trip);
   }
+  // Update Trip Completed
+  toggleCompleted(trip: Trip){
+    trip.completed = !trip.completed;
+    if(this.toggleCompleteMsg === "Set To Completed"){
+      this.toggleCompleteMsg = "Set as Not Completed"
+    } else {
+      this.toggleCompleteMsg = "Set To Completed"
+    }
+    this.updateTrip(trip);
+  }
+
   // Update ItineraryItems
+  saveNotes(trip: Trip){
+    this.selectedII
+    this.updateTrip(trip);
+  }
+
+  cancelNotes(trip: Trip, II: ItineraryItem, country){
+    this.reloadTrips();
+
+    this.trips.forEach(refreshedTrip => {
+      if(refreshedTrip.id === trip.id){
+        this.selected = refreshedTrip;
+        this.selected.itineraryItems.forEach(IItem => {
+          if(IItem.id === II.id){
+            this.selectedII = IItem;
+            this.selectedCountry = this.selectedII.country;
+          }
+        })
+      }
+    })
+
+  }
+
   updateItinItem(){
 
   }
@@ -259,12 +383,19 @@ export class TripListComponent implements OnInit {
     )
   }
 
-// Display Methods
+// Display Methods ************************
   displaySingleTrip(trip: Trip){
+    this.orderIIList(trip);
     this.selected = trip;
+    if(this.selected.completed){
+      this.toggleCompleteMsg = "Set as Not Completed";
+    } else {
+      this.toggleCompleteMsg = "Set To Completed"
+    }
   }
-  displayCountryAdvice(country){
+  displayCountryAdvice(country, II?: ItineraryItem){
     this.selectedCountry = country;
+    this.selectedII = II;
   }
   // delete display
   displayDelete(): void {
@@ -278,12 +409,12 @@ export class TripListComponent implements OnInit {
 
   }
 
-// Local Storage method
+// Local Storage method ******************
 
   getUserRole(): void {
       this.userRole = localStorage.getItem("userRole");
   }
-// Modal Methods
+// Modal Methods **************************
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -302,12 +433,25 @@ export class TripListComponent implements OnInit {
     }
   }
 
-// SideBar Methods
+// SideBar Methods *****************************
   toggleTrip(){
     this.isTripList = true;
   }
   toggleWish(){
     this.isTripList = false;
+  }
+
+// DragDrop Methods ********************************
+  drop(event: CdkDragDrop<string[]>, selectedTrip?: Trip) {
+    moveItemInArray(this.orderedItineraryItems, event.previousIndex, event.currentIndex);
+    let count: number = 1;
+
+    this.orderedItineraryItems.forEach(II => {
+      II.sequenceNum = count;
+      count ++;
+    })
+    selectedTrip.itineraryItems = this.orderedItineraryItems;
+    this.updateTrip(selectedTrip);
   }
 
 }

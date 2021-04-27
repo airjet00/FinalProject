@@ -8,6 +8,7 @@ import * as am4maps from '@amcharts/amcharts4/maps';
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import { TripService } from 'src/app/services/trip.service';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chart',
@@ -21,8 +22,27 @@ export class ChartComponent {
   map= null;
   selectedCountries: Object[] = null;
   username = null;
+  countryLoc = [
+    {code: "SG", latitude: 1.352083, longitude: 103.819836},
+    {code: "AE", latitude: 23.424076, longitude: 53.847818},
+    {code:"SE" , latitude: 60.128161, longitude: 18.643501},
+    {code:"AR" , latitude: -38.416097, longitude: -63.616672},
+    {code:"TH" , latitude: 15.870032, longitude: 100.992541},
+    {code:"MX" , latitude: 23.634501, longitude: -102.552784},
+    {code:"BW" , latitude: -22.328474, longitude: 24.684866},
+    {code:"ES" , latitude: 40.463667, longitude: -3.74922},
+    {code:"FR" , latitude: 46.227638, longitude: 2.213749},
+    {code:"BR" , latitude: -14.235004, longitude: -51.92528},
+    {code:"CN" , latitude: 35.86166, longitude: 104.195397},
+    {code:"AU" , latitude: -25.274398, longitude: 133.775136},
+    {code:"GB" , latitude: 55.378051, longitude: -3.435973},
+    {code:"VN" , latitude: 14.058324, longitude: 108.277199}
+  ];
 
-  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone, private tripServ: TripService) {}
+  mylines: Object[];
+
+  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone,
+  private tripServ: TripService, private route: ActivatedRoute) {}
 
 
   // Run the function only in the browser
@@ -37,11 +57,19 @@ export class ChartComponent {
   ngAfterViewInit() {
     // this.map = am4maps.MapImage;
     this.username = localStorage.getItem("username")
-    if(this.username){
-    this.getTripCountries();
+    let pathway = this.route.snapshot.url[0]['path'];
+
+    if(pathway === "countries"){
+      if(this.username){
+      this.getTripCountries();
+      }
+      else{
+        this.getBlankMap();
+      }
     }
-    else{
-      this.getBlankMap();
+    if(pathway === "trips"){
+      let tid = +this.route.snapshot.paramMap.get('tid');
+      this.getSingleTripCountries(tid);
     }
   }
 
@@ -59,7 +87,9 @@ export class ChartComponent {
     this.tripServ.index().subscribe(
       data => {
         let trips = data;
-        this.selectedCountries = [];
+        this.selectedCountries = [
+          {id: "US", fill: "#22b3b8"}
+        ];
         for (let index = 0; index < trips.length; index++) {
           let trip = trips[index];
           if(trip['completed'] && trip['itineraryItems'].length >0 ) {
@@ -67,7 +97,7 @@ export class ChartComponent {
               let ii = trip['itineraryItems'][index];
               let countryData = Object();
               countryData.id = ii['country']['countryCode'];
-              countryData.fill = 'blue'
+              countryData.fill = '#22b3b8'
               this.selectedCountries.push(countryData);
             }
           }
@@ -117,11 +147,14 @@ export class ChartComponent {
       am4core.useTheme(am4themes_animated);
 
       this.map = am4core.create("chartdiv", am4maps.MapChart);
+
       this.map.geodata = am4geodata_worldLow;
       this.map.projection = new am4maps.projections.Miller();
       let polygonSeries = new am4maps.MapPolygonSeries();
       polygonSeries.useGeodata = true;
       this.map.series.push(polygonSeries);
+
+
 
       // Configure series
       let polygonTemplate = polygonSeries.mapPolygons.template;
@@ -133,4 +166,98 @@ export class ChartComponent {
       hs.properties.fill = am4core.color("#367B25");
     })
   }
+
+  getSingleTripCountries(tid) {
+    this.tripServ.show(tid).subscribe(
+      data => {
+        let trip = data;
+        this.selectedCountries = [
+          {id: "US", fill: "#22b3b8"}
+        ];
+        this.mylines = [{latitude: 37.09024, longitude: -95.712891}];
+
+        if(trip['itineraryItems'].length >0 ) {
+          for (let index = 0; index < trip['itineraryItems'].length; index++) {
+            let ii = trip['itineraryItems'][index];
+            let countryData = Object();
+            countryData.id = ii['country']['countryCode'];
+            countryData.fill = '#22b3b8'
+            this.selectedCountries.push(countryData);
+
+
+            let locationData = Object();
+            let pos = this.countryLoc.map(function(e) { return e.code; }).indexOf(countryData.id);
+            locationData.latitude = this.countryLoc[pos].latitude;
+            locationData.longitude = this.countryLoc[pos].longitude;
+            this.mylines.push(locationData);
+
+          }
+        }
+        // Chart code goes in here
+        this.browserOnly(() => {
+
+          am4core.useTheme(am4themes_animated);
+
+          this.map = am4core.create("chartdiv", am4maps.MapChart);
+          this.map.geodata = am4geodata_worldLow;
+          this.map.projection = new am4maps.projections.Miller();
+          let polygonSeries = new am4maps.MapPolygonSeries();
+          polygonSeries.useGeodata = true;
+          this.map.series.push(polygonSeries);
+
+          // Configure series
+          let polygonTemplate = polygonSeries.mapPolygons.template;
+          polygonTemplate.tooltipText = "{name}";
+          polygonTemplate.fill = am4core.color("#74B266");
+
+          // Create hover state and set alternative fill color
+          let hs = polygonTemplate.states.create("hover");
+          hs.properties.fill = am4core.color("#367B25");
+
+          //Get trips from user to fill in country colors
+          for (let index = 0; index < this.selectedCountries.length; index++) {
+            console.log(this.selectedCountries[index]);
+
+            polygonSeries.data.push(this.selectedCountries[index]);
+
+          }
+
+          polygonTemplate.propertyFields.fill = "fill";
+
+          let imageSeries = this.map.series.push(new am4maps.MapImageSeries());
+          let imageSeriesTemplate = imageSeries.mapImages.template;
+          let circle = imageSeriesTemplate.createChild(am4core.Circle);
+          circle.radius = 4;
+          circle.fill = am4core.color("#B27799");
+          circle.stroke = am4core.color("#FFFFFF");
+          circle.strokeWidth = 2;
+          circle.nonScaling = true;
+          // circle.tooltipText = "{title}";
+
+          imageSeriesTemplate.propertyFields.latitude = "latitude";
+          imageSeriesTemplate.propertyFields.longitude = "longitude";
+
+          this.mylines.push({latitude: 37.09024, longitude: -95.712891});
+
+          imageSeries.data = this.mylines;
+
+          let lineSeries = this.map.series.push(new am4maps.MapLineSeries());
+
+          lineSeries.data = [{
+            "multiGeoLine": [
+               this.mylines
+            ]
+          }];
+
+          lineSeries.mapLines.template.line.strokeOpacity = 0.5;
+          lineSeries.mapLines.template.line.strokeWidth = 4;
+          lineSeries.mapLines.template.line.strokeDasharray = "3,3";
+          lineSeries.mapLines.template.line.shortestDistance = true;
+        });
+
+      },
+      err => console.error('showCountries got an error: ' + err)
+    )
+  }
+
 }
