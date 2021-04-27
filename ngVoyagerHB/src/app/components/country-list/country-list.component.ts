@@ -12,6 +12,7 @@ import { Trip } from 'src/app/models/trip';
 import { TripService } from 'src/app/services/trip.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ItineraryItem } from 'src/app/models/itinerary-item';
+import { MatDrawer, MatSidenav } from '@angular/material/sidenav';
 
 
 @Component({
@@ -289,17 +290,9 @@ export class CountryListComponent implements OnInit {
   reloadTrips(): void {
     this.tripSvc.index().subscribe(
       data => {
-       for (let index = 0; index < data.length; index++) {
-         let trip = data[index];
-
-         if(trip['name'].toLowerCase() === "wishlist"){
-            this.wishlist = trip;
-         }
-         else {
-           this.trips.push(trip)
-         }
-       }
-
+      let index: number = data.findIndex( (wishList) => wishList.name === "wishlist")
+      this.wishlist = data.splice(index, 1)[0];
+      this.trips = data;
       },
       err => {console.error("Observer got an error loading trips: " + err)}
     )
