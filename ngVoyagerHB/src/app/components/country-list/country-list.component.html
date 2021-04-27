@@ -114,7 +114,7 @@
             url('{{ country.defaultImage }}') "
           >
             <h2>{{ country.name }}</h2>
-            <h4 *ngIf="username" (click)="addCountryToWL(country.id, $event)">+</h4>
+            <h4 class="btn buttonSpecial" *ngIf="username" (click)="addCountryToWL(country.id, $event)">+</h4>
           </div>
         </div>
       </div>
