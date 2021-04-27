@@ -35,6 +35,21 @@ export class CommentService {
       );
   }
 
+  indexByUsername(username: string): Observable<Comment[]> {
+
+    // console.log(this.urlWithoutAPI + countryId + "/comments");
+    let indexUrl =  environment.baseUrl + "api/comments/" + username;
+    console.log(indexUrl);
+
+    return this.http.get<Comment[]>(indexUrl, this.credentials())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('A problem occurred.');
+        })
+      );
+  }
+
   show(cid: number) {
     return this.http.get<Comment>(this.urlWithAPI + cid, this.credentials())
       .pipe(

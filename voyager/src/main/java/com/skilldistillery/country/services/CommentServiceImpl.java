@@ -44,6 +44,11 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> indexAll() {
 		return commentRepo.findAll();
 	}
+	
+	@Override
+	public List<Comment> indexByUser(String username){
+		return commentRepo.findByUser_Username(username);
+	}
 
 	@Override
 	public List<Comment> indexEnabledCommentsForCountry(int countryId) {
