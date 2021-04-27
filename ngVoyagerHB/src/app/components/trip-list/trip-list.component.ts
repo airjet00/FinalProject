@@ -89,11 +89,20 @@ export class TripListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let tripId = this.route.snapshot.paramMap.get('tid')
+    let tripId = +this.route.snapshot.paramMap.get('tid')
+
     if(tripId){
       this.tripSvc.show(tripId).subscribe(
         data => {
+          console.log(data);
+
           this.selected = data;
+          if(this.selected.completed){
+            this.toggleCompleteMsg = "Set as Not Completed";
+          } else {
+            this.toggleCompleteMsg = "Set To Completed"
+          }
+          this.orderIIList(this.selected);
         },
         fail => {
           console.error('TodoListComp.ngOnInit failed to load todo');
@@ -385,14 +394,14 @@ export class TripListComponent implements OnInit {
 
 // Display Methods ************************
   displaySingleTrip(trip: Trip){
-    this.orderIIList(trip);
-    this.selected = trip;
-    if(this.selected.completed){
-      this.toggleCompleteMsg = "Set as Not Completed";
-    } else {
-      this.toggleCompleteMsg = "Set To Completed"
-    }
+    // this.orderIIList(trip);
+    // this.selected = trip;
+    this.redirectTo('trips/' + trip.id);
   }
+  redirectTo(uri:string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate([uri]));
+ }
   displayCountryAdvice(country, II?: ItineraryItem){
     this.selectedCountry = country;
     this.selectedII = II;
