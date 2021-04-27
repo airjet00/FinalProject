@@ -40,6 +40,17 @@ public class CommentController {
 			resp.setStatus(404);
 		return comments;
 	}
+	
+	@GetMapping("api/comments/{username}")
+	public List<Comment> indexByUser(Principal principal, HttpServletResponse resp, @PathVariable String username) {
+		List<Comment> comments = null;
+		comments = commentServ.indexByUser(username);
+		if (comments != null)
+			resp.setStatus(200);
+		else
+			resp.setStatus(404);
+		return comments;
+	}
 
 	@GetMapping("countries/{countryId}/comments/all")
 	public List<Comment> index(HttpServletResponse resp, @PathVariable Integer countryId) {
