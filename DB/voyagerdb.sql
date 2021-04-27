@@ -306,11 +306,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `voyagerdb`;
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (5, 'Southeast Asia Fall 2021', '2021-09-01', '2021-10-25', 1, 1, 3, NULL, 'A whirlwind tour of the opposite side of the globe.');
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (1, 'Southeast Asia Fall 2021', '2021-09-01', '2021-10-25', 1, 1, 3, NULL, 'A whirlwind tour of the opposite side of the globe.');
 INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (2, 'Brazil Vacation', '2022-02-11', '2022-02-25', 0, 1, 3, NULL, 'Should be a nice beach vacation while it\'s winter up north!');
 INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (3, 'Trip to London for work', '2020-05-09', '2020-05-16', 1, 1, 3, NULL, 'All reimbursement received');
 INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (4, 'Visiting the in-laws', '2019-12-23', '2019-12-30', 0, 1, 3, NULL, '');
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (1, 'Bucket List', NULL, NULL, 0, 1, 3, NULL, NULL);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `completed`, `enabled`, `user_id`, `create_date`, `description`) VALUES (5, 'wishlist', NULL, NULL, 0, 1, 3, NULL, NULL);
 
 COMMIT;
 
