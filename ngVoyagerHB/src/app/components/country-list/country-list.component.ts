@@ -423,12 +423,21 @@ export class CountryListComponent implements OnInit {
 
   addCountryToWL(cid: number, event) {
     event.stopPropagation();
+    let newWL = new Trip();
+    newWL.itineraryItems = this.wishlist.itineraryItems;
+    newWL.id = this.wishlist.id;
     let ii = new ItineraryItem();
     ii.country = new Country();
     ii.country.id = cid;
-    this.wishlist.itineraryItems.push(ii);
-    this.tripSvc.update(this.wishlist).subscribe(
+
+    newWL = this.addIItem(ii.country, newWL)
+    newWL.name = "wishlist"
+    console.log(this.wishlist);
+
+    this.tripSvc.update(newWL).subscribe(
       data => {
+        console.log(data);
+
         this.ngOnInit();
       },
       fail => {
@@ -438,6 +447,32 @@ export class CountryListComponent implements OnInit {
     )
   }
 
+  addIItem(country: Country, trip: Trip): Trip {
+    let iItem: ItineraryItem = new ItineraryItem ();
+    // Fix each country JSON on iItem
+    trip.itineraryItems.forEach( itinItem => {
+      let countryJson: Country = new Country();
+      countryJson.id = itinItem.country.id;
+      countryJson.name = itinItem.country.name;
+      countryJson.description = itinItem.country.description;
+      countryJson.defaultImage = itinItem.country.defaultImage;
+      countryJson.countryCode = itinItem.country.countryCode;
+      itinItem.country = countryJson;
+    })
+    // Fix CountryJSON for new iItem
+    let countryToAdd: Country = new Country ();
+    countryToAdd.id = country.id;
+    countryToAdd.name = country.name;
+    countryToAdd.description = country.description;
+    countryToAdd.defaultImage = country.defaultImage;
+    countryToAdd.countryCode = country.countryCode;
+    iItem.country = countryToAdd;
+    iItem.notes = "";
+    // Grow the sequence Numer by 1
+    iItem.sequenceNum = (trip.itineraryItems.length + 1);
+    trip.itineraryItems.push(iItem);
+    return trip;
+  }
 
 
 }
