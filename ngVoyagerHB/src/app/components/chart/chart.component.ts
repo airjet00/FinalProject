@@ -125,7 +125,6 @@ export class ChartComponent {
 
           //Get trips from user to fill in country colors
           for (let index = 0; index < this.selectedCountries.length; index++) {
-            console.log(this.selectedCountries[index]);
 
             polygonSeries.data.push(this.selectedCountries[index]);
 
@@ -216,7 +215,6 @@ export class ChartComponent {
 
           //Get trips from user to fill in country colors
           for (let index = 0; index < this.selectedCountries.length; index++) {
-            console.log(this.selectedCountries[index]);
 
             polygonSeries.data.push(this.selectedCountries[index]);
 
@@ -237,7 +235,8 @@ export class ChartComponent {
           imageSeriesTemplate.propertyFields.latitude = "latitude";
           imageSeriesTemplate.propertyFields.longitude = "longitude";
 
-          this.mylines.push({latitude: 37.09024, longitude: -95.712891});
+          //UNCOMMENT THIS CODE TO PUT "US" AT THE END OF THE TRIP AS WELL
+          // this.mylines.push({latitude: 37.09024, longitude: -95.712891});
 
           imageSeries.data = this.mylines;
 
