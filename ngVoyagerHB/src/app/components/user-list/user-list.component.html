@@ -202,13 +202,12 @@
 
               <!-- Table Head -->
               <!-- Listing comments -->
-              <thead class="table-primary">
+              <thead class="table-primary" >
                 <tr>
-                  <th>
+                  <th scope="row">
                     <input class="form-check-input" type="hidden" name="" id="checkbox">
                     <label for="checkbox" class="mr-2 label-table"></label>
-                  </th>
-                  <!-- <th class="th-lg"><a>Name<i class="fas fa-sort ml-1"></i></a></th> -->
+                  </th >
                   <th class="th-lg"><a>Comment<i class="fas fa-sort ml-1"></i></a></th>
                   <th class="th-lg"><a>Created Date<i class="fas fa-sort ml-1"></i></a></th>
                   <th class="th-lg"><a>Update Date<i class="fas fa-sort ml-1"></i></a></th>
@@ -228,6 +227,13 @@
                   <td>{{comment.createDate}}</td>
                   <td>{{comment.updateDate}}</td>
                   <td>{{comment.enabled}}</td>
+                  <div *ngIf="comment.enabled">
+                    <!-- TODO add method to deactivate/activate comment -->
+                    <button class="btn btn-danger" type="submit" >Deactivate</button>
+                  </div>
+                  <div *ngIf="!comment.enabled">
+                    <button class="btn btn-danger" type="submit">Activate</button>
+                  </div>
 
                   <td>
                     <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
