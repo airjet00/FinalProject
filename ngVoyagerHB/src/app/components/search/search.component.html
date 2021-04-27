@@ -1,31 +1,49 @@
-<h2>Search Countries</h2>
-<form>
-  <div class="form-group form-inline">
-    Country Name: <input class="ml-3 mr-3 form-control col-4" type="text" name="keyword" [(ngModel)]="keyword" />
-    <button type="submit" class="btn btn-primary" (click)="searchCountry()">
-      Search
-    </button>
-  </div>
-</form>
-<hr />
-<h2>Select a Country</h2>
-<form class="form-inline">
-  Country Name:
-<select class="ml-3 mr-3 form-control col-4" [(ngModel)]="chosenCountry" name="chosenCountry">
-<option value="" selected></option>
-  <option *ngFor="let c of countries" [ngValue]="c">{{ c.name }}</option>
-</select>
+<!-- backgr https://images.unsplash.com/photo-1498307833015-e7b400441eb8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60 -->
+<div class="backgroundImage">
 
-<button type="submit" class="btn btn-primary" (click)="chooseCountry()">
-Go
-</button>
-</form>
-<hr />
-<div *ngIf="searchResults">
-  <div *ngFor="let country of searchResults">
-    <button class="btn btn-success btn-sm mt-1 mb-1 mr-1">Visit</button>{{country.name}}
+
+  <div class="center-content card mx-auto text-center" style="max-width: 500px">
+    <h3 class="mt-3">Search Countries:</h3>
+    <form>
+      <div class="form-group form-inline col-12">
+        <input
+          class="ml-3 mr-3 form-control col-8 mx-auto"
+          type="text"
+          name="keyword"
+          [(ngModel)]="keyword"
+        />
+        <button
+          type="submit"
+          class="ml-2 btn btn-primary"
+          (click)="searchCountry()"
+        >
+          Search
+        </button>
+      </div>
+    </form>
+    <h3>Select:</h3>
+    <form class="col-8 form-inline">
+      <select
+        class="mx-auto col-8 ml-3 mr-3 form-control"
+        [(ngModel)]="chosenCountry"
+        name="chosenCountry"
+      >
+        <option value="" selected></option>
+        <option *ngFor="let c of countries" [ngValue]="c">{{ c.name }}</option>
+      </select>
+
+      <button type="submit" class="btn btn-primary" (click)="chooseCountry()">
+        Go
+      </button>
+    </form>
   </div>
-</div>
-<div *ngIf="noneFound">
-  No matches found!
+
+
+  <div *ngIf="searchResults">
+    <div *ngFor="let country of searchResults">
+      <button class="btn btn-success btn-sm mt-1 mb-1 mr-1">Visit</button
+      >{{ country.name }}
+    </div>
+  </div>
+  <div *ngIf="noneFound">No matches found!</div>
 </div>
