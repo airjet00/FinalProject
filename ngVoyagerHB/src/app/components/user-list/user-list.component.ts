@@ -5,6 +5,7 @@ import { Comment } from 'src/app/models/comment';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
+import { Country } from 'src/app/models/country';
 
 @Component({
   selector: 'app-user-list',
@@ -17,6 +18,9 @@ export class UserListComponent implements OnInit {
   usersname: string = null;
   selected: User = null;
   commentsByUser: Comment[];
+  commentForDeletion: Comment = null;
+  countryId: number;
+  country: Country;
 
   constructor(
     private userServ: UserService,
@@ -28,9 +32,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUsers();
-    this.users.forEach(u => {
-      this.filterByUser(u);
-    });
+
   }
 
   // Load all users for Admin only
@@ -105,20 +107,36 @@ export class UserListComponent implements OnInit {
     );
   }
 
+  deleteComment(countryId: number, updatedCommentId : number) : void {
 
-indexByUsername(username: string) {
-  this.commServ.indexByUsername(username).subscribe(
-    data => {
-      return data;
-    },
-    failure => {
-      console.error(failure);
-    });
-  return null;
-}
+      this.commServ.delete(countryId, updatedCommentId).subscribe(
+      dataReceived => {
+        this.loadUser;
+      },
+      failure => {
+        console.error(failure);
+      });
 
-filterByUser(user: User){
+  }
 
-}
+  enableComment(comment: Comment, countryId: number) {
+    console.log(comment.id + "****************************");
+
+    let sendComment = new Comment();
+    sendComment.id = comment.id;
+    sendComment.content = comment.content;
+    sendComment.createDate = comment.createDate;
+    sendComment.updateDate = comment.updateDate;
+    sendComment.enabled = true;
+    console.log(sendComment.id + "****************************");
+    this.commServ.update(sendComment, countryId).subscribe(
+      (data) => {
+        this.commServ.show(data.id);
+      },
+      (fail) => {
+        console.error('Error enabling user ' + fail);
+      }
+    );
+  }
 
 }
