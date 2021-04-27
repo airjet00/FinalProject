@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-  <a class="navbar-brand" [routerLink]="['/home']">Home</a>
+  <a class="navbar-brand" [routerLink]="['/home']"><img src="https://cdn.pixabay.com/photo/2013/07/12/14/13/book-148011_1280.png" style="max-width: 40px;"/></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <!-- Left alligned Items (Super confused why mr-auto seems reversed -- answer: it's adding margin to the right, which moves the element left) -->
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/about']">About<span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/about']">About</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['countries']">Countries</a>
