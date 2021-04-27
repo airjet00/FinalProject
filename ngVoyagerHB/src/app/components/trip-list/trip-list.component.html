@@ -209,7 +209,8 @@
 
       <!-- MAP SECTION -->
       <div>
-        <h1 class="p-3 text-center mt-2">Your Trip</h1>
+        <h1 *ngIf="selected.name !== 'wishlist'" class="p-3 text-center mt-2">Your Trip</h1>
+        <h1 *ngIf="selected.name === 'wishlist'" class="p-3 text-center mt-2">Your Bucket List</h1>
         <app-chart></app-chart>
       </div>
 
