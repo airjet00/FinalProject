@@ -40,7 +40,7 @@
   <!-- ******* Page Content ***************************************************************** -->
   <mat-drawer-content>
 
-    <button *ngIf="username" class="btn btn-dark" mat-button (click)="sidenav.toggle()">View Trips</button>
+    <button *ngIf="username && !selected" class="btn btn-dark" mat-button (click)="sidenav.toggle()">View Trips</button>
     <!-- Modal -->
     <ng-template #content let-modal >
       <div class="modal-header">
@@ -114,7 +114,7 @@
             url('{{ country.defaultImage }}') "
           >
             <h2>{{ country.name }}</h2>
-            <h4 *ngIf="username" (click)="addCountryToWL(country.id, $event)">+</h4>
+            <h4 class="btn buttonSpecial" *ngIf="username" (click)="addCountryToWL(country.id, $event)">+</h4>
           </div>
         </div>
       </div>
