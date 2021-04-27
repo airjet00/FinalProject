@@ -32,6 +32,8 @@ import { ChartComponent } from './components/chart/chart.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { ManageCountriesComponent } from './components/manage-countries/manage-countries.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     NgbModule,
     MatSidenavModule,
     MatCheckboxModule,
-    DragDropModule
+    DragDropModule,
+    MatListModule,
+    MatIconModule
   ],
   providers: [
     AuthService,

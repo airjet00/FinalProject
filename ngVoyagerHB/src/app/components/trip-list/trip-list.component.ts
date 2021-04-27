@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Country } from 'src/app/models/country';
@@ -16,6 +17,8 @@ import { TripService } from 'src/app/services/trip.service';
 export class TripListComponent implements OnInit {
 
   trips: Trip[] = [];
+
+  completedTrips: Trip[] = [];
 
   orderedItineraryItems: ItineraryItem [] = [];
 
@@ -38,6 +41,8 @@ export class TripListComponent implements OnInit {
   deleting: boolean = false;
   deleteBtnMsg: string = "Remove a Country";
 
+  toggleCompleteMsg: string = "Set To Completed";
+
   events: string[] = [];
   opened: boolean;
 
@@ -47,6 +52,31 @@ export class TripListComponent implements OnInit {
   closeResult = '';
 
 // Methods
+
+// Drop down for sidenav
+@ViewChild('sidenav') sidenav: MatSidenav;
+  isExpanded = true;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
+
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+    }
+  }
+
+  mouseleave() {
+    if (!this.isExpanded) {
+      this.isShowing = false;
+    }
+  }
+// ** End Drop down for sidenav **
+
+
+
+
+
 
 // Methods
 
@@ -106,9 +136,21 @@ export class TripListComponent implements OnInit {
   reloadTrips(): void {
     this.tripSvc.index().subscribe(
       data => {
-      let index: number = data.findIndex( (wishList) => wishList.name === "wishlist")
-      this.wishlist = data.splice(index, 1)[0];
-      this.trips = data;
+        // Remove WishList
+        let index: number = data.findIndex( (wishList) => wishList.name === "wishlist")
+        this.wishlist = data.splice(index, 1)[0];
+        // Seperate Completed from uncompleted
+        let compTrips: Trip[] = [];
+        let uncompTrips: Trip [] = [];
+        data.forEach(trip => {
+          if(trip.completed){
+            compTrips.push(trip);
+          } else {
+            uncompTrips.push(trip);
+          }
+        })
+        this.trips = uncompTrips;
+        this.completedTrips = compTrips;
       },
       err => {console.error("Observer got an error loading trips: " + err)}
     )
@@ -291,6 +333,16 @@ export class TripListComponent implements OnInit {
     })
     this.updateTrip(trip);
   }
+  // Update Trip Completed
+  toggleCompleted(trip: Trip){
+    trip.completed = !trip.completed;
+    if(this.toggleCompleteMsg === "Set To Completed"){
+      this.toggleCompleteMsg = "Set as Not Completed"
+    } else {
+      this.toggleCompleteMsg = "Set To Completed"
+    }
+    this.updateTrip(trip);
+  }
 
   // Update ItineraryItems
   saveNotes(trip: Trip){
@@ -331,10 +383,15 @@ export class TripListComponent implements OnInit {
     )
   }
 
-// Display Methods
+// Display Methods ************************
   displaySingleTrip(trip: Trip){
     this.orderIIList(trip);
     this.selected = trip;
+    if(this.selected.completed){
+      this.toggleCompleteMsg = "Set as Not Completed";
+    } else {
+      this.toggleCompleteMsg = "Set To Completed"
+    }
   }
   displayCountryAdvice(country, II?: ItineraryItem){
     this.selectedCountry = country;
@@ -352,12 +409,12 @@ export class TripListComponent implements OnInit {
 
   }
 
-// Local Storage method
+// Local Storage method ******************
 
   getUserRole(): void {
       this.userRole = localStorage.getItem("userRole");
   }
-// Modal Methods
+// Modal Methods **************************
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -376,7 +433,7 @@ export class TripListComponent implements OnInit {
     }
   }
 
-// SideBar Methods
+// SideBar Methods *****************************
   toggleTrip(){
     this.isTripList = true;
   }
@@ -384,7 +441,7 @@ export class TripListComponent implements OnInit {
     this.isTripList = false;
   }
 
-// DragDrop Methods
+// DragDrop Methods ********************************
   drop(event: CdkDragDrop<string[]>, selectedTrip?: Trip) {
     moveItemInArray(this.orderedItineraryItems, event.previousIndex, event.currentIndex);
     let count: number = 1;
