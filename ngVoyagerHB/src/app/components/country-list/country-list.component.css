@@ -148,3 +148,9 @@ ngb-carousel:focus {
   left: 0;
   right: 0;
 }
+
+.buttonSpecial {
+  font-weight: bold;
+  color: white;
+  font-size: 25px;
+}
