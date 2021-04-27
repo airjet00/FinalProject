@@ -23,7 +23,11 @@ export class TripListComponent implements OnInit {
 
   selected: Trip = null;
 
+  wishlist: Trip = null;
+
   selectedCountry = null;
+
+  selectedII: ItineraryItem = null;
 
   newTrip: Trip = new Trip();
 
@@ -101,7 +105,11 @@ export class TripListComponent implements OnInit {
   // index
   reloadTrips(): void {
     this.tripSvc.index().subscribe(
-      data => {this.trips = data},
+      data => {
+      let index: number = data.findIndex( (wishList) => wishList.name === "wishlist")
+      this.wishlist = data.splice(index, 1)[0];
+      this.trips = data;
+      },
       err => {console.error("Observer got an error loading trips: " + err)}
     )
   }
@@ -192,6 +200,14 @@ export class TripListComponent implements OnInit {
       data => {
         if(!updateLocation){
           this.selected = data;
+          if(this.selectedCountry && this.selectedII){
+            this.selected.itineraryItems.forEach(II => {
+              if(II.id === this.selectedII.id){
+                this.selectedII = II;
+                this.selectedCountry = II.country;
+              }
+            })
+          }
           this.orderIIList(this.selected);
         }
         this.updatedTrip = null;
@@ -275,7 +291,30 @@ export class TripListComponent implements OnInit {
     })
     this.updateTrip(trip);
   }
+
   // Update ItineraryItems
+  saveNotes(trip: Trip){
+    this.selectedII
+    this.updateTrip(trip);
+  }
+
+  cancelNotes(trip: Trip, II: ItineraryItem, country){
+    this.reloadTrips();
+
+    this.trips.forEach(refreshedTrip => {
+      if(refreshedTrip.id === trip.id){
+        this.selected = refreshedTrip;
+        this.selected.itineraryItems.forEach(IItem => {
+          if(IItem.id === II.id){
+            this.selectedII = IItem;
+            this.selectedCountry = this.selectedII.country;
+          }
+        })
+      }
+    })
+
+  }
+
   updateItinItem(){
 
   }
@@ -297,8 +336,9 @@ export class TripListComponent implements OnInit {
     this.orderIIList(trip);
     this.selected = trip;
   }
-  displayCountryAdvice(country){
+  displayCountryAdvice(country, II?: ItineraryItem){
     this.selectedCountry = country;
+    this.selectedII = II;
   }
   // delete display
   displayDelete(): void {
