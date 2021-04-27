@@ -1,17 +1,24 @@
-<app-navigation></app-navigation>
+<div id="page-container">
 
-<main class="container-fluid">
-  <router-outlet></router-outlet>
-</main>
+  <app-navigation></app-navigation>
 
-<footer>
-  <span id="footer-text"
-    >Created By <a href="https://github.com/airjet00">Erik Kell</a>,
-    <a href="https://github.com/epaulson08">Eric Paulson</a>,
-    <a href="https://github.com/CAS2015">Chelsey Sassine</a>,
-    <a href="https://github.com/Thwebel">Thomas Webel</a
-    ><span class="afterNames">
-      | <span class="far fa-copyright"></span> Voyager's Handbook.</span
-    ></span
-  >
-</footer>
+  <main class="container-fluid">
+    <div id="content-wrap">
+
+      <router-outlet></router-outlet>
+
+    </div>
+
+      <footer id="footer" class="page-footer font-small blue">
+        <div class="footer-copyright text-center py-3">
+        <span id="footer-text"
+          >Created By <a href="https://github.com/airjet00">Erik Kell</a>,
+          <a href="https://github.com/epaulson08">Eric Paulson</a>,
+          <a href="https://github.com/CAS2015">Chelsey Sassine</a>,
+          <a href="https://github.com/Thwebel">Thomas Webel</a>
+          <span class="afterNames"> | <span class="far fa-copyright"></span> Voyager's Handbook.</span></span></div>
+      </footer>
+
+  </main>
+
+</div>
