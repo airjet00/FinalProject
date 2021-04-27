@@ -10,17 +10,34 @@
             <span><button class="btn btn-dark" style="margin: 10px 10px;" (click)="toggleTrip()">Trip List</button></span>
           </div>
           <div class="col-md-6">
-            <span><button class="btn btn-dark" style="float: right; margin: 10px 10px;"  (click)="toggleWish()">Wish List</button></span>
+            <span><button class="btn btn-dark" style="float: right; margin: 10px 10px;"  (click)="toggleWish()">Bucket List</button></span>
           </div>
         </div>
       </div>
       <div class="list-group list-group-flush" *ngIf="isTripList">
-        <!-- href="#/trips/{{trip.id}}" <-- older method of display, will delete  -->
-        <a *ngFor="let trip of trips" (click)="displaySingleTrip(trip)"  class="list-group-item list-group-item-action bg-light">{{trip.name}}</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Completed Trips</a>
+        <mat-nav-list class="list-group-item list-group-item-action bg-light">
+          <!-- test (to undo move this a tag above matNavList and remove mat-list-item  and add back class="list-group-item list-group-item-action bg-light") -->
+          <mat-list-item *ngFor="let trip of trips" (click)="displaySingleTrip(trip)" >
+            <mat-icon mat-list-icon>airplanemode_active</mat-icon>
+            <a >{{trip.name}}</a>
+          </mat-list-item>
+          <!-- Completed Drop Down -->
+          <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+            <span class="full-width" *ngIf="isExpanded || isShowing">Completed Trips</span>
+            <mat-icon mat-list-icon>map</mat-icon>
+            <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+          </mat-list-item>
+            <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+              <mat-list-item *ngFor="let trip of completedTrips" (click)="displaySingleTrip(trip)">
+                <mat-icon>check_box</mat-icon>
+                <a >{{trip.name}}</a>
+              </mat-list-item>
+            </div>
+        </mat-nav-list>
+          <!-- ** End Completed Drop Down ** -->
         <div class="row">
           <div class="col-md-6">
-            <button class="btn btn-dark btn-outline-success" id="createTripFormBtn" style="float: left;" (click)="open(content)">Temp This btn can do anything</button>
+            <!-- <button class="btn btn-dark btn-outline-success" id="createTripFormBtn" style="float: left;" (click)="open(content)">Temp This btn can do anything</button> -->
           </div>
           <div class="col-md-6">
             <button class="btn btn-dark btn-outline-success" id="createTripFormBtn" style="float: right;" (click)="open(content); startTripCreate();">Create a Trip!</button>
@@ -28,7 +45,7 @@
         </div>
       </div>
       <div class="list-group list-group-flush" *ngIf="!isTripList">
-        <a class="list-group-item list-group-item-action bg-light">Search countries and click "+" to add to wishlist</a>
+        <a class="list-group-item list-group-item-action bg-light">Search countries and click "+" to add to bucket list</a>
         <div *ngFor="let ii of wishlist['itineraryItems']">
           <a href="#/countries/{{ii['country']['id']}}" class="list-group-item list-group-item-action bg-light">{{ii['country']['name']}}</a>
         </div>
@@ -120,7 +137,7 @@
       </div>
 
       <!-- MAP SECTION -->
-      <div>
+      <div style="background-color: #EDEDED;">
         <h1 *ngIf="username" class="p-3 text-center mt-2">{{formattedUN}}'s Visited Countries Map</h1>
         <h1 *ngIf="!username" class="p-3 text-center mt-2">World Map</h1>
         <app-chart></app-chart>

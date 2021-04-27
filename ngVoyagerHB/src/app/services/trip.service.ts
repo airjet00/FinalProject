@@ -47,7 +47,7 @@ export class TripService {
       );
   }
 
-  show(tid: string): Observable<Trip> {
+  show(tid: number): Observable<Trip> {
 
     if(!this.authSvc.checkLogin()){
       this.router.navigateByUrl("login");

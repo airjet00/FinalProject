@@ -4,6 +4,7 @@ import { Comment } from 'src/app/models/comment';
 import { Country } from 'src/app/models/country';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-comment-list',
@@ -25,6 +26,9 @@ export class CommentListComponent implements OnInit {
   updateComment: Comment = new Comment();
 
   commentForDeletion: Comment = null;
+
+  commentsByUser: Comment[];
+
   //////// init:
   constructor(private router: Router, private authService: AuthService, private commentServ: CommentService, private route: ActivatedRoute) { }
 
@@ -101,6 +105,19 @@ export class CommentListComponent implements OnInit {
       });
 
   }
+
+  indexByUsername(username: string) {
+    this.commentServ.indexByUsername(username).subscribe(
+      data => {
+        this.commentsByUser = data;
+        return data;
+      },
+      failure => {
+        console.error(failure);
+      });
+    return null;
+  }
+
 }
 
   // show(form): void {

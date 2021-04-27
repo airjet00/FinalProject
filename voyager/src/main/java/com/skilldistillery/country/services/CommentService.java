@@ -14,6 +14,8 @@ public interface CommentService {
     
     public List<Comment> indexAllDisabledComments();
     
+    public List<Comment> indexByUser(String username);
+    
     public Comment show(String username, int cid);
 
     public Comment create(String username, Comment comment);
