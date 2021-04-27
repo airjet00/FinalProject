@@ -1,0 +1,15 @@
+.backgroundImage {
+  background-image: url("https://cdn.tourradar.com/s3/tour/1500x800/9357_5dfa3a9d93258.jpg") !important;
+  min-height: 800px;
+  background-repeat: no-repeat;
+  background-size: 150%;
+  background-position: left top;
+  background-attachment: fixed;
+  margin: -10px -15px;
+  padding-top: 50px;
+}
+
+.center-content {
+  border: 0px;
+  background-color:rgb(237,237,237, 0.9);
+}
