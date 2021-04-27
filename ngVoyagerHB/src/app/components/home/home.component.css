@@ -1,3 +1,15 @@
 ngb-carousel:focus {
   outline: none;
 }
+
+.card {
+  border: 0px !important;
+  background-color: #EDEDED;
+}
+
+.top-marg {
+    margin-top: 15px;
+  }
+
+
+

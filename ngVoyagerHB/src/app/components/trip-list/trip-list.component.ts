@@ -8,6 +8,7 @@ import { ItineraryItem } from 'src/app/models/itinerary-item';
 import { Trip } from 'src/app/models/trip';
 import { CountryService } from 'src/app/services/country.service';
 import { TripService } from 'src/app/services/trip.service';
+import { ChartComponent } from '../chart/chart.component';
 
 @Component({
   selector: 'app-trip-list',
@@ -85,7 +86,8 @@ export class TripListComponent implements OnInit {
     private countrySvc: CountryService,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private mapComp: ChartComponent
   ) { }
 
   ngOnInit(): void {
@@ -263,6 +265,8 @@ export class TripListComponent implements OnInit {
         }
         this.updatedTrip = null;
         this.reloadTrips();
+        this.mapComp.ngOnDestroy();
+        this.mapComp.getSingleTripCountries(data.id);
       },
       err => {
         console.error('Observer got an error: ' + err);

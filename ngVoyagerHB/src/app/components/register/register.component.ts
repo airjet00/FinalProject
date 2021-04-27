@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
           data => {
 
             let wishlist = new Trip();
-            wishlist.name = "Wishlist";
+            wishlist.name = "wishlist";
             wishlist.startDate = "2021-09-01T00:00:00";
             wishlist.endDate = "2021-09-01T00:00:00";
             wishlist.completed = false;

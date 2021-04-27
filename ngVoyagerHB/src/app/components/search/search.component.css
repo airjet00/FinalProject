@@ -1,0 +1,19 @@
+.backgroundImage {
+  background-image: url("https://images.unsplash.com/photo-1498307833015-e7b400441eb8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60") !important;
+  min-height: 800px;
+  background-repeat: no-repeat;
+  background-size: 150%;
+  background-position: left top;
+  background-attachment: fixed;
+  margin: -10px -15px;
+  padding-top: 50px;
+}
+
+
+.center-content {
+  border: 0px;
+  background-color: #ededed;
+}
+
+/* .searchResults {
+} */
