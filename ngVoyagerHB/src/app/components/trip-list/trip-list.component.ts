@@ -363,8 +363,10 @@ export class TripListComponent implements OnInit {
     this.updateTrip(trip);
   }
 
-  cancelNotes(trip: Trip, II: ItineraryItem, country){
+  cancelNotes(trip: Trip, II: ItineraryItem, country?){
     this.reloadTrips();
+    // console.log(trip);
+    // console.log(II.notes);
 
     this.trips.forEach(refreshedTrip => {
       if(refreshedTrip.id === trip.id){

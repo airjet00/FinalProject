@@ -1,40 +1,81 @@
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<link
+  href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 <!-- Dont think we need this script (applied globaly in angular.json) -->
 <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-<form class="form-horizontal">
-  <fieldset>
-    <div id="legend">
-      <legend class="">Register</legend>
+<div class="row">
+  <div class="col-6">
+    <form class="form-horizontal">
+      <fieldset>
+        <div id="legend">
+          <legend class="">Register</legend>
+        </div>
+        <div class="control-group">
+          <!-- Username -->
+          <label class="control-label" for="username">Username</label>
+          <div class="controls">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="username"
+              class="input-xlarge"
+              [(ngModel)]="user.username"
+            />
+            <p class="help-block">
+              Username can contain any letters or numbers, without spaces
+            </p>
+          </div>
+        </div>
+        <div class="control-group">
+          <!-- E-mail -->
+          <label class="control-label" for="email">E-mail</label>
+          <div class="controls">
+            <input
+              type="text"
+              name="email"
+              id="email"
+              placeholder="email"
+              class="input-xlarge"
+              [(ngModel)]="user.email"
+            />
+          </div>
+        </div>
+        <div class="control-group">
+          <!-- Password-->
+          <label class="control-label" for="password">Password</label>
+          <div class="controls">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="password"
+              class="input-xlarge"
+              [(ngModel)]="user.password"
+            />
+            <p class="help-block">Password should be at least 4 characters</p>
+          </div>
+        </div>
+        <div class="control-group">
+          <!-- Button -->
+          <div class="controls">
+            <button
+              type="submit"
+              class="btn btn-success"
+              (click)="register(user)"
+            >
+              Register!
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </form></div>
+    <div class="col-6">
+      <img
+        src="https://media.istockphoto.com/photos/wild-african-elephant-in-the-savannah-serengeti-national-park-of-picture-id1131949134?k=6&m=1131949134&s=612x612&w=0&h=xV4TscbFszgDih6Ut-bMXAJgpAKtRoTY4scXWCTMdv8="
+      />
     </div>
-    <div class="control-group">
-      <!-- Username -->
-      <label class="control-label"  for="username">Username</label>
-      <div class="controls">
-        <input type="text" name="username" id="username" placeholder="username" class="input-xlarge"[(ngModel)]='user.username'>
-        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
-      </div>
-    </div>
-    <div class="control-group">
-      <!-- E-mail -->
-      <label class="control-label" for="email">E-mail</label>
-      <div class="controls">
-        <input type="text" name="email" id="email" placeholder="email" class="input-xlarge" [(ngModel)]='user.email'>
-      </div>
-    </div>
-    <div class="control-group">
-      <!-- Password-->
-      <label class="control-label" for="password">Password</label>
-      <div class="controls">
-        <input type="password" name="password" id="password" placeholder="password" class="input-xlarge" [(ngModel)]='user.password'>
-        <p class="help-block">Password should be at least 4 characters</p>
-      </div>
-    </div>
-    <div class="control-group">
-      <!-- Button -->
-      <div class="controls">
-        <button type="submit" class="btn btn-success" (click)="register(user)">Register!</button>
-      </div>
-    </div>
-  </fieldset>
-</form>
+  </div>

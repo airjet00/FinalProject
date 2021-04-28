@@ -1,3 +1,20 @@
-footer {
-  margin-top: 100px;
+/* Position of the Footer */
+#page-container {
+  position: relative;
+  min-height: 100vh;
 }
+/* Allows room for footer  */
+#content-wrap {
+  padding-bottom: 75px;    /* Footer height */
+}
+#footer {
+  /* Fixes padding from bootstrap container */
+  margin-left: -15px;
+  margin-right: -15px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Fits footer into allowed space */
+  height: 75px;            /* Footer height */
+}
+/* ** End Position of the Footer ** */

@@ -96,14 +96,18 @@ public class CommentServiceImpl implements CommentService {
 
 			User user = userRepo.findByUsername(username);
 
-			if (user != null) {
+			if (user != null ) {
 
 				Optional<Comment> opt = commentRepo.findById(cid);
 				if (opt.isPresent()) {
 					oldComment = opt.get();
 				
 				oldComment.setContent(newComment.getContent());
-
+				
+				if(user.getRole().equalsIgnoreCase("admin")) {
+					oldComment.setEnabled(true);
+				}
+				
 				commentRepo.saveAndFlush(oldComment);
 				
 				return oldComment;
@@ -150,10 +154,10 @@ public class CommentServiceImpl implements CommentService {
 			User user = userRepo.findByUsername(username);
 
 			Optional<Comment> commentOpt = commentRepo.findById(cid);
-			if (commentOpt.isPresent())
+			if (commentOpt.isPresent()) {
 				comment = commentOpt.get();
-
-			if (user != null && user.getComments().contains(comment)) {
+			}
+			if (user != null && ( user.getComments().contains(comment) || user.getRole().equalsIgnoreCase("admin"))) {
 				comment.setEnabled(false);
 				commentRepo.save(comment);
 				destroyed = true;
