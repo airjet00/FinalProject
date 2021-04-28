@@ -50,6 +50,8 @@
   transform: scaleY(1);
 }
 /* ******************************* */
+/* Page Content CSS matDrawContent */
+
 /* notes box */
 .notes-box,.notes-wrapper {
 	position: relative;
@@ -72,9 +74,25 @@
 }
 /* ** End notes box ** */
 /* Test Table Formatting */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+#IITableHeader, #adviceTableHeader {
+
+  /* border: 1px solid black; */
+  padding-bottom: 0;
+  margin-bottom: 0;
+
+}
+table, td {
+  border: 1px solid black;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  padding: 5px;
+}
 
 /* ** End Test Table Formatting ** */
-
 
 /* Test DragDrop CSS */
 .II-box{
