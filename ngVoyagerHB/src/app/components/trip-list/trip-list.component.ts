@@ -23,7 +23,6 @@ export class TripListComponent implements OnInit {
 
   orderedItineraryItems: ItineraryItem [] = [];
 
-  countries: Country [] = [];
 
   selected: Trip = null;
 
@@ -48,7 +47,18 @@ export class TripListComponent implements OnInit {
   opened: boolean;
 
   isTripList: boolean = true;
+// Search Variables
+  keyword: String;
 
+  countries: Country [] = [];
+
+      // searchCountries: Country[];
+  chosenCountry: Country;
+
+  searchResults: Country[];
+
+  noneFound: boolean;
+// ** End Search Variables
 // Modal
   closeResult = '';
 
@@ -264,9 +274,9 @@ export class TripListComponent implements OnInit {
           this.orderIIList(this.selected);
         }
         this.updatedTrip = null;
-        this.reloadTrips();
         this.mapComp.ngOnDestroy();
         this.mapComp.getSingleTripCountries(data.id);
+        this.reloadTrips();
       },
       err => {
         console.error('Observer got an error: ' + err);
@@ -309,8 +319,8 @@ export class TripListComponent implements OnInit {
   }
 
   // Remove itineraryItem
-  removeItineraryItem(iItemToRemove: ItineraryItem, trip: Trip){
-
+  removeItineraryItem(iItemToRemove: ItineraryItem, trip: Trip, event){
+    event.stopPropagation();
     let sqncNum: number = iItemToRemove.sequenceNum;
     let index: number = trip.itineraryItems.findIndex( (II) => II.id === iItemToRemove.id)
 
@@ -363,8 +373,10 @@ export class TripListComponent implements OnInit {
     this.updateTrip(trip);
   }
 
-  cancelNotes(trip: Trip, II: ItineraryItem, country){
+  cancelNotes(trip: Trip, II: ItineraryItem, country?){
     this.reloadTrips();
+    // console.log(trip);
+    // console.log(II.notes);
 
     this.trips.forEach(refreshedTrip => {
       if(refreshedTrip.id === trip.id){
@@ -466,5 +478,19 @@ export class TripListComponent implements OnInit {
     selectedTrip.itineraryItems = this.orderedItineraryItems;
     this.updateTrip(selectedTrip);
   }
+// Country Search (Add II method is: addIItem in Update section)
+  searchCountry() {
+    this.countrySvc.search(this.keyword).subscribe(
+      data => {
+        this.searchResults = data;
 
+        if (this.searchResults.length === 0){
+          this.noneFound = true;
+        } else {
+          this.noneFound = false;
+        }
+      },
+      err => console.error('loadCountries got an error: ' + err)
+    )
+  }
 }

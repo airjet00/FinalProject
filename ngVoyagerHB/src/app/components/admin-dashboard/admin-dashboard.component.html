@@ -1,11 +1,16 @@
-<h1>Admin Dashboard</h1>
+<div id="body">
+<h1 id="title">Admin Dashboard</h1>
 
-<button (click)="manageCountries()" class="btn btn-info mr-3">
+<div id="mng">
+<button  (click)="manageCountries()" class="btn btn-info mr-3">
   Manage Countries
 </button>
 <button (click)="manageUsers()" class="btn btn-info">Manage Users</button>
-<div *ngIf="viewCountries">
+<div *ngIf="viewCountries" >
+
   <app-manage-countries></app-manage-countries>
+
+</div>
 </div>
 
 <div *ngIf="viewUsers">
@@ -13,3 +18,5 @@
 </div>
 
 <app-country-list></app-country-list>
+
+</div>

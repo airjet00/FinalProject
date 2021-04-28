@@ -167,6 +167,7 @@ export class ChartComponent {
   }
 
   getSingleTripCountries(tid) {
+    if(this.map){this.ngOnDestroy();}
     this.tripServ.show(tid).subscribe(
       data => {
         let trip = data;
@@ -176,8 +177,10 @@ export class ChartComponent {
         this.mylines = [{latitude: 37.09024, longitude: -95.712891}];
 
         if(trip['itineraryItems'].length >0 ) {
-          for (let index = 0; index < trip['itineraryItems'].length; index++) {
-            let ii = trip['itineraryItems'][index];
+          let itinitems = trip['itineraryItems'];
+          itinitems.sort((a,b) => a.sequenceNum - b.sequenceNum);
+          for (let index = 0; index < itinitems.length; index++) {
+            let ii = itinitems[index];
             let countryData = Object();
             countryData.id = ii['country']['countryCode'];
             countryData.fill = '#22b3b8'
