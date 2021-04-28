@@ -1,15 +1,33 @@
-ngb-carousel:focus {
+/* ngb-carousel:focus {
   outline: none;
+} */
+/*
+.card {
+  border: 0px !important;
+  background-color: #ededed;
+} */
+
+.top-marg {
+  margin-top: 15px;
+}
+
+.background-pic {
+  /* background-image: url("https://wwwnc.cdc.gov/travel/images/hiker-ocean-extreme.jpg") !important; */
+  background-image: url("https://wallpapercave.com/wp/wp2840991.jpg");
+  min-height: 800px;
+  background-repeat: no-repeat;
+  background-size: 200%;
+  background-position: left top;
+  background-attachment: fixed;
+  margin: -10px -15px;
+  padding-top: 50px;
 }
 
 .card {
+  background-color: rgb(237, 237, 237, 0.8) !important;
   border: 0px !important;
-  background-color: #EDEDED;
 }
 
-.top-marg {
-    margin-top: 15px;
-  }
-
-
-
+a {
+  color: #039be5;
+}

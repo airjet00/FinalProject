@@ -113,9 +113,10 @@
           style="max-width: 400px"
           type="text"
           name="keyword"
+          placeholder="France or beach..."
           [(ngModel)]="keyword"
         />
-        <button class="btn btn-secondary m-1" (click)="searchCountry(keyword)">
+        <button class="btn btn-success m-1" (click)="searchCountry(keyword)">
           Search
         </button>
       </form>
@@ -148,7 +149,7 @@
     <div *ngIf="selected" class="countryPageDiv">
       <div class="countryheader">
         <h1>{{ selected.name }}</h1>
-        <h3>{{ selected.description }}</h3>
+        <blockquote>{{ selected.description }}</blockquote>
       </div>
 
       <!-- Advice Div -->
