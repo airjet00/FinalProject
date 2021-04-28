@@ -160,7 +160,7 @@
               <td>{{ ad.name }}:</td>
               <td>
                 {{ ad.description }}
-                <span><a href="{{ ad.adviceUrl }}">(More Info)</a></span>
+                <span *ngIf="ad.adviceUrl"><a href="{{ ad.adviceUrl }}" target="_blank" rel="noopener noreferrer">(More Info)</a></span>
               </td>
             </tr>
           </tbody>

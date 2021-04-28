@@ -274,9 +274,9 @@ export class TripListComponent implements OnInit {
           this.orderIIList(this.selected);
         }
         this.updatedTrip = null;
-        this.reloadTrips();
         this.mapComp.ngOnDestroy();
         this.mapComp.getSingleTripCountries(data.id);
+        this.reloadTrips();
       },
       err => {
         console.error('Observer got an error: ' + err);
@@ -319,8 +319,8 @@ export class TripListComponent implements OnInit {
   }
 
   // Remove itineraryItem
-  removeItineraryItem(iItemToRemove: ItineraryItem, trip: Trip){
-
+  removeItineraryItem(iItemToRemove: ItineraryItem, trip: Trip, event){
+    event.stopPropagation();
     let sqncNum: number = iItemToRemove.sequenceNum;
     let index: number = trip.itineraryItems.findIndex( (II) => II.id === iItemToRemove.id)
 
