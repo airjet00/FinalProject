@@ -172,9 +172,6 @@
                   </div>
                 </div>
 
-                <!--*** CHECKBOX FORM ***-->
-                <!-- TODO: add checkbox confirm functionality -->
-
                 <!--*** FORM SUBMIT BUTTON ***-->
                 <button class="btn btn-danger" type="submit" (click)="updateUser(user)">Submit</button>
 
@@ -195,13 +192,13 @@
           </div>
           <!-- Table responsive wrapper  -->
           <div class="table-ui p-2 mb-3 mx-3 mb-4">
-          <div class="table table-hover ">
+          <div class="table table-hover mb-o">
             <!-- Table -->
             <table class="table">
 
               <!-- Table Head -->
               <!-- Listing comments -->
-              <thead class="table-primary" scope="row">
+              <thead class="table-primary" >
                 <tr>
 
                   <th class="th-lg"><a>Comment<i class="fas fa-sort ml-1"></i></a></th>
@@ -232,12 +229,7 @@
                     (click)="enableComment(comment, comment['country'].id)">Activate</button>
                   </td>
 
-                  <td>
-                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
-                        title="Tooltip on top"></i></a>
-                    <a><i class="fas fa-pen-square mx-1"></i></a>
-                    <a><i class="fas fa-times mx-1"></i></a>
-                  </td>
+
                 </tr>
               </tbody>
               <!-- Table Body End -->
@@ -258,19 +250,6 @@
 
 
 </div>
-
-  <ul class="circles">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-  </ul>
 </div>
 
 
