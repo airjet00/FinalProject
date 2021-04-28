@@ -1,10 +1,15 @@
-<div class="container my-4 rounded-lg">
-  <h3 class="font-weight-bold"> As an Admin you can view, edit, deactivate, activate other users profile information
+<div class="context">
+  <div class="area" >
+
+
+<div id="body" class="container my-4 rounded-lg">
+<div id="headPic">
+  <h3 class="font-weight-bold"> As an Admin you can view, edit, deactivate, and activate other users profile information
   </h3>
 
   <hr>
   <h3 class="font-weight-bold">User Information</h3>
-  <!-- TODO: add centering -->
+</div>
 
   <!-- Accordion wrapper -->
   <div *ngFor="let user of users" class="accordion md-accordion accordion-blocks" [id]="'mainaccordion'+user.id" role="tablist" aria-multiselectable="true" >
@@ -56,7 +61,7 @@
             </h4>
           </div>
 
-          <!-- TODO add user information here with option to edit -->
+          <!-- user information here with option to edit -->
           <div class="table-ui p-2 mb-3 mx-3 mb-4">
 
             <div class="row">
@@ -167,16 +172,6 @@
                   </div>
                 </div>
 
-                <!--*** CHECKBOX FORM ***-->
-                <!-- TODO: add checkbox confirm functionality -->
-                <div class="form-group">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                      Confirm update
-                    </label>
-                  </div>
-                </div>
                 <!--*** FORM SUBMIT BUTTON ***-->
                 <button class="btn btn-danger" type="submit" (click)="updateUser(user)">Submit</button>
 
@@ -196,6 +191,7 @@
 
           </div>
           <!-- Table responsive wrapper  -->
+          <div class="table-ui p-2 mb-3 mx-3 mb-4">
           <div class="table table-hover mb-o">
             <!-- Table -->
             <table class="table">
@@ -204,13 +200,10 @@
               <!-- Listing comments -->
               <thead class="table-primary" >
                 <tr>
-                  <th scope="row">
-                    <input class="form-check-input" type="hidden" name="" id="checkbox">
-                    <label for="checkbox" class="mr-2 label-table"></label>
-                  </th >
+
                   <th class="th-lg"><a>Comment<i class="fas fa-sort ml-1"></i></a></th>
-                  <th class="th-lg"><a>Created Date<i class="fas fa-sort ml-1"></i></a></th>
-                  <th class="th-lg"><a>Update Date<i class="fas fa-sort ml-1"></i></a></th>
+                  <th class="th-lg"><a>Created<i class="fas fa-sort ml-1"></i></a></th>
+                  <th class="th-lg"><a>Update<i class="fas fa-sort ml-1"></i></a></th>
                   <th class="th-lg"><a>Enabled<i class="fas fa-sort ml-1"></i></a></th>
                 </tr>
               </thead>
@@ -222,13 +215,13 @@
   <!-- ***********  -->
               <tbody *ngFor="let comment of user['comments']">
                 <tr>
-                  <th scope="row"></th>
+
                   <td>{{comment.content}}</td>
                   <td>{{comment.createDate}}</td>
                   <td>{{comment.updateDate}}</td>
-                  <td>{{comment.enabled}}</td>
+
+                  <!-- Button toggle Enable -->
                   <td *ngIf="comment.enabled">
-                    <!-- TODO add method to deactivate/activate comment -->
                     <button class="btn btn-danger" type="submit" (click)="deleteComment(comment['country'].id, comment.id)">Deactivate</button>
                   </td>
                   <td *ngIf="!comment.enabled">
@@ -236,12 +229,7 @@
                     (click)="enableComment(comment, comment['country'].id)">Activate</button>
                   </td>
 
-                  <td>
-                    <a><i class="fas fa-info mx-1" data-toggle="tooltip" data-placement="top"
-                        title="Tooltip on top"></i></a>
-                    <a><i class="fas fa-pen-square mx-1"></i></a>
-                    <a><i class="fas fa-times mx-1"></i></a>
-                  </td>
+
                 </tr>
               </tbody>
               <!-- Table Body End -->
@@ -250,6 +238,7 @@
             <!-- Table End -->
 
           </div>
+        </div>
           <!-- Table responsive wrapper End -->
         </div>
       </div>
@@ -261,8 +250,7 @@
 
 
 </div>
-
-
+</div>
 
 
 <!-- test area end -->
