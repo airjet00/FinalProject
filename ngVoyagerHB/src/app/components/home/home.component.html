@@ -1,13 +1,40 @@
-<div class="mx-auto mb-3 top-marg"  style="max-width: 500px;">
+<div class="background-pic">
+  <div class="row">
+    <div class="card col-8 mx-auto mb-5 text-center">
+      <h1>Voyager's Handbook</h1>
+      <p class="lead font-italic">Avoiding pitfalls in international travel</p>
+      <p>
+        <a [routerLink]="['/about']">About</a> · <a [routerLink]="['/login']">Log In</a> · <a [routerLink]="['/register']">Register</a>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card col-8 mx-auto mb-5 text-center" [routerLink]="['/countries']">
+      <a [routerLink]="['/countries']"><h2>Featured Countries</h2></a>
+      <!-- <img src="featured-countries-screenshot.png" /> -->
+      <img style="max-width: 600px;" class="mx-auto mb-3" src="http://www.gcmap.com/map?P=m:p:square7:white,N404242+W0740045%0D%0Am:p:pentagon7,N385217+W0770331%0D%0Am:p:star9,N400303+W0785413%0D%0Af:US@N38+W098,f:s%0D%0Af:AG@N17.4+W061.8%0D%0Af:AR@S35.7+W063.7%0D%0Af:AU@S26.2+E139.4%0D%0Af:AT@N47.6+E014.4%0D%0Af:BS@N24.8+W076.8%0D%0Af:BD@N24.0+E090.3%0D%0Af:BB@N13.1+W059.6%0D%0Af:BY@N53.6+E027.8%0D%0Af:BE@N50.8+E004.5%0D%0Af:BZ@N17.4+W088.4%0D%0Af:BO@S16.4+W064.9%0D%0Af:BR@S15.5+W049.4%0D%0Af:KH@N12.4+E104.5%0D%0Af:CA@N51.5+W095.5%0D%0Af:CL@S37.2+W071.7%0D%0Af:CN@N33.6+E111.0%0D%0Af:CO@N05.4+W074.2%0D%0Af:CR@N09.9+W084.3%0D%0Af:CZ@N49.8+E015.3%0D%0Af:DM@N15.4+W061.4%0D%0Af:DO@N18.9+W070.2%0D%0Af:EC@S01.4+W079.4%0D%0Af:EG@N28.5+E031.3%0D%0Af:SV@N13.6+W088.8%0D%0Af:FR@N46.6+E002.9%0D%0Af:DE@N51.0+E009.9%0D%0Af:GH@N07.1+W001.0%0D%0Af:GR@N38.1+E024.0%0D%0Af:GT@N15.6+W090.3%0D%0Af:GY@N05.2+W059.4%0D%0Af:HT@N18.9+W073.0%0D%0Af:HN@N15.2+W086.7%0D%0Af:HK@N22.3+E114.1%0D%0Af:IN@N22.5+E080.3%0D%0Af:ID@S02.7+E119.2%0D%0Af:IR@N32.4+E052.5%0D%0Af:IE@N53.2+W007.9%0D%0Af:IL@N31.6+E035.0%0D%0Af:IT@N43.0+E011.9%0D%0Af:JM@N18.5+W076.5%0D%0Af:JP@N34.6+E135.5%0D%0Af:JO@N31.6+E036.3%0D%0Af:KE@S00.3+E037.1%0D%0Af:LB@N34.1+E035.8%0D%0Af:LU@N49.7+E006.1%0D%0Af:MY@N04.2+E109.3%0D%0Af:MX@N22.8+W101.9%0D%0Af:NL@N52.2+E005.4%0D%0Af:NZ@S40.3+E171.7%0D%0Af:NI@N12.6+W085.2%0D%0Af:NO@N64.7+E011.5%0D%0Af:PK@N30.4+E070.0%0D%0Af:PA@N08.8+W079.2%0D%0Af:PE@S10.0+W075.0%0D%0Af:PH@N11.7+E122.6%0D%0Af:PL@N52.0+E019.1%0D%0Af:PT@N39.2+W012.1%0D%0Af:RO@N45.9+E024.8%0D%0Af:RU@N57.7+E076.9%0D%0Af:SK@N48.7+E018.8%0D%0Af:ZA@S28.6+E026.7%0D%0Af:KR@N36.6+E127.5%0D%0Af:ES@N38.7+W004.0%0D%0Af:LK@N07.5+E080.7%0D%0Af:KN@N17.3+W062.7%0D%0Af:LC@N13.9+W061.0%0D%0Af:SE@N59.8+E015.7%0D%0Af:CH@N46.4+E006.9%0D%0Af:TW@N23.8+E120.6%0D%0Af:TH@N14.3+E100.9%0D%0Af:TT@N10.7+W061.2%0D%0Af:TR@N39.1+E033.3%0D%0Af:GB@N53.3+E001.8%0D%0Af:UA@N48.9+E031.6%0D%0Af:UY@S33.0+W055.4%0D%0Af:UZ@N40.7+E065.7%0D%0Af:ZW@S18.7+E030.1%0D%0A&MS=bm&MC=N0W74&MX=720x360&MX=720x360" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="card col-8 mx-auto mb-5 text-center">
+      <h2><a [routerLink]="['/register']">Create a free account</a> to access:</h2>
+      <h3>Where You've Been</h3><img class="mx-auto" style="max-width: 400px;" src="https://www.amcharts.com/wp-content/uploads/2013/12/demo_913_none-5-1024x690.png" />
+<h3 class="mt-3">Where You're Going</h3>      <img class="mx-auto" style="max-width: 400px;" src="https://www.amcharts.com/docs/v4/wp-content/uploads/sites/2/2018/10/2018-10-10_15-17-42.png" />
+<h3 class="mt-3">Dream Trips</h3>
+<img style="max-width: 400px;" class="mx-auto mb-3" src="https://www.swedishnomad.com/wp-content/images/2019/12/Bucket-List.jpg" />
+  </div>
+</div>
+
+<!-- <div class="mx-auto mb-3 top-marg"  style="max-width: 500px;">
 <div class="card text-center" style="background-color: #EDEDED;"><h1>Voyager's Handbook</h1>
-<p class="lead font-italic">Avoiding pitfalls in international travel</p><p><a href="">About</a> · <a href="">Log In</a> · <a href="">Register</a></p></div></div>
+<p class="lead font-italic">Avoiding pitfalls in international travel</p><p><a href="">About</a> · <a href="">Log In</a> · <a href="">Register</a></p></div></div> -->
 <!-- <p class="lead">Travel can be a wonderful and life-changing experience.</p>
 <p class="lead">But there are some pitfalls that can ruin a trip. </p><p>What are the visa requirements in Tahiti? <br />What about customs requirements in
   Thailand?
 </p>
 <p class="lead">Voyager's Handbook has got you covered.</p>
  -->
-
+<!--
 <div class="row">
   <div class="col-4 d-flex mx-auto justify-content-center">
     <a [routerLink]="['/countries']"><h3>Explore Countries</h3></a>
@@ -43,7 +70,7 @@
       </div>
     </ng-template>
   </ngb-carousel>
-</div>
+</div> -->
 <!-- </div> -->
 <!--
 <h2><a [routerLink]="['/register']">Register now</a> to access:</h2>
