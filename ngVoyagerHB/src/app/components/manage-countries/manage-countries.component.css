@@ -1,0 +1,32 @@
+#mngBody{
+  align-content: center;
+  text-align: center;
+  display: inline-block;
+  font-family: "Exo", sans-serif;
+
+}
+form{
+  align-content: center;
+  font-size: medium
+}
+
+button{
+  align-content: center;
+  border: 3px solid #08a5303b;
+  outline: none;
+  padding: 10px 10px;
+  border-radius: 10px;
+  color: #333;
+  background: #fff;
+  /* margin-bottom: 10px; */
+  border-color: #08a5303b;
+  outline-color: #0ba5313b;
+}
+select{
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.062);
+}
+
+#mngEdit:hover{
+  background-color: #068125e8;
+  border-color: #068125e8;
+}

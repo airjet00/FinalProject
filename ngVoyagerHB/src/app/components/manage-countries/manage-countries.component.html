@@ -1,6 +1,8 @@
+<div id="mngBody">
+
 <h2>Manage Countries</h2>
 
-<form class="form-inline">
+<form class="form-inline" id="mgnForm">
   Country:
   <select
     class="ml-3 mr-3 form-control"
@@ -10,7 +12,7 @@
     <option value="" selected></option>
     <option *ngFor="let c of countries" [ngValue]="c">{{ c.name }}</option>
   </select>
-  <button (click)="selectEdit()" class="btn btn-info mr-3" type="submit">
+  <button id="mngEdit" (click)="selectEdit()" class="btn btn-info mr-3" type="submit">
     Edit
   </button>
   <button (click)="selectDelete()" class="btn btn-danger mb-3 mt-3 mr-3">
@@ -104,4 +106,6 @@
       Submit Changes
     </button>
   </form>
+</div>
+
 </div>

@@ -1,22 +1,27 @@
-<div id="body">
+<div class="context">
+  <div class="area">
+
 <h1 id="title">Admin Dashboard</h1>
 
 <div id="mng">
-<button  (click)="manageCountries()" class="btn btn-info mr-3">
+<button  (click)="manageCountries(); toggleFeatPage(); " class="btn btn-info mr-3">
   Manage Countries
 </button>
-<button (click)="manageUsers()" class="btn btn-info">Manage Users</button>
+<button (click)="manageUsers(); toggleFeatPage();" class="btn btn-info">Manage Users</button>
 <div *ngIf="viewCountries" >
 
   <app-manage-countries></app-manage-countries>
-
+  <app-country-list></app-country-list>
 </div>
 </div>
 
 <div *ngIf="viewUsers">
   <app-user-list></app-user-list>
 </div>
+<!-- <div *ngIf="!viewUsers && !viewCountries" > -->
+<!-- <div *ngIf="!viewUsers && !viewCountries" > -->
 
-<app-country-list></app-country-list>
-
+<app-country-list style="visibility: {{featureCountriesDisplay}}"></app-country-list>
+<!-- </div> -->
+</div>
 </div>
