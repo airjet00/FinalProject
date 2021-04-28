@@ -132,7 +132,7 @@
                   {{itineraryItem["country"].description}}
                 </td>
                 <td *ngIf="deleting">
-                  <button class="btn btn-danger" (click)="removeItineraryItem(itineraryItem, selected)">X</button>
+                  <button class="btn btn-danger" (click)="removeItineraryItem(itineraryItem, selected, $event)">X</button>
                 </td>
               </tr>
             </tbody>
