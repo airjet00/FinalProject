@@ -50,3 +50,60 @@
   transform: scaleY(1);
 }
 /* ******************************* */
+/* notes box */
+.notes-box,.notes-wrapper {
+	position: relative;
+	padding: 10px;
+}
+.notes-wrapper {
+	width: 500px;
+	margin: auto;
+	/* margin-top: 50px; */
+}
+.notes-box {
+	width: 80%;
+	border: 1px solid #ccc;
+  outline: 0;
+  border-radius: 15px;
+}
+.notes-box:focus {
+	box-shadow: 0 0 15px 5px #b0e0ee;
+	border: 2px solid #bebede;
+}
+/* ** End notes box ** */
+/* Test Table Formatting */
+
+/* ** End Test Table Formatting ** */
+/* Test DragDrop CSS */
+
+
+.II-box{
+  cursor: move;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  color: white;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.II-box:last-child {
+  border: none;
+}
+
+.II-list.cdk-drop-list-dragging .II-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* ** End Test DragDrop CSS ** */
