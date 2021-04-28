@@ -1,352 +1,256 @@
 <div class="context">
-  <div class="area" >
+  <div class="area">
 
 
-<div id="body" class="container my-4 rounded-lg">
-<div id="headPic">
-  <h3 class="font-weight-bold"> As an Admin you can view, edit, deactivate, and activate other users profile information
-  </h3>
+    <div id="body" class="container my-4 rounded-lg">
+      <div id="headPic">
+        <h3 class="font-weight-bold"> As an Admin you can view, edit, deactivate, and activate other users profile
+          information
+        </h3>
 
-  <hr>
-  <h3 class="font-weight-bold">User Information</h3>
-</div>
+        <hr>
+        <h3 class="font-weight-bold">User Information</h3>
+      </div>
 
-  <!-- Accordion wrapper -->
-  <div *ngFor="let user of users" class="accordion md-accordion accordion-blocks" [id]="'mainaccordion'+user.id" role="tablist" aria-multiselectable="true" >
+      <!-- Accordion wrapper -->
+      <div *ngFor="let user of users" class="accordion md-accordion accordion-blocks" [id]="'mainaccordion'+user.id"
+        role="tablist" aria-multiselectable="true">
 
-    <!-- Accordion Card -->
-    <div  class="card">
+        <!-- Accordion Card -->
+        <div class="card">
 
-      <!-- Card header -->
-      <div class="card-header" role="tab" [id]="'headaccordion'+user.id">
+          <!-- Card header -->
+          <div class="card-header" role="tab" [id]="'headaccordion'+user.id">
 
-        <!-- Options -->
-        <div class="dropdown float-left">
-          <button class="btn btn-info btn-sm m-0 mr-3 p-2 dropdown-toggle" type="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false"><i class="fas fa-pencil-alt"></i>
-          </button>
-          <!-- drop down -->
-          <div class="dropdown-menu dropdown-info">
-            <!-- TODO add update functionality ************************** -->
-            <a class="dropdown-item" href="">Update</a>
-          </div>
-        </div>
-
-        <!-- Heading -->
-        <!-- TODO add get user info ********************** -->
-        <a data-toggle="collapse" [attr.data-parent]="'#mainaccordion'+user.id" [href]="'#tailaccordion'+user.id"
-          aria-expanded="true" [attr.aria-controls]="'tailaccordion'+user.id">
-          <h5 class="mt-1 mb-o">
-            <div *ngIf="user.firstName == null">
-              <p>Test User</p>
+            <!-- Options -->
+            <div class="dropdown float-left">
+              <button class="btn btn-info btn-sm m-0 mr-3 p-2 dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"><i class="fas fa-pencil-alt"></i>
+              </button>
+              <!-- drop down -->
+              <div class="dropdown-menu dropdown-info">
+                <!-- TODO add update functionality ************************** -->
+                <a class="dropdown-item" href="">Update</a>
+              </div>
             </div>
-            <span>{{user.firstName}} {{user.lastName}}</span>
-            <i class="fa fa-angle-down rotate-icon"></i>
-          </h5>
-        </a>
+
+            <!-- Heading -->
+            <!-- TODO add get user info ********************** -->
+            <a data-toggle="collapse" [attr.data-parent]="'#mainaccordion'+user.id" [href]="'#tailaccordion'+user.id"
+              aria-expanded="true" [attr.aria-controls]="'tailaccordion'+user.id">
+              <h5 class="mt-1 mb-o">
+                <div *ngIf="user.firstName == null">
+                  <p>Test User</p>
+                </div>
+                <span>{{user.firstName}} {{user.lastName}}</span>
+                <i class="fa fa-angle-down rotate-icon"></i>
+              </h5>
+            </a>
+
+          </div>
+
+
+
+          <!-- Card Body -->
+          <div class="collapse" [id]="'tailaccordion'+user.id" role="tabpanel"
+            [attr.aria-labelledby]="'accordion'+user.id" [attr.data-parent]="'#mainaccordion'+user.id">
+            <div class="card-body">
+
+
+              <div class="card text-center">
+                <h4 class="card-header bg-info">
+                  Travelers Information
+                </h4>
+              </div>
+
+              <!-- user information here with option to edit -->
+              <div class="table-ui p-2 mb-3 mx-3 mb-4">
+
+                <div class="row">
+
+                  <div class="col-xl-4 col-lg-6 col-md-12"></div>
+
+                  <table class="table">
+                    <thead class="table-primary">
+                      <th>Name</th>
+                      <th>Username</th>
+                      <th>Email</th>
+                      <th>Active</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{user.firstName}} {{user.lastName}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.enabled}}</td>
+                      </tr>
+                    </tbody>
+                    <thead class="table-primary">
+                      <th>Role</th>
+                      <th>DOB</th>
+                      <th>Created Date</th>
+                      <th>Updated Date</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{user.role}}</td>
+                        <td>{{user.dob}}</td>
+                        <td>{{user.createDate}}</td>
+                        <td>{{user.updateDate}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+                </div>
+              </div>
+              <!--*** FORM FOR USER EDIT *** -->
+              <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                  aria-expanded="false" aria-controls="collapseExample">
+                  Update User
+                </button>
+              </p>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <form>
+                    <!--*** FORM ROW 1 ***-->
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label>First Name</label><br>
+                        <input type="text" name="firstName" placeholder="First" [(ngModel)]='newUser.firstName'>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label>Middle Name</label><br>
+                        <input type="text" name="middleName" placeholder="Middle" [(ngModel)]='newUser.middleName'>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label>Last Name</label><br>
+                        <input type="text" name="lastName" placeholder="Last" [(ngModel)]='newUser.lastName'>
+                      </div>
+                    </div>
+                    <!--*** FORM ROW 2 ***-->
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label>Email</label><br>
+                        <input type="text" name="email" placeholder="email" [(ngModel)]='newUser.email'>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label>User Created</label><br>
+                        <input type="text" name="createdDate" placeholder="mm/dd/yyyy" [(ngModel)]='newUser.createDate'>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label>User Updated</label><br>
+                        <input type="text" name="updatedDate" placeholder="mm/dd/yyyy" [(ngModel)]='newUser.updateDate'>
+                      </div>
+                    </div>
+                    <!--*** FORM ROW 3 ***-->
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label>Date of Birth</label><br>
+                        <input type="text" name="dob" placeholder="dob" [(ngModel)]='newUser.dob'>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label>Role</label><br>
+                        <input type="text" name="role" placeholder="role" [(ngModel)]='newUser.role'>
+                      </div>
+                      <div>
+                        <label>Username</label><br>
+                        <input type="text" name="username" placeholder="username" [(ngModel)]='newUser.username'>
+                      </div>
+
+                      <!--*** FORM ENABLE ***-->
+                      <div class="form-group col-md-4">
+                        <!-- <input type="text" name="enabled" placeholder="enabled" [(ngModel)]='newUser.enabled'> -->
+
+                        <div *ngIf="user.enabled">
+                          <button class="btn btn-danger" type="submit" (click)="deleteUser(user.id)">Deactivate</button>
+                        </div>
+                        <div *ngIf="!user.enabled">
+                          <button *ngIf="user.enabled == false" class="btn btn-danger" type="submit"
+                            (click)="enableUser(user)">Activate</button>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <!--*** FORM SUBMIT BUTTON ***-->
+                    <button class="btn btn-danger" type="submit" (click)="updateUser(user)">Submit</button>
+
+                    <button class="btn btn-primary" (click)="newUser = null">Cancel</button>
+
+                  </form>
+                </div>
+              </div>
+
+              <!--*** COMMENT SECTION ***-->
+              <div class="card text-center">
+                <h4 class="card-header bg-info">
+                  Comment Review
+                </h4>
+              </div>
+              <div>
+
+              </div>
+              <!-- Table responsive wrapper  -->
+              <div class="table-ui p-2 mb-3 mx-3 mb-4">
+                <div class="table table-hover mb-o">
+                  <!-- Table -->
+                  <table class="table">
+
+                    <!-- Table Head -->
+                    <!-- Listing comments -->
+                    <thead class="table-primary">
+                      <tr>
+
+                        <th class="th-lg"><a>Comment<i class="fas fa-sort ml-1"></i></a></th>
+                        <th class="th-lg"><a>Created<i class="fas fa-sort ml-1"></i></a></th>
+                        <th class="th-lg"><a>Update<i class="fas fa-sort ml-1"></i></a></th>
+                        <th class="th-lg"><a>Enabled<i class="fas fa-sort ml-1"></i></a></th>
+                      </tr>
+                    </thead>
+                    <!-- Table Head End-->
+
+                    <!-- Table Body -->
+
+
+                    <!-- Comment Loop  -->
+                    <tbody *ngFor="let comment of user['comments']">
+                      <tr>
+
+                        <td>{{comment.content}}</td>
+                        <td>{{comment.createDate}}</td>
+                        <td>{{comment.updateDate}}</td>
+
+                        <!-- Button toggle Enable -->
+                        <td *ngIf="comment.enabled">
+                          <button class="btn btn-danger" type="submit"
+                            (click)="deleteComment(comment['country'].id, comment.id)">Deactivate</button>
+                        </td>
+                        <td *ngIf="!comment.enabled">
+                          <button class="btn btn-danger" type="submit"
+                            (click)="enableComment(comment, comment['country'].id)">Activate</button>
+                        </td>
+
+
+                      </tr>
+                    </tbody>
+                    <!-- Table Body End -->
+
+                  </table>
+                  <!-- Table End -->
+
+                </div>
+              </div>
+              <!-- Table responsive wrapper End -->
+            </div>
+          </div>
+
+        </div>
+        <!-- Accordion Card End -->
 
       </div>
 
-
-
-      <!-- Card Body -->
-      <div class="collapse" [id]="'tailaccordion'+user.id" role="tabpanel" [attr.aria-labelledby]="'accordion'+user.id"
-        [attr.data-parent]="'#mainaccordion'+user.id">
-        <div class="card-body">
-
-
-          <div class="card text-center">
-            <h4 class="card-header bg-info">
-              Travelers Information
-            </h4>
-          </div>
-
-          <!-- user information here with option to edit -->
-          <div class="table-ui p-2 mb-3 mx-3 mb-4">
-
-            <div class="row">
-
-              <div class="col-xl-4 col-lg-6 col-md-12"></div>
-
-              <table class="table">
-                <thead class="table-primary">
-                  <th>Name</th>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Active</th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{{user.firstName}} {{user.lastName}}</td>
-                    <td>{{user.username}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.enabled}}</td>
-                  </tr>
-                </tbody>
-                <thead class="table-primary">
-                  <th>Role</th>
-                  <th>DOB</th>
-                  <th>Created Date</th>
-                  <th>Updated Date</th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{{user.role}}</td>
-                    <td>{{user.dob}}</td>
-                    <td>{{user.createDate}}</td>
-                    <td>{{user.updateDate}}</td>
-                  </tr>
-                </tbody>
-              </table>
-
-
-            </div>
-          </div>
-          <!--*** FORM FOR USER EDIT *** -->
-          <p>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-              aria-expanded="false" aria-controls="collapseExample">
-              Update User
-            </button>
-          </p>
-          <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-              <form>
-                <!--*** FORM ROW 1 ***-->
-                <div class="form-row">
-                  <div class="form-group col-md-4">
-                    <label>First Name</label><br>
-                    <input type="text" name="firstName" placeholder="First" [(ngModel)]='newUser.firstName'>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label>Middle Name</label><br>
-                    <input type="text" name="middleName" placeholder="Middle" [(ngModel)]='newUser.middleName'>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label>Last Name</label><br>
-                    <input type="text" name="lastName" placeholder="Last" [(ngModel)]='newUser.lastName'>
-                  </div>
-                </div>
-                <!--*** FORM ROW 2 ***-->
-                <div class="form-row">
-                  <div class="form-group col-md-4">
-                    <label>Email</label><br>
-                    <input type="text" name="email" placeholder="email" [(ngModel)]='newUser.email'>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label>User Created</label><br>
-                    <input type="text" name="createdDate" placeholder="mm/dd/yyyy" [(ngModel)]='newUser.createDate'>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label>User Updated</label><br>
-                    <input type="text" name="updatedDate" placeholder="mm/dd/yyyy" [(ngModel)]='newUser.updateDate'>
-                  </div>
-                </div>
-                <!--*** FORM ROW 3 ***-->
-                <div class="form-row">
-                  <div class="form-group col-md-4">
-                    <label>Date of Birth</label><br>
-                    <input type="text" name="dob" placeholder="dob" [(ngModel)]='newUser.dob'>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label>Role</label><br>
-                    <input type="text" name="role" placeholder="role" [(ngModel)]='newUser.role'>
-                  </div>
-                  <div>
-                    <label>Username</label><br>
-                    <input type="text" name="username" placeholder="username" [(ngModel)]='newUser.username'>
-                  </div>
-
-                  <!--*** FORM ENABLE ***-->
-                  <div class="form-group col-md-4">
-                    <!-- <input type="text" name="enabled" placeholder="enabled" [(ngModel)]='newUser.enabled'> -->
-
-                    <div *ngIf="user.enabled">
-                      <button class="btn btn-danger" type="submit" (click)="deleteUser(user.id)">Deactivate</button>
-                    </div>
-                    <div *ngIf="!user.enabled">
-                      <button *ngIf="user.enabled == false" class="btn btn-danger" type="submit"
-                        (click)="enableUser(user)">Activate</button>
-                    </div>
-
-                  </div>
-                </div>
-
-                <!--*** FORM SUBMIT BUTTON ***-->
-                <button class="btn btn-danger" type="submit" (click)="updateUser(user)">Submit</button>
-
-                <button class="btn btn-primary" (click)="newUser = null" >Cancel</button>
-
-              </form>
-            </div>
-          </div>
-
-        <!--*** COMMENT SECTION ***-->
-          <div class="card text-center">
-            <h4 class="card-header bg-info">
-              Comment Review
-            </h4>
-          </div>
-          <div>
-
-          </div>
-          <!-- Table responsive wrapper  -->
-          <div class="table-ui p-2 mb-3 mx-3 mb-4">
-          <div class="table table-hover mb-o">
-            <!-- Table -->
-            <table class="table">
-
-              <!-- Table Head -->
-              <!-- Listing comments -->
-              <thead class="table-primary" >
-                <tr>
-
-                  <th class="th-lg"><a>Comment<i class="fas fa-sort ml-1"></i></a></th>
-                  <th class="th-lg"><a>Created<i class="fas fa-sort ml-1"></i></a></th>
-                  <th class="th-lg"><a>Update<i class="fas fa-sort ml-1"></i></a></th>
-                  <th class="th-lg"><a>Enabled<i class="fas fa-sort ml-1"></i></a></th>
-                </tr>
-              </thead>
-              <!-- Table Head End-->
-
-              <!-- Table Body -->
-              <!-- TODO set up a comment loop -->
-
-  <!-- ***********  -->
-              <tbody *ngFor="let comment of user['comments']">
-                <tr>
-
-                  <td>{{comment.content}}</td>
-                  <td>{{comment.createDate}}</td>
-                  <td>{{comment.updateDate}}</td>
-
-                  <!-- Button toggle Enable -->
-                  <td *ngIf="comment.enabled">
-                    <button class="btn btn-danger" type="submit" (click)="deleteComment(comment['country'].id, comment.id)">Deactivate</button>
-                  </td>
-                  <td *ngIf="!comment.enabled">
-                    <button class="btn btn-danger" type="submit"
-                    (click)="enableComment(comment, comment['country'].id)">Activate</button>
-                  </td>
-
-
-                </tr>
-              </tbody>
-              <!-- Table Body End -->
-
-            </table>
-            <!-- Table End -->
-
-          </div>
-        </div>
-          <!-- Table responsive wrapper End -->
-        </div>
-      </div>
 
     </div>
-    <!-- Accordion Card End -->
-
   </div>
-
-
-</div>
-</div>
-
-
-<!-- test area end -->
-<!--
-  <div class="accordion" id="accordionExample">
-    <table >
-      <thead>
-        <tr>
-          <th >User Information</th>
-
-        </tr>
-        <th scope="col">User ID</th>
-        <th scope="col">Username</th>
-        <th scope="col">First Name</th>
-        <th scope="col">Last Name</th>
-        <th scope="col">User Info</th>
-        <th></th>
-
-      </thead>
-
-
-      <div *ngFor="let user of users" class="card">
-        <div class="card-header" id="headingOne">
-          <h2 class="mb-0">
-
-
-                <tr scope="row">
-              <td >{{user.id}}</td>
-              <td> {{user.username}}</td>
-              <td>{{user.firstName}}</td>
-              <td>{{user.lastName}}</td>
-
-              <button (click)="loadUser(user.id)" class="btn btn-primary collapsed" type="button" data-toggle="collapse show" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-              View User
-              </button>
-            </tr>
-
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"  data-parent="#accordionExample">
-            <div class="card-body">
-                <table>
-                  <thead>
-                    <th>Role</th>
-                    <th>Email</th>
-                    <th>Date of Birth</th>
-                    <th>is Activated</th>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{{user.role}}</td>
-                      <td>{{user.email}}</td>
-                      <td>{{user.dob}}</td>
-                      <td>{{user.enabled}}</td>
-
-                      <div *ngIf="user.enabled">
-                      <button class="btn btn-primary" type="submit" (click)="deleteUser(user.id)">Deactivate</button>
-                      </div>
-
-                      <div *ngIf="!user.enabled">
-                      <button *ngIf="user.enabled == false" class="btn btn-primary" type="submit" (click)="enableUser(user)">Activate</button>
-                      </div>
-
-                      <div>
-                        <button class="btn btn-primary" type="submit">Update</button>
-                        <form action="">
-                          <input type="hidden" name="id" value={{user.id}}
-                          [(ngModel)]='newUser.id'>
-                          <input type="text" name="username" placeholder="username"
-                          [(ngModel)]='newUser.username'>
-                          <input type="text" name="firstName" placeholder="firstName"
-                          [(ngModel)]='newUser.username'>
-                          <input type="text" name="lastName" placeholder="lastName"
-                          [(ngModel)]='newUser.username'>
-                          <input type="text" name="middleName" placeholder="middleName"
-                          [(ngModel)]='newUser.username'>
-                          <input type="text" name="email" placeholder="email"
-                          [(ngModel)]='newUser.username'>
-                          <input type="text" name="suffix" placeholder="suffix"
-                          [(ngModel)]='newUser.username'>
-                          <input type="text" name="dob" placeholder="dob"
-                          [(ngModel)]='newUser.username'>
-                          <input type="text" name="enabled" placeholder="enabled"
-                          [(ngModel)]='newUser.username'>
-                          <input type="text" name="role" placeholder="role"
-                          [(ngModel)]='newUser.username'>
-                          <button class="btn btn-danger" type="submit" (click)="updateUser(newUser)">Submit</button><button class="btn btn-primary" (click)="newUser = null">Cancel</button>
-                        </form>
-
-                      </div>
-
-                    </tr>
-                  </tbody>
-                </table>
-            </div>
-            </div>
-
-            </h2>
-            </div>
-            </div>
- </table> -->
