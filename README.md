@@ -2,10 +2,10 @@
 # Voyager's Handbook
 
 ### Description
-Attention to detail is key when traveling internationally: you don't want to get stuck in customs, make a mistake about visa requirements, or forget that you're not allowed to chew gum in Singapore. Voyager's Handbook is a web app that allows a user to keep track of important information about travel requirements for various countries. With Voyager's Handbook, a user can plan trips in a "My Trips" section, and generate checklists of requirements for the countries they will be visiting. They can access vetted information entered by site administrators, and also view comments and tips left by other users. Finally, the user also can create a "Wishlist" of countries to keep in mind for future travel plans.
+Attention to detail is key when traveling internationally: you don't want to get stuck in customs, make a mistake about visa requirements, or forget that you're not allowed to chew gum in Singapore. Voyager's Handbook is a web app that allows a user to keep track of important information about travel requirements for various countries. With Voyager's Handbook, a user can plan trips in a "My Trips" section, and take notes on the requirements for the countries they will be visiting. They can access vetted information entered by site administrators, and also view comments and tips left by other users. Finally, the user also can create a "Wishlist" of countries to keep in mind for future travel plans.
 
 ### How to Run
-* Access online at: -- link --
+* Access online at: http://3.13.22.174:8080/voyager/#/home
 
 ### Topics and Technologies Used
 Front End:
@@ -38,7 +38,7 @@ Back End:
 | GET | `countries/{cid}/adviceTypes` | void | `List<AdviceType>` | Gets all AdviceTypes for a given Country |
 | GET | `countries/{cid}/adviceTypes/{atid}` | void | `AdviceType` | Get an AdviceType by Country ID and advice type ID |
 | POST | `api/countries/{cid}/adviceTypes` | `AdviceType`, `Principal` | `AdviceType` | Create AdviceType for a given Country |
-| PUT | `api/countries/{cid}/adviceTypes/{atid}` | `AdviceType`, `Principal` | `AdviceType` | Edit an AdviceType for a given Country | 
+| PUT | `api/countries/{cid}/adviceTypes/{atid}` | `AdviceType`, `Principal` | `AdviceType` | Edit an AdviceType for a given Country |
 | DELETE | `api/countries/{cid}/adviceTypes/{atid}` | `Principal` | void | Delete AdviceType by Country ID and AdviceType ID |
 
 
@@ -58,7 +58,7 @@ Back End:
 | GET | `countries/{countryId}/comments/all` | void | `List<Comment>` | Get all comments for a country (including disabled) |
 | GET | `countries/{countryId}/comments/disabled` | void | `List<Comment>` | Gets all disabled comments for a country |
 | GET | `countries/{countryId}/comments/{cid}` | `Principal` | `Comment` | Get comment by country and comment ID |
-| POST | `api/countries/{countryId}/comments` | `Principal`, `Comment` | `Comment` | Create a comment for a given country | 
+| POST | `api/countries/{countryId}/comments` | `Principal`, `Comment` | `Comment` | Create a comment for a given country |
 | PUT | `api/countries/{countryId}/comments/{commentId}` | `Comment`, `Principal` | Edits a comment |
 | DELETE | `api/countries/{countryId}/comments/{commentId}` | `Principal` | `boolean` | Deletes comment by ID |
 
