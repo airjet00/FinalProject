@@ -57,6 +57,11 @@
     </div>
   </mat-drawer>
   <!-- ***** End SideBar ***** -->
+
+
+
+
+
   <!-- ******* Page Content ***************************************************************** -->
   <mat-drawer-content>
     <button class="btn btn-dark" mat-button (click)="sidenav.toggle()">View Trips</button>
@@ -102,17 +107,23 @@
       </div>
     </ng-template>
     <!-- ** End Modal ** -->
+
+
     <!-- Trip single display -->
     <div *ngIf="!selected">
       <h1 style="text-align: center;">Start by selecting or adding a Trip in your Trip List</h1>
     </div>
+    <!-- II display -->
     <div *ngIf="selected" class="container">
       <h1 *ngIf="selected.name === 'wishlist'" style="text-align: center;">Bucket List</h1>
       <h1 *ngIf="selected.name !== 'wishlist'"style="text-align: center;">{{selected.name}}</h1>
+
+      <!-- Top Row -->
       <div class="row">
         <!-- itinerary item table -->
-        <div class="col-md-6">
+        <div class="col-md-7">
           <h1 style="text-align: center;">Countries To Visit</h1>
+          <!-- Test table format (divs around table tbody thead) -->
           <table class='table table-bordered table-dark'>
             <thead class="thead-light">
               <tr>
@@ -122,9 +133,9 @@
                 <th *ngIf="deleting">Remove Country</th>
               </tr>
             </thead>
-            <tbody *ngIf="selected['itineraryItems']" cdkDropList (cdkDropListDropped)="drop($event, selected)">
-              <tr *ngFor="let itineraryItem of orderedItineraryItems" cdkDrag cdkDragLockAxis="y" (click)="displayCountryAdvice(itineraryItem['country'], itineraryItem)">
-                <td>{{itineraryItem.sequenceNum}}</td>
+            <tbody class="II-list" *ngIf="selected['itineraryItems']" cdkDropList (cdkDropListDropped)="drop($event, selected)">
+              <tr *ngFor="let itineraryItem of orderedItineraryItems" cdkDrag (click)="displayCountryAdvice(itineraryItem['country'], itineraryItem)">
+                <td class="II-box">{{itineraryItem.sequenceNum}}</td>
                 <td>
                   {{itineraryItem["country"].name}}
                 </td>
@@ -134,22 +145,77 @@
                 <td *ngIf="deleting">
                   <button class="btn btn-danger" (click)="removeItineraryItem(itineraryItem, selected, $event)">X</button>
                 </td>
+                <img *cdkDragPreview [src]=undefined [alt]="itineraryItem['country'].name">
+                <!-- <img *cdkDragPreview [src]="itineraryItem['country'].name" [alt]="itineraryItem['country'].name"> -->
               </tr>
             </tbody>
           </table>
-            <div class="row">
-              <div class="col-md-6">
-                <button class="btn btn-dark btn-outline-success" id="createTripFormBtn" style="float: left;" (click)="toggleCompleted(selected)">{{toggleCompleteMsg}}</button>
-              </div>
-              <div class="col-md-6">
-                <button class="btn btn-dark btn-outline-success" (click)="displayDelete()" style="float: right;">{{deleteBtnMsg}}</button>
+          <div class="row">
+            <div class="col-md-6">
+              <button class="btn btn-dark btn-outline-success" id="createTripFormBtn" style="float: left;" (click)="toggleCompleted(selected)">{{toggleCompleteMsg}}</button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-dark btn-outline-success" (click)="displayDelete()" style="float: right;">{{deleteBtnMsg}}</button>
             </div>
           </div>
         </div>
         <!-- ** End itinerary item table ** -->
-        <!-- Advice By Country (iItem) -->
-        <div class="col-md-6" *ngIf="selectedCountry">
-          <div class="row">
+
+
+        <!-- Search Country + Add Country -->
+        <div class="col-md-5">
+          <div class="backgroundImage mt-0">
+            <!-- Search by Keyword -->
+            <h1 style="text-align: center;">Add To Your Trip</h1>
+            <div class="center-content card mx-auto text-center" style="max-width: 500px">
+              <h3 class="mt-3">Search Countries:</h3>
+              <form>
+                <div class="form-group form-inline col-12" >
+                  <input class="ml-3 mr-2 form-control col-9" id="keywordSearch" type="text" name="keyword" [(ngModel)]="keyword"/>
+                  <button type="submit" class=" btn btn-success" style="display: none;" (click)="searchCountry()" >Search</button>
+                </div>
+              </form>
+              <h3>Select:</h3>
+              <form class="col-12 form-inline mb-3">
+                <select class="ml-3 mr-2 col-9 form-control" id="chosenCountrySelect" [(ngModel)]="chosenCountry" name="chosenCountry">
+                  <option value="" selected></option>
+                  <option *ngFor="let country of countries" [ngValue]="country">{{ country.name }}</option>
+                </select>
+                <button *ngIf="chosenCountry" type="submit" class="btn btn-success" (click)="addIItem(chosenCountry, selected)">Add</button>
+              </form>
+            </div>
+            <!-- ** End Search by Keyword ** -->
+            <!-- Select Country from list -->
+            <div class="mt-3 text-left card mx-auto" style="max-width: 500px" *ngIf="searchResults || noneFound">
+              <div class="content-center m-2">
+                <div class="searchResults" *ngIf="searchResults">
+                  <h3>Results:</h3>
+                  <div *ngFor="let country of searchResults">
+                    <button class="btn btn-success btn-sm mt-1 mb-1 mr-1" (click)="addIItem(country, selected)">Visit</button>
+                    <span id="searchCountryResultSpan">{{ country.name }}</span>
+                  </div>
+                </div>
+                <div *ngIf="noneFound">
+                  <h3>No matches found!</h3>
+                </div>
+              </div>
+            </div>
+            <!-- ** End Select Country from list End -->
+          </div>
+        </div>
+          <!-- ** End Search Country + Add Country -->
+      </div>
+      <!-- ** End Top Row -->
+
+
+
+      <hr>
+
+      <!-- II display / Second Row -->
+      <div class="row">
+        <div class="row" *ngIf="selectedCountry">
+          <!-- Advice By Country (iItem) -->
+          <div class="col-md-6">
             <h1 style="text-align: center;">{{selectedCountry.name}}</h1>
             <table style="width:100%">
               <tr *ngFor="let adviceType of selectedCountry['adviceTypes']">
@@ -159,53 +225,32 @@
               </tr>
             </table>
           </div>
+          <!-- ** End Advice By Country (iItem) ** -->
+
           <!-- Notes on itineraryItems -->
-          <hr>
-          <div class="row" *ngIf="selectedII">
-            <h1 style="text-align: center;">Notes</h1>
-            <form action="">
-              <textarea name="notes" id="IINotes" cols="30" rows="10" [(ngModel)]="selectedII.notes">{{selectedII.notes}}</textarea>
-              <button (click)="cancelNotes(selected, selectedII, selectedCountry)">Cancel Changes</button>
-              <button (click)="saveNotes(selected)">Save</button>
-            </form>
+          <div class="col-md-6" *ngIf="selectedII">
+            <div class="notes-wrapper">
+              <h1>Notes</h1>
+              <form action="">
+                <textarea class="notes-box" name="notes" id="IINotes" cols="30" rows="10" [(ngModel)]="selectedII.notes">{{selectedII.notes}}</textarea>
+                <div class="row">
+                  <div class="col-md-6">
+                    <button class="btn btn-dark btn-outline-success" (click)="cancelNotes(selected, selectedII, selectedCountry)">Cancel Changes</button>
+                  </div>
+                  <div class="col-md-4">
+                    <button class="btn btn-dark btn-outline-success" style="float: right; margin-right: 15px;" (click)="saveNotes(selected)">Save</button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
           <!-- ** End Notes on itineraryItems ** -->
         </div>
-        <!-- ** End Advice By Country (iItem) ** -->
       </div>
+      <!-- ** End II display / Second Row ** -->
     </div>
     <!-- ** End Trip single display -->
     <hr>
-    <!-- Add Country (iItem) to Trip -->
-    <div *ngIf="selected" class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <table>
-            <thead>
-              <tr>
-                <th>Country</th>
-                <th>Add To Trip</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let country of countries">
-                <td>{{country.name}}</td>
-                <td><button (click)="addIItem(country, selected)">Add Country to Trip</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <!-- Fixes issue where countries extend into footer (but not really...) (better solution should be found) -->
-      <div class="row">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-      </div>
-    </div>
 
       <!-- MAP SECTION -->
       <div *ngIf="selected">
