@@ -63,7 +63,7 @@
 
 
   <!-- ******* Page Content ***************************************************************** -->
-  <mat-drawer-content>
+  <mat-drawer-content id="matDrawContent">
     <button class="btn btn-dark" mat-button (click)="sidenav.toggle()">View Trips</button>
     <!-- Modal -->
     <ng-template #content let-modal >
@@ -120,11 +120,11 @@
 
       <!-- Top Row -->
       <div class="row">
-        <!-- itinerary item table -->
-        <div class="col-md-7">
-          <h1 style="text-align: center;">Countries To Visit</h1>
+        <!-- Table itinerary item Table -->
+        <div id="IITableContainer" class="col-md-7">
+          <h1 id="IITableHeader" style="text-align: center;">Countries To Visit</h1>
           <!-- Test table format (divs around table tbody thead) -->
-          <table class='table table-bordered table-dark'>
+          <table id="IITable" class='table table-bordered table-dark'>
             <thead class="thead-light">
               <tr>
                 <th>Order</th>
@@ -145,8 +145,9 @@
                 <td *ngIf="deleting">
                   <button class="btn btn-danger" (click)="removeItineraryItem(itineraryItem, selected, $event)">X</button>
                 </td>
-                <img *cdkDragPreview [src]=undefined [alt]="itineraryItem['country'].name">
-                <!-- <img *cdkDragPreview [src]="itineraryItem['country'].name" [alt]="itineraryItem['country'].name"> -->
+                <!-- Two interesting options for future integrations -->
+                <!-- <img *cdkDragPreview [src]=undefined [alt]="itineraryItem['country'].name"> -->
+                <!-- <img *cdkDragPreview [src]="itineraryItem['country'].defaultImage" [alt]="itineraryItem['country'].name"> -->
               </tr>
             </tbody>
           </table>
@@ -166,7 +167,7 @@
         <div class="col-md-5">
           <div class="backgroundImage mt-0">
             <!-- Search by Keyword -->
-            <h1 style="text-align: center;">Add To Your Trip</h1>
+            <h1 style="text-align: right; font-size: 20px; padding-top: 25px;">Add To Your Trip</h1>
             <div class="center-content card mx-auto text-center" style="max-width: 500px">
               <h3 class="mt-3">Search Countries:</h3>
               <form>
@@ -216,10 +217,10 @@
         <div class="row" *ngIf="selectedCountry">
           <!-- Advice By Country (iItem) -->
           <div class="col-md-6">
-            <h1 style="text-align: center;">{{selectedCountry.name}}</h1>
-            <table style="width:100%">
+            <h1 id="adviceTableHeader" style="text-align: center;">{{selectedCountry.name}}</h1>
+            <table style="width:100%" class='table table-bordered table-dark'>
               <tr *ngFor="let adviceType of selectedCountry['adviceTypes']">
-                <th>{{adviceType.name}}</th>
+                <th class="table-light" style="color: black;">{{adviceType.name}}</th>
                 <td>{{adviceType.description}}</td>
                 <td><a href="{{adviceType.adviceUrl}}">More Info: {{adviceType.name}}</a></td>
               </tr>

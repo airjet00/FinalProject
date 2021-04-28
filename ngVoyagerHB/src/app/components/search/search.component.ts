@@ -30,14 +30,19 @@ export class SearchComponent implements OnInit {
       err => console.error('loadCountries got an error: ' + err)
     )
   }
+
   searchCountry() {
     this.countryServ.search(this.keyword).subscribe(
       data => {
         this.searchResults = data;
         console.warn(this.searchResults);
 
-        if (this.searchResults.length===0)
- {this.noneFound = true;}      },
+        if (this.searchResults.length === 0){
+          this.noneFound = true;
+        } else {
+          this.noneFound = false;
+        }
+      },
       err => console.error('loadCountries got an error: ' + err)
     )
   }
