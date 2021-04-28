@@ -23,7 +23,6 @@ export class TripListComponent implements OnInit {
 
   orderedItineraryItems: ItineraryItem [] = [];
 
-  countries: Country [] = [];
 
   selected: Trip = null;
 
@@ -48,7 +47,18 @@ export class TripListComponent implements OnInit {
   opened: boolean;
 
   isTripList: boolean = true;
+// Search Variables
+  keyword: String;
 
+  countries: Country [] = [];
+
+      // searchCountries: Country[];
+  chosenCountry: Country;
+
+  searchResults: Country[];
+
+  noneFound: boolean;
+// ** End Search Variables
 // Modal
   closeResult = '';
 
@@ -468,5 +478,19 @@ export class TripListComponent implements OnInit {
     selectedTrip.itineraryItems = this.orderedItineraryItems;
     this.updateTrip(selectedTrip);
   }
+// Country Search (Add II method is: addIItem in Update section)
+  searchCountry() {
+    this.countrySvc.search(this.keyword).subscribe(
+      data => {
+        this.searchResults = data;
 
+        if (this.searchResults.length === 0){
+          this.noneFound = true;
+        } else {
+          this.noneFound = false;
+        }
+      },
+      err => console.error('loadCountries got an error: ' + err)
+    )
+  }
 }

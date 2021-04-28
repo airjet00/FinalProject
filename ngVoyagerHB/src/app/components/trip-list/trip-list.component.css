@@ -74,9 +74,9 @@
 /* Test Table Formatting */
 
 /* ** End Test Table Formatting ** */
+
+
 /* Test DragDrop CSS */
-
-
 .II-box{
   cursor: move;
 }
@@ -107,3 +107,24 @@
 }
 
 /* ** End Test DragDrop CSS ** */
+
+
+/* Search Countries / Add */
+#searchCountryResultSpan{
+  font-weight: bold;
+  text-align: center;
+  font-size: large;
+  margin-left: 25px;
+}
+
+.center-content {
+  border: 0px;
+  background-color:rgb(237,237,237, 0.9);
+}
+h3{
+ text-align: left;
+ margin-left: 35px;
+ margin-bottom: 0px;
+}
+
+/* ** End Search Countries / Add ** */
