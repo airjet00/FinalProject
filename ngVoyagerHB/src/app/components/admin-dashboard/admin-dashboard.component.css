@@ -1,0 +1,30 @@
+#body{
+padding: 25px;
+}
+
+#title{
+  color: green;
+  text-align: center;
+  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+  padding: 10px;
+  padding-bottom: 20px;
+}
+
+#mng{
+  text-align: center;
+  margin: auto;
+}
+
+
+
+button{
+  border: 3px solid #08a5303b;
+  outline: none;
+	padding: 10px 20px;
+	border-radius: 10px;
+	color: #333;
+	background: #fff;
+	margin-bottom: 50px;
+	border-color: #08a5303b;
+  outline-color: #0ba5313b;
+}
