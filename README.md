@@ -26,7 +26,7 @@ Back End:
 
 * Eric: This was a great opportunity to build something from the ground up while collaborating remotely. Communication was key to avoid merge conflicts and wasted effort. We did great as a team by communicating on Slack, Trello, and Zoom. It was also great to get some more experience in Angular, along with the by-now-familiar back-end technologies.
 
-* Chelsey: Learning To trust my instinct and that as a team we will hold each other up and accountable. As a team we worked extremely well together. I need to trust in my abilities and learn to work through the process from start to end.
+* Chelsey: Designing with the end user cases in mind is key to making a functional application and also endless testing.
 
 * Thomas:
 Ensure the front-end is catering to the needs of the back-end, and not visa-versa.
